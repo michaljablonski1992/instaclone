@@ -54,7 +54,10 @@ gem 'bootstrap', '~> 5.3.2'
 gem 'rails-i18n'
 
 # haml support
-gem "haml-rails"
+gem 'haml-rails'
+
+# authentication
+gem 'devise'
 
 
 group :development, :test do
