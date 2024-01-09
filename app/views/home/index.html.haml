@@ -1,0 +1,23 @@
+.container.home-sections.d-flex.flex-row.justify-content-center.align-items-center
+  .images-section.pt-3.d-none.d-lg-block
+  .login-section.pt-3
+    .card.text-center.pt-5{ style: 'width: 23rem;' }
+      = image_tag 'logo.png', class: 'card-img-top'
+      .card-body
+        .mb-3.mt-4
+          %input#email.form-control{ placeholder: t('views.login.email_placeholder'), type: 'email' }
+        .mb-3
+          %input#password.form-control{ placeholder: t('views.login.password_placeholder'), type: 'password' }
+        %a.btn.btn-primary.d-block{ href: '#' }= t('views.login.login')
+        .d-flex.align-items-center.mt-4
+          .line
+          %h2.line-text= t('or').upcase
+          .line
+        %a.d-block.mt-4.text-decoration-none.fw-bold{ href: '#' }
+          = image_tag 'facebook.png', class: 'facebook'
+          = t('views.login.login_w_fb')
+        %a.fs-6.d-block.my-4.text-decoration-none{ href: '#' }= t('views.login.forgot_password')
+    .card.text-center.py-2.mt-3{ style: 'width: 23rem;' }
+      .card-text
+        = t('views.login.dont_h_acc')
+        %a.fs-6.my-4.text-decoration-none{ href: '#' }= t('views.login.sign_up')

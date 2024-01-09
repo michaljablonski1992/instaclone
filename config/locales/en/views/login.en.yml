@@ -1,0 +1,11 @@
+en:
+  views:
+    login:
+      email_placeholder: Phone number, username, or email
+      password_placeholder: Password
+      login: Log in
+      login_w_fb: Log in with Facebook
+      forgot_password: Forgot password?
+      dont_h_acc: Don't have an account?
+      sign_up: Sign up
+      
