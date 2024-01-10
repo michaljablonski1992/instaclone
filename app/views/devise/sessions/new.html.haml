@@ -1,0 +1,30 @@
+.container.home-sections.d-flex.flex-row.justify-content-center.align-items-center
+  .col-md-6
+    .images-section.pt-3.d-none.d-lg-block
+  .col-lg-6.col-md-12
+    .login-section.pt-3
+      .card.text-center.pt-5{ style: 'width: 23rem;' }
+        = image_tag 'logo.png', class: 'card-img-top'
+        .card-body.pt-0
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .mb-3.mt-4
+              = f.email_field :email, class: 'form-control', placeholder: t('views.devise.email_placeholder')
+            .mb-3
+              = f.password_field :password, class: 'form-control', placeholder: t('views.devise.password_placeholder')
+            = f.submit t('views.devise.login'), class: 'btn btn-primary w-100'
+
+          .d-flex.align-items-center.mt-4
+            .line
+            %h2.line-text= t('or').upcase
+            .line
+          %a.d-block.mt-4.text-decoration-none.fw-bold{ href: '#' }
+            = image_tag 'facebook.png', class: 'facebook'
+            = t('views.devise.login_w_fb')
+          #flash_message.mt-3
+            = render 'layouts/flash'
+          %a.fs-6.d-block.my-4.text-decoration-none{ href: '#' }= t('views.devise.forgot_password')
+      .card.text-center.py-2.mt-3{ style: 'width: 23rem;' }
+        .card-text
+          = t('views.devise.dont_h_acc')
+          = link_to t('views.devise.sign_up'), new_registration_path(resource_name), class: 'fs-6 my-4 text-decoration-none'
+          

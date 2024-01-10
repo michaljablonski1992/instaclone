@@ -1,0 +1,18 @@
+- no_flash = local_assigns[:no_flash] || false
+
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %title InstaClone
+    %meta{content: "width=device-width,initial-scale=1", name: "viewport"}
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+    = favicon_link_tag asset_path('favicon.png')
+    - unless no_flash
+      #flash_message
+        = render 'layouts/flash'
+  %body
+    = yield

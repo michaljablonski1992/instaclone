@@ -1,0 +1,31 @@
+.container.home-sections.d-flex.flex-row.justify-content-center.align-items-center
+  .login-section.pt-3
+    .card.text-center.pt-5.mx-auto{ style: 'width: 23rem;' }
+      = image_tag 'logo.png', class: 'card-img-top'
+      %p.w-75.fs-6.fw-bold.text-secondary.align-self-center.mt-2.mb-0= t('views.devise.sign_up_upper_info')
+      %a.d-block.mt-4.text-decoration-none.fw-bold.bg-primary.text-white.rounded.w-75.align-self-center.p-1{href: '#'}
+        = image_tag('facebook.png', class:  'facebook')
+        = t('views.devise.login_w_fb')
+      .d-flex.align-items-center.mt-4
+        .line
+        %h2.line-text= t('or').upcase
+        .line
+      .card-body
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          .mb-3
+            = f.email_field :email, class: 'form-control', placeholder: t('views.devise.email_signup_placeholder')
+          .mb-3
+            = f.text_field :full_name, class: 'form-control', placeholder: t('views.devise.full_name_placeholder')
+          .mb-3
+            = f.text_field :username, class: 'form-control', placeholder: t('views.devise.username_placeholder')
+          .mb-3.mt-4
+            = f.password_field :password, class: 'form-control', placeholder: t('views.devise.password_placeholder')
+          .mb-3
+            = f.password_field :password_confirmation, class: 'form-control', placeholder: t('views.devise.password_confirmation_placeholder')
+          = f.submit t('views.devise.sign_up'), class:  'btn btn-primary w-100'
+        #flash_message.mt-3
+          = render 'devise/shared/error_messages_simple', resource: resource
+    .card.text-center.py-2.mt-3.mx-auto{ style: 'width: 23rem;' }
+      .card-text
+        = t('views.devise.h_acc')
+        = link_to t('views.devise.log_in'), new_session_path(resource_name), class: 'fs-6 my-4 text-decoration-none text-info'

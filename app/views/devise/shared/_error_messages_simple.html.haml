@@ -1,0 +1,4 @@
+- if resource.errors.any?
+  %div{ class: ['alert', "alert-#{flash_class('alert')}"] }
+    - resource.errors.full_messages.each do |message|
+      %div= message
