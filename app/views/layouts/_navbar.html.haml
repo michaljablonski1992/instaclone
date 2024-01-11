@@ -1,0 +1,21 @@
+%nav.navbar.navbar-expand-lg.bg-light.sticky-top.bg-white.border-bottom
+  .container-fluid.w-75
+    = link_to root_path, class: 'navbar-brand' do
+      = image_tag 'logo.png', id: 'logo-img'
+    %button.navbar-toggler{ type:'button', aria_controls: 'navbarSupportedContent',  |
+        aria_expanded: 'false', aria_label: 'Toggle navigation',                       |
+        data: { bs_target: '#navbarSupportedContent', bs_toggle: 'collapse' }}
+      %span.navbar-toggler-icon
+    .d-flex
+      #navbarSupportedContent.collapse.navbar-collapse
+        %form.d-flex.me-5{ role: 'search' }
+          %input.form-control.me-2.border-0.search-input{ aria_label: 'Search', placeholder: t('search'), type: 'search'}
+        .navbar-collapse.gap-4
+          = link_to root_path, class: 'text-dark' do
+            %i.fa-solid.fa-house.fa-xl
+          %i.fa-brands.fa-facebook-messenger.fa-xl
+          = link_to new_post_path, class: 'text-dark' do
+            %i.fa-regular.fa-square-plus.fa-xl
+          %i.fa-regular.fa-compass.fa-xl
+          %i.fa-regular.fa-heart.fa-xl
+          = image_tag user_pp, class: 'img-thumbnail rounded-circle'

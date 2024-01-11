@@ -130,6 +130,8 @@ GEM
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
     ffi (1.16.3)
+    font-awesome-sass (6.1.2)
+      sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     haml (6.3.0)
@@ -341,6 +343,7 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
+  font-awesome-sass (~> 6.1.2)
   haml-rails
   importmap-rails
   jbuilder

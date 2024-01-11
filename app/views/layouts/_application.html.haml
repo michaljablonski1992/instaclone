@@ -1,4 +1,4 @@
-- no_flash = local_assigns[:no_flash] || false
+- login = local_assigns[:login] || false
 
 !!!
 %html
@@ -11,8 +11,10 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
     = favicon_link_tag asset_path('favicon.png')
-    - unless no_flash
+    - unless login
       #flash_message
         = render 'layouts/flash'
   %body
+    - unless login
+      = render 'layouts/navbar'
     = yield

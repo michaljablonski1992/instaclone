@@ -3,8 +3,7 @@
     .card-header.bg-white
       .d-flex.justify-content-betwee
         %div
-          - img = post.user.profile_pic.attached? ? post.user.profile_pic : 'user-pp.png'
-          = image_tag img, class: 'img-thumbnail rounded-circle pp-img'
+          = image_tag user_pp, class: 'img-thumbnail rounded-circle pp-img'
           .fw-bold.mx-2.d-inline-block= post.user.username
         %div
           .dropdown

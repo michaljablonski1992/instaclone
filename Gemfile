@@ -59,13 +59,14 @@ gem 'haml-rails'
 # authentication
 gem 'devise'
 
+# icons
+gem 'font-awesome-sass', '~> 6.1.2'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[ mri windows ]
   gem 'pry'
   gem 'awesome_print'
-  gem 'factory_bot_rails'
 end
 
 group :development do

@@ -1,4 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'application_no_flash'
+  layout 'application_login'
 
 end

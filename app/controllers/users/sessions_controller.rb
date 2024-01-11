@@ -1,4 +1,4 @@
 class Users::SessionsController < Devise::SessionsController
-  layout 'application_no_flash'
+  layout 'application_login'
 
 end
