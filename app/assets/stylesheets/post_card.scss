@@ -6,9 +6,9 @@
   }
   
   .post-more {
-    text-decoration: none;
     vertical-align: sub;
     line-height: 0.2em;
+    border-color: transparent !important;
   }
 
   .carousel {
@@ -28,9 +28,6 @@
   .card-footer {
     .comment-input {
       border:none;
-    }
-    .post-btn {
-      text-decoration: none;
     }
   }
 }

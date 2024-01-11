@@ -1,0 +1,17 @@
+.stories-card {
+  width: 25rem; 
+  height: 7rem; 
+  overflow-x: scroll;
+}
+
+.story {
+  .story-img {
+    width: 3.5rem;
+  }
+  .story-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 3.5rem;
+  }
+}

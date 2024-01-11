@@ -1,0 +1,22 @@
+.suggestions-list {
+  width: 20rem;
+}
+
+.suggestion {
+  .suggestion-img {
+    width: 2.5rem;
+  }
+  .suggestion-username {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width:10rem;
+  }
+  .suggestion-reason {
+    font-size: .7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width:10rem;
+  }
+}

@@ -15,4 +15,5 @@ en:
       full_name_placeholder: Full name
       username_placeholder: User name
       password_confirmation_placeholder: Password confirmation
+      logout: Log out
       

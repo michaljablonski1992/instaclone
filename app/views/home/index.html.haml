@@ -1,3 +1,7 @@
-%h1 Home Page
-
-= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete }
+.d-flex.my-5.justify-content-center.gap-5
+  .d-flex.flex-column.gap-3
+    = render 'story/stories_list'
+    .flex.flex-column
+      - current_user.posts.each do |post|
+        = render 'posts/post', post: post
+  = render 'suggestions/suggestions_list'

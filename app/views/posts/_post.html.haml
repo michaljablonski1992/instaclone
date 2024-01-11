@@ -1,4 +1,4 @@
-%div{ id: dom_id(post) }
+.post-cnt.my-3{ id: dom_id(post) }
   .card.post-card
     .card-header.bg-white
       .d-flex.justify-content-betwee
@@ -7,7 +7,7 @@
           .fw-bold.mx-2.d-inline-block= post.user.username
         %div
           .dropdown
-            %a.btn.text-dark.fs-4.post-more{ href: '#', role: 'button', data: { bs_toggle: 'dropdown'}, aria_expanded: 'false' }
+            %a.btn.text-dark.fs-4.post-more.no-decor{ href: '#', role: 'button', data: { bs_toggle: 'dropdown'}, aria_expanded: 'false' }
               = '...'
             %ul.dropdown-menu
               %li
@@ -42,4 +42,4 @@
 
     .card-footer.d-flex.justify-content-between.bg-white
       %input.w-75.comment-input{ type:'text', placeholder: t('views.post_card.add_comment_placeholder') }
-      %a.text-primary.fw-bold.post-btn= t('views.post_card.post')
+      %a.text-primary.fw-bold.post-btn.no-decor= t('views.post_card.post')

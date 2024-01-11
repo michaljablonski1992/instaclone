@@ -1,0 +1,8 @@
+.d-flex.justify-content-between.suggestion
+  .d-flex
+    = image_tag 'user-pp.png', class: 'suggestion-img img-thumbnail rounded-circle'
+    .d-flex.flex-column.mx-3
+      %small.fw-bold.suggestion-username XYZ
+      %small.text-muted.suggestion-reason Suggested for you by Instagram as He followed you before
+  = link_to root_path, class: 'no-decor' do
+    %small.fw-bold.text-primary= t('follow')
