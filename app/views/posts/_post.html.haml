@@ -1,0 +1,46 @@
+%div{ id: dom_id(post) }
+  .card.post-card
+    .card-header.bg-white
+      .d-flex.justify-content-betwee
+        %div
+          - img = post.user.profile_pic.attached? ? post.user.profile_pic : 'user-pp.png'
+          = image_tag img, class: 'img-thumbnail rounded-circle pp-img'
+          .fw-bold.mx-2.d-inline-block= post.user.username
+        %div
+          .dropdown
+            %a.btn.text-dark.fs-4.post-more{ href: '#', role: 'button', data: { bs_toggle: 'dropdown'}, aria_expanded: 'false' }
+              = '...'
+            %ul.dropdown-menu
+              %li
+                %a.dropdown-item{ href: '#' }= t('views.post_card.edit_post')
+              %li
+                %a.dropdown-item{ href: '#' }= t('views.post_card.delete_post')
+
+    .card-body
+      #carouselCardIndicators.carousel.slide{ data_bs_ride: 'true' }
+        .carousel-inner
+          - post.images.each_with_index do |img, i|
+            .carousel-item{ class: ('active' if i == 0) }
+              = image_tag img, class: 'd-block w-100 post-image'
+          - if post.images.count >= 2
+            %button.carousel-control-prev{ type: 'button', data_bs_target: '#carouselCardIndicators', data_bs_slide: 'prev' }
+              %span.carousel-control-prev-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
+              %span.visually-hidden= t('previous')
+            %button.carousel-control-prev{ type: 'button', data_bs_target: '#carouselCardIndicators', data_bs_slide: 'next' }
+              %span.carousel-control-prev-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
+              %span.visually-hidden= t('next')
+          .carousel-indicators
+            - post.images.each_with_index do |img, i|
+              %button.bg-dark{                                                |
+                class: ('active' if i == 0), type: 'button',                  |
+                data_bs_target: '#carouselCardIndicators',                 |
+                data_bs_slide_to: i.to_s, aria_current: ('true' if i == 0),   |
+                aria_label: "Slide #{i+1}" }
+      .card-text
+        %span.fw-bold= post.user.username
+        %span= post.caption
+      %small.text-muted= time_ago_in_words(post.created_at)
+
+    .card-footer.d-flex.justify-content-between.bg-white
+      %input.w-75.comment-input{ type:'text', placeholder: t('views.post_card.add_comment_placeholder') }
+      %a.text-primary.fw-bold.post-btn= t('views.post_card.post')

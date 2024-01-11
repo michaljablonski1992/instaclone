@@ -1,0 +1,43 @@
+
+.home-sections {
+  height: 100%;
+  width: 80%;
+}
+
+.images-section, .login-section  {
+  height: 95%;
+  width: 45%;
+  background-position-x: right;
+}
+
+.images-section {
+  background-image: url(home-phone-bg.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 24rem;
+  height: 33rem;
+  float: right;
+}
+
+.card-img-top {
+  max-width: 75%;
+  align-self: center;
+}
+
+.line-text{
+  padding: 0 .5rem; /* creates the space */
+  font-size: small;
+  margin: 0;
+}
+
+.line{
+  flex: 1;
+  height: 1px;
+  background-color: rgb(139, 137, 137);
+}
+
+.facebook {
+  max-width: 1rem;
+  height: auto;
+  margin-right: .5rem
+}

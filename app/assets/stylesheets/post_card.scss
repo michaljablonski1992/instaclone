@@ -1,0 +1,36 @@
+.post-card {
+  width: 25rem;
+
+  .pp-img {
+    width: 10%
+  }
+  
+  .post-more {
+    text-decoration: none;
+    vertical-align: sub;
+    line-height: 0.2em;
+  }
+
+  .carousel {
+    .carousel-item {
+      height: 25rem;
+      
+      .post-image {
+        max-height: 100%; 
+        object-fit: cover;
+      }
+    }
+    .carousel-indicators {
+      position: static;
+    }
+  }
+
+  .card-footer {
+    .comment-input {
+      border:none;
+    }
+    .post-btn {
+      text-decoration: none;
+    }
+  }
+}

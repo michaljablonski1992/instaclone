@@ -1,0 +1,7 @@
+en:
+  views:
+    post_card:
+      edit_post: Edit post
+      delete_post: Delete post
+      post: Post
+      add_comment_placeholder: Add a comment...
