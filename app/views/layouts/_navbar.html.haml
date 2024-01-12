@@ -10,8 +10,9 @@
           = link_to root_path, class: 'text-dark' do
             %i.fa-solid.fa-house.fa-xl
           %i.fa-brands.fa-facebook-messenger.fa-xl
-          = link_to new_post_path, class: 'text-dark' do
+          %a.text-dark{type: 'button', data: { bs_target: '#postModal', bs_toggle: 'modal' }}
             %i.fa-regular.fa-square-plus.fa-xl
+
           %i.fa-regular.fa-compass.fa-xl
           %i.fa-regular.fa-heart.fa-xl
           %span.dropdown
@@ -25,3 +26,4 @@
           data: { bs_target: '#navbarSupportedContent', bs_toggle: 'collapse' }}
         %span.navbar-toggler-icon
 
+= render 'posts/form_modal', post: Post.new

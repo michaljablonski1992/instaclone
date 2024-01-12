@@ -13,10 +13,21 @@
  *= require_tree .
  *= require_self
  */
+
+
+//// libs
+// bootstrap
 @import 'bootstrap';
+// icons
+@import 'font-awesome';
+// filepond - upload images
+@import 'filepond';
+@import 'filepond-plugin-image-preview';
+
+//// our styles
 @import 'custom';
 @import 'login';
 @import 'post_card';
-@import 'font-awesome';
+@import 'post_modal';
 @import 'navbar';
 @import 'stories';

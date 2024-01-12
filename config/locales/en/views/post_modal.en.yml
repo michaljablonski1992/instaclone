@@ -1,0 +1,8 @@
+en:
+  views:
+    post_modal:
+      create_new_post: Create new post
+      caption_placeholder: Write a caption...
+      location_placeholder: Add location
+      adv_settings: Advanced settings
+      post: Post

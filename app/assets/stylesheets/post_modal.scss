@@ -1,0 +1,22 @@
+#postModal {
+  .pp-img {
+    width: 10%;
+  }
+  .caption-area {
+    resize: none;
+  }
+  #adv-settings-accordion {
+    .accordion-header {
+      .accordion-button {
+        padding: 0.75rem !important;
+        background-color: transparent !important;
+      }
+    }
+  }
+  .filepond--item {
+    min-height: 3rem;
+  }
+  .filepond--root {
+    max-height: 22rem;
+  }
+}

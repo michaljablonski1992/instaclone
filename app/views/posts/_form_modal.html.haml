@@ -1,0 +1,42 @@
+/// Modal
+#postModal.modal.fade.modal-lg{ tabindex:'-1', aria_hidden: 'true', aria_labelledby: 'postModalLabel', data: { bs_backdrop: 'static', bs_keyboard: 'false' }}
+  .modal-dialog.modal-dialog-centered
+    = form_with(model: post) do |form|
+      .modal-content
+        .modal-header
+          %h5#postModalLabel.modal-title= t('views.post_modal.create_new_post')
+          %button.btn-close{ type: 'button', data: { bs_dismiss: 'modal' }}
+        .modal-body.d-flex
+          .border-end.border-secondary.mx-1.col-md-7
+            .col-md-12.pe-3
+              = form.file_field :images, multiple: true, id: 'post-images', class: 'mb-0'
+          .col-md-5.mx-1
+            - if post.errors.any?
+              %div.text-danger
+                %ul
+                  - post.errors.each do |error|
+                    %li= error.full_message
+            .my-2
+              = image_tag user_pp, class: 'pp-img img-thumbnail rounded-circle'
+              %span.fw-bold.mx-2= current_user.username
+            %div.mb-2
+              = form.text_area :caption, rows: 8, placeholder: t('views.post_modal.caption_placeholder'), class: 'caption-area form-control border-0'
+            %div
+              = form.text_field :location, placeholder: t('views.post_modal.location_placeholder'), class: 'form-control'
+            #adv-settings-accordion.accordion.mt-2
+              .accordion-item
+                %h2#adv-settings-accordion-one.accordion-header
+                  %button.form-contro.accordion-button.collapsed{ :type => 'button',               |
+                      aria_controls: 'adv-settings-accordion-collapseOne', aria_expanded: 'false', |
+                      data: { bs_target: '#adv-settings-accordion-collapseOne', bs_toggle: 'collapse' }}
+                    = t('views.post_modal.adv_settings')
+                #adv-settings-accordion-collapseOne.accordion-collapse.collapse{ aria_labelledby: 'adv-settings-accordion-headingOne' }
+                  .accordion-body
+                    .form-check.form-switch
+                      = form.check_box :allow_comments, class: 'form-check-input', role: 'switch'
+                      = form.label :allow_comments, style: 'display: block', class: 'form-check-label'
+                    .form-check.form-switch
+                      = form.check_box :show_likes_count, class: 'form-check-input', role: 'switch'
+                      = form.label :show_likes_count, style: 'display: block', class: 'form-check-label'
+        .modal-footer
+          = form.submit t('views.post_modal.post'), class: 'btn btn-primary'
