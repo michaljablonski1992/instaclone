@@ -23,7 +23,7 @@
           .mb-3
             = f.password_field :password_confirmation, class: 'form-control', placeholder: t('views.devise.password_confirmation_placeholder')
           = f.submit t('views.devise.sign_up'), class:  'btn btn-primary w-100'
-        #flash_message.mt-3
+        .mt-3
           = render 'devise/shared/error_messages_simple', resource: resource
     .card.text-center.py-2.mt-3.mx-auto{ style: 'width: 23rem;' }
       .card-text

@@ -1,4 +1,4 @@
-/// Modal
+/// Posts Modal
 #postModal.modal.fade.modal-lg{ tabindex:'-1', aria_hidden: 'true', aria_labelledby: 'postModalLabel', data: { bs_backdrop: 'static', bs_keyboard: 'false' }}
   .modal-dialog.modal-dialog-centered
     = form_with(model: post) do |form|
@@ -9,8 +9,8 @@
         .modal-body.d-flex
           .border-end.border-secondary.mx-1.col-md-7
             .col-md-12.pe-3
-              = form.file_field :images, multiple: true, id: 'post-images', class: 'mb-0'
-          .col-md-5.mx-1
+              = form.file_field :images, multiple: true, required: true, id: 'post-images', class: 'mb-0'
+          .col-md-5.mx-1.pe-1
             - if post.errors.any?
               %div.text-danger
                 %ul
@@ -33,10 +33,10 @@
                 #adv-settings-accordion-collapseOne.accordion-collapse.collapse{ aria_labelledby: 'adv-settings-accordion-headingOne' }
                   .accordion-body
                     .form-check.form-switch
-                      = form.check_box :allow_comments, class: 'form-check-input', role: 'switch'
+                      = form.check_box :allow_comments, class: 'form-check-input', role: 'switch', checked: true
                       = form.label :allow_comments, style: 'display: block', class: 'form-check-label'
                     .form-check.form-switch
-                      = form.check_box :show_likes_count, class: 'form-check-input', role: 'switch'
+                      = form.check_box :show_likes_count, class: 'form-check-input', role: 'switch', checked: true
                       = form.label :show_likes_count, style: 'display: block', class: 'form-check-label'
         .modal-footer
           = form.submit t('views.post_modal.post'), class: 'btn btn-primary'

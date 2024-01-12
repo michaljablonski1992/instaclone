@@ -17,3 +17,11 @@ body {
 .no-decor {
   text-decoration: none;
 }
+
+
+#flash_message {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+}

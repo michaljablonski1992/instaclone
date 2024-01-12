@@ -6,3 +6,4 @@ import 'bootstrap'
 import 'filepond'
 import 'custom/post_images'
 import 'filepond-plugin-image-preview'
+import 'filepond-plugin-file-validate-type';
