@@ -1,16 +1,12 @@
-%nav.navbar.navbar-expand-lg.bg-light.sticky-top.bg-white.border-bottom
-  .container-fluid.w-75
+%nav#user-navbar.navbar.navbar-expand-lg.bg-light.sticky-top.bg-white.border-bottom
+  #user-navbar-container.container-fluid.col-lg-9.col-md-12
     = link_to root_path, class: 'navbar-brand p-0' do
       = image_tag 'logo.png', id: 'logo-img'
-    %button.navbar-toggler{ type:'button', aria_controls: 'navbarSupportedContent',  |
-        aria_expanded: 'false', aria_label: 'Toggle navigation',                       |
-        data: { bs_target: '#navbarSupportedContent', bs_toggle: 'collapse' }}
-      %span.navbar-toggler-icon
-    .d-flex
+    .d-flex.gap-2
       #navbarSupportedContent.collapse.navbar-collapse
         %form.d-flex.me-5{ role: 'search' }
           %input.form-control.me-2.border-0.search-input{ aria_label: 'Search', placeholder: t('search'), type: 'search'}
-        .navbar-collapse.gap-4
+        .navbar-collapse.gap-4.d-flex
           = link_to root_path, class: 'text-dark' do
             %i.fa-solid.fa-house.fa-xl
           %i.fa-brands.fa-facebook-messenger.fa-xl
@@ -18,10 +14,14 @@
             %i.fa-regular.fa-square-plus.fa-xl
           %i.fa-regular.fa-compass.fa-xl
           %i.fa-regular.fa-heart.fa-xl
-          .dropdown
+          %span.dropdown
             %a{ type: 'button', aria_expanded: 'false', data: { bs_toggle: 'dropdown' } }
               = image_tag user_pp, class: 'img-thumbnail rounded-circle'
             %ul.dropdown-menu
               %li
                 = link_to t('views.devise.logout'), destroy_user_session_path, class: 'dropdown-item', data: { turbo_method: :delete }
+      %button.navbar-toggler{ type:'button', aria_controls: 'navbarSupportedContent',  |
+          aria_expanded: 'false', aria_label: 'Toggle navigation',                       |
+          data: { bs_target: '#navbarSupportedContent', bs_toggle: 'collapse' }}
+        %span.navbar-toggler-icon
 
