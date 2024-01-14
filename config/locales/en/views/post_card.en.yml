@@ -5,3 +5,8 @@ en:
       delete_post: Delete post
       post: Post
       add_comment_placeholder: Add a comment...
+      likes:
+        one: '%{count} like'
+        other: '%{count} likes'
+      post_likers: Who likes this post
+      no_likers: No one likes this post yet

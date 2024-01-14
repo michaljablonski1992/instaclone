@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :posts
   has_one_attached :profile_pic
 
+  has_many :likes
+
   validates :full_name, presence: true
   validates :username, presence: true
 end

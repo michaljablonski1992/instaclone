@@ -1,7 +1,7 @@
-.post-cnt.my-3{ id: dom_id(post) }
+.post-cnt.my-3{ id: post_id(post) }
   .card.post-card
     .card-header.bg-white
-      .d-flex.justify-content-betwee
+      .d-flex.justify-content-between
         %div
           = image_tag user_pp, class: 'img-thumbnail rounded-circle pp-img'
           .fw-bold.mx-2.d-inline-block= post.user.username
@@ -16,25 +16,26 @@
                 %a.dropdown-item{ href: '#' }= t('views.post_card.delete_post')
 
     .card-body
-      #carouselCardIndicators.carousel.slide{ data: { bs_ride: 'true' } }
+      .carousel.slide{ id: post_imgs_id(post), data: { bs_ride: 'true' } }
         .carousel-inner
           - post.images.each_with_index do |img, i|
             .carousel-item{ class: ('active' if i == 0) }
               = image_tag img, class: 'd-block w-100 post-image'
           - if post.images.count >= 2
-            %button.carousel-control-prev{ type: 'button', data: { bs_target: '#carouselCardIndicators', bs_slide: 'prev' } }
+            %button.carousel-control-prev{ type: 'button', data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'prev' } }
               %span.carousel-control-prev-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
               %span.visually-hidden= t('previous')
-            %button.carousel-control-next{ type: 'button', data: { bs_target: '#carouselCardIndicators', bs_slide: 'next' } }
+            %button.carousel-control-next{ type: 'button', data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'next' } }
               %span.carousel-control-next-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
               %span.visually-hidden= t('next')
         .carousel-indicators
           - post.images.each_with_index do |img, i|
             %button.bg-dark{                                             |
               class: ('active' if i == 0), type: 'button',               |
-              data: { bs_target: '#carouselCardIndicators',              |
+              data: { bs_target: "##{post_imgs_id(post)}",               |
               bs_slide_to: i.to_s }, aria_current: ('true' if i == 0),   |
               aria_label: "Slide #{i+1}" }
+      = render 'posts/post_actions', post: post
       .card-text
         %span.fw-bold= post.user.username
         %span= post.caption

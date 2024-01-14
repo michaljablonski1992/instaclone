@@ -1,0 +1,7 @@
+.d-flex.justify-content-between
+  .d-flex
+    = image_tag 'user-pp.png', class: "img-thumbnail rounded-circle", style: "width: 2.5rem"
+    .d-flex.flex-column.mx-3.justify-content-center
+      %small.fw-bold{:style => "overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width:10rem"}= liker.username
+  = link_to root_path, class:"btn btn-primary", style: "text-decoration:none" do
+    %small.fw-bold.text-white Follow
