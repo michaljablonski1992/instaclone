@@ -25,3 +25,7 @@ end
 def assert_current_path(path)
   expect(page).to have_current_path(path)
 end
+
+def assert_flash(msg)
+  all('#flash_message .flash').any? {|el| el.text == msg  }
+end

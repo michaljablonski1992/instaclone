@@ -9,7 +9,7 @@
         .modal-body.d-flex
           .border-end.border-secondary.mx-1.col-md-7
             .col-md-12.pe-3
-              = form.file_field :images, multiple: true, required: true, id: 'post-images', class: 'mb-0'
+              = form.file_field :images, multiple: true, id: 'post-images', class: 'mb-0'
           .col-md-5.mx-1.pe-1
             - if post.errors.any?
               %div.text-danger

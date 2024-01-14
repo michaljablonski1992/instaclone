@@ -25,7 +25,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
+        format.html { redirect_to root_path, notice: I18n.t('views.post_modal.post_created') }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { redirect_to root_path, status: :unprocessable_entity, alert: @post.errors.full_messages}
