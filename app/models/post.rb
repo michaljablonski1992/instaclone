@@ -11,6 +11,8 @@ class Post < ApplicationRecord
   has_many :likes
   has_many :likers, through: :likes, source: :user
 
+  has_many :comments
+
   ## TODO: DELETE ME after location implentation
   after_initialize :mock_location
   def mock_location
