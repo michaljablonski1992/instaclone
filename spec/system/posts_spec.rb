@@ -1,6 +1,6 @@
 require 'system_helper'
 
-RSpec.describe 'Create post', type: :system do
+RSpec.describe 'Posts', type: :system do
   before(:each) { @user = create(:user) }
 
   it 'shows errors on invalid post' do
@@ -71,5 +71,53 @@ RSpec.describe 'Create post', type: :system do
     post = Post.last
     expect(post.caption).to eq('Example caption')
     expect(post.images.count).to be 1
+  end
+
+  it 'gives ability to like/unlike post' do
+    post = create(:post)
+    user = post.user
+    # sign in, visit root
+    login_as(user)
+    visit root_path
+
+    # expect no likes yet - db
+    expect(post.likes.count).to eq 0
+    expect(post.likers.count).to eq 0
+
+    ## like the post
+    # assert within post
+    within '#posts-list' do
+      within first('.post-cnt') do
+        # no likes yet
+        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes', count: 0)
+
+        # like the post
+        find('.like-btn').click
+        wait_for_turbo
+
+        # expect the post is liked
+        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes', count: 1)
+      end
+    end
+
+    # expect post is liked by 'liker'
+    expect(post.likes.count).to eq 1
+    expect(post.likers.count).to eq 1
+    expect(post.likers.first).to eq user
+
+    ## unlike the post
+    within '#posts-list' do
+      within first('.post-cnt') do
+        # unlike the post
+        find('.like-btn').click
+        wait_for_turbo
+
+        # expect the post is unliked
+        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes', count: 0)
+      end
+    end
+    # expect post is unliked by 'liker'
+    expect(post.likes.count).to eq 0
+    expect(post.likers.count).to eq 0
   end
 end

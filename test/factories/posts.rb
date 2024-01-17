@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :post do
-    caption { "MyText" }
+    user
+    caption { "Test text" }
     longitude { 1.5 }
     latitude { 1.5 }
-    user { nil }
     allow_comments { false }
     show_likes_count { false }
+    images { [Rack::Test::UploadedFile.new('spec/fixtures/image.png', 'image/png')] }
   end
 end
