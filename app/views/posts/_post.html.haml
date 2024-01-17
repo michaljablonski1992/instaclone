@@ -36,11 +36,14 @@
               bs_slide_to: i.to_s }, aria_current: ('true' if i == 0),   |
               aria_label: "Slide #{i+1}" }
       = render 'posts/post_actions', post: post
-      .card-text
+      = render 'posts/post_comments', post: post
+      .card-text.mt-2
         %span.fw-bold= post.user.username
         %span= post.caption
       %small.text-muted= time_ago_in_words(post.created_at)
 
-    .card-footer.d-flex.justify-content-between.bg-white
-      %input.w-75.comment-input{ type:'text', placeholder: t('views.post_card.add_comment_placeholder') }
-      %a.text-primary.fw-bold.post-btn.no-decor= t('views.post_card.post')
+    = form_with url: comments_path, method: :post, data: { controller: 'comments', action: 'turbo:submit-end->comments#clear' } do |f|
+      .card-footer.d-flex.justify-content-between.bg-white
+        = f.hidden_field :post_id, value: post.id
+        = f.text_area :comment_body, class: 'w-75 comment-input border-0', placeholder: t('views.post_card.add_comment_placeholder')
+        = f.submit t('views.post_card.post'), class: 'text-primary fw-bold post-btn no-decor button-no-default'

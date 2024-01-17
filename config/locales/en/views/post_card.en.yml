@@ -10,3 +10,8 @@ en:
         other: '%{count} likes'
       post_likers: Who likes this post
       no_likers: No one likes this post yet
+      no_comments: No comments yet
+      post_comments: Post comments
+      view_all_comments:
+        one: View %{count} comment
+        other: View all %{count} comments

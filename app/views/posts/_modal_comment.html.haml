@@ -1,0 +1,13 @@
+%div.modal-comment-cnt{ id: "post#{comment.post_id}ModalComment#{comment.id}" }
+  .d-flex.justify-content-between
+    .d-flex
+      = image_tag 'user-pp.png', class: 'pp-img img-thumbnail rounded-circle'
+      .d-flex.flex-column.mx-3.justify-content-center
+        %small.fw-bold.modal-username.comment-username= comment.user.username
+        %small.comment-body
+          = comment.body
+        %small.text-muted
+          = time_ago_in_words(comment.created_at)
+    - if comment.user == current_user
+      = button_to comment_path(id: comment.id), method: :delete, class: 'button-no-default btn-delete-comment' do
+        %i.fa.fa-times

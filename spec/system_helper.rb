@@ -18,9 +18,15 @@ end
 def assert_content(content)
   expect(page).to have_content(content)
 end
-
 def assert_no_content(content)
   expect(page).to_not have_content(content)
+end
+
+def assert_css(selector, **args)
+  expect(page).to have_css(selector, **args)
+end
+def assert_no_css(selector)
+  expect(page).to have_no_css(selector)
 end
 
 def assert_current_path(path)

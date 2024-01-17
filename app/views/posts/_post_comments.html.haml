@@ -1,0 +1,10 @@
+= turbo_frame_tag "post#{post.id}comments", class: 'comments-cnt' do
+  - if post.comments.count > 0
+    %a.no-decor{ data: { bs_target: "#post#{post.id}_commentsModal", bs_toggle: 'modal' }, href: '#' }
+      %small.text-muted
+        .view-all-comments= t('views.post_card.view_all_comments', count: post.comments.count)
+  - post.comments.last(5).each do |comment|
+    %p.card-text.m-0.top-comment
+      %span.fw-bold= comment.user.username
+      = comment.body
+  = render 'posts/comments_modal', post: post

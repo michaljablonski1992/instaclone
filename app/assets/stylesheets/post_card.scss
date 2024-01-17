@@ -2,7 +2,7 @@
   width: 25rem;
 
   .pp-img {
-    width: 10%
+    width: 10%;
   }
   
   .post-more {
@@ -36,5 +36,26 @@
       border: none; 
       background: none;
     }
+  }
+  .liker-cnt {
+    .pp-img {
+      width: 2.5rem;
+    }
+  }
+  .modal-comment-cnt {
+    .pp-img {
+      width: 2.5rem; 
+      max-height: 2.5rem;
+    }
+  }
+  .modal-username {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 10rem;
+  }
+  .comment-input {
+    min-height: 4rem;
+    max-height: 15rem;
   }
 }

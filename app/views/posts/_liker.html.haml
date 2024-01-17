@@ -1,7 +1,7 @@
-.d-flex.justify-content-between
+.d-flex.justify-content-between.liker-cnt
   .d-flex
-    = image_tag 'user-pp.png', class: "img-thumbnail rounded-circle", style: "width: 2.5rem"
+    = image_tag 'user-pp.png', class: 'pp-img img-thumbnail rounded-circle'
     .d-flex.flex-column.mx-3.justify-content-center
-      %small.fw-bold{:style => "overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width:10rem"}= liker.username
-  = link_to root_path, class:"btn btn-primary", style: "text-decoration:none" do
-    %small.fw-bold.text-white Follow
+      %small.fw-bold.modal-username= liker.username
+  = link_to root_path, class: 'btn btn-primary no-decor' do
+    %small.fw-bold.text-white= t('follow')

@@ -1,6 +1,6 @@
 .container.home-sections.d-flex.flex-row.justify-content-center.align-items-center
   .login-section.pt-3
-    .card.text-center.pt-5.mx-auto{ style: 'width: 23rem;' }
+    .card.text-center.pt-5.mx-auto.login-cnt
       = image_tag 'logo.png', class: 'card-img-top'
       %p.w-75.fs-6.fw-bold.text-secondary.align-self-center.mt-2.mb-0= t('views.devise.sign_up_upper_info')
       %a.d-block.mt-4.text-decoration-none.fw-bold.bg-primary.text-white.rounded.w-75.align-self-center.p-1{ href: '#' }
@@ -25,7 +25,7 @@
           = f.submit t('views.devise.sign_up'), class:  'btn btn-primary w-100'
         .mt-3
           = render 'devise/shared/error_messages_simple', resource: resource
-    .card.text-center.py-2.mt-3.mx-auto{ style: 'width: 23rem;' }
+    .card.text-center.py-2.mt-3.mx-auto.login-cnt
       .card-text
         = t('views.devise.h_acc')
         = link_to t('views.devise.log_in'), new_session_path(resource_name), class: 'fs-6 my-4 text-decoration-none text-info'

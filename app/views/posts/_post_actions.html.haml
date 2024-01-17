@@ -2,20 +2,9 @@
   .d-flex.justify-content-start.align-items-center.gap-1.mb-3
     = button_to toggle_like_path(post_id: post.id), method: :post, class: 'like-btn', id: "##{post_actions_id(post)}-likeBtn" do
       %i{ class: "#{post.liked_by_user?(current_user) ? "fa-solid text-danger" : "fa-regular"} fa-heart fa-xl" }
-  %a.text-dark.no-decor{ href: '#', data: { bs_target: "##{post_id(post)}_likesModal", bs_toggle: "modal" } }
+    %a.no-decor.show-comments-btn{ data: { bs_target: "#post#{post.id}_commentsModal", bs_toggle: 'modal' }, href: "#"}
+      %i.fa-regular.fa-comment.fa-xl.fa-flip-horizontal.text-dark
+  %a.text-dark.no-decor{ href: '#', data: { bs_target: "##{post_id(post)}_likesModal", bs_toggle: 'modal' } }
     %small.fw-bold.my-1.post-likes
       = t('views.post_card.likes', count: post.likes.count)
-  / Modal
-  .modal.fade{id: "#{post_id(post)}_likesModal", tabindex: '-1', aria: { hidden: 'true', labelledby: "#{post_id(post)}_likesModalLabel"}}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %h5.modal-title{ id: "#{post_id(post)}_likesModalLabel" }= t('views.post_card.post_likers')
-          %button.btn-close{type: 'button', aria_label: 'Close', data: { bs_dismiss: 'modal' }, }
-        .modal-body
-          .d-flex.flex-column.gap-3
-            - if post.likers.any?
-              - post.likers.each do |liker|
-                = render "posts/liker", liker: liker
-            - else
-              = t('views.post_card.no_likers')
+  = render 'posts/likers_modal', post: post
