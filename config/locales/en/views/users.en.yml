@@ -1,13 +1,16 @@
 en:
   views:
     users:
-      posts:
+      posts: Posts
+      posts_x:
         one: '%{count} post'
         other: '%{count} posts'
-      followers:
+      followers_x:
         one: '%{count} follower'
         other: '%{count} followers'
-      followings:
+      followings_x:
         one: '%{count} following'
         other: '%{count} followings'
+      account_private_info: This account is private
+      account_private_follow_info: Follow this account to see their photos
       

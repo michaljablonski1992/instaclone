@@ -89,14 +89,14 @@ RSpec.describe 'Posts', type: :system do
     within '#posts-list' do
       within first('.post-cnt') do
         # no likes yet
-        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes', count: 0)
+        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes_x', count: 0)
 
         # like the post
         find('.like-btn').click
         wait_for_turbo
 
         # expect the post is liked
-        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes', count: 1)
+        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes_x', count: 1)
       end
     end
 
@@ -127,7 +127,7 @@ RSpec.describe 'Posts', type: :system do
         wait_for_turbo
 
         # expect the post is unliked
-        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes', count: 0)
+        expect(find('.post-likes').text).to eq I18n.t('views.post_card.likes_x', count: 0)
       end
     end
 

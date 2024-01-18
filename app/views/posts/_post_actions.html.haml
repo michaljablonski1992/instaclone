@@ -6,5 +6,5 @@
       %i.fa-regular.fa-comment.fa-xl.fa-flip-horizontal.text-dark
   %a.text-dark.no-decor{ href: '#', data: { bs_target: "##{post_id(post)}_likesModal", bs_toggle: 'modal' } }
     %small.fw-bold.my-1.post-likes
-      = t('views.post_card.likes', count: post.likes.count)
+      = t('views.post_card.likes_x', count: post.likes.count)
   = render 'posts/likers_modal', post: post

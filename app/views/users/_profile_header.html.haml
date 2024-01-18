@@ -3,13 +3,13 @@
 
   .w-50.d-flex.flex-column.gap-4
     .d-flex.gap-3.align-items-center
-      %p.m-0.fw-bold= user.username
+      %p.m-0.fw-bold.username= user.username
       %button.btn.border.border-1= t('message')
       %button.btn.btn-primary= t('follow')
     .d-flex.gap-5
-      %small.fw-bold= t('views.users.posts', count: user.posts.count)
-      %small.fw-bold= t('views.users.followers', count: 100)
-      %small.fw-bold= t('views.users.followings', count: 1)
+      %small.fw-bold.posts-count= t('views.users.posts_x', count: user.posts.count)
+      %small.fw-bold.followers-count= t('views.users.followers_x', count: 100)
+      %small.fw-bold.followings-count= t('views.users.followings_x', count: 1)
     .d-flex.flex-column
-      %small.fw-bold= user.full_name
-      %small= user.bio
+      %small.fw-bold.full_name= user.full_name
+      %small.bio= user.bio
