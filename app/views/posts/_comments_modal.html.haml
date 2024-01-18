@@ -1,14 +1,3 @@
 .modal.fade.comments-modal{ id: "post#{post.id}_commentsModal", aria: { hidden: 'true', labelledby: "post#{post.id}_commentsModalLabel" }}
   .modal-dialog
-    .modal-content
-      .modal-header
-        %h5.modal-title{ id: "post#{post.id}_commentsModalLabel" }= t('views.post_card.post_comments')
-        %button.btn-close{ value: 'Close', type: 'button', aria: { label: 'Close' }, data: { bs_dismiss: 'modal' }}
-      .modal-body
-        .d-flex.flex-column.gap-3
-          - if post.comments.any?
-            - post.comments.each do |comment|
-              = render 'posts/modal_comment', comment: comment
-          - else
-            .no-comments-msg= t('views.post_card.no_comments')
-         
+    = render 'posts/comments_modal_content', post: post

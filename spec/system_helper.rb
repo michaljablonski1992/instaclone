@@ -48,3 +48,8 @@ def wait_for_turbo_frame(selector = 'turbo-frame', timeout = nil)
     has_no_selector?("#{selector}[busy]", wait: timeout.presence || 5.seconds)
   end
 end
+
+# hides bootstrap modal
+def hide_bs_modal(selector)
+  page.evaluate_script("bootstrap.Modal.getInstance(document.querySelector('#{selector}')).hide();")
+end

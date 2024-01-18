@@ -1,0 +1,2 @@
+= turbo_stream.replace("post#{@post.id}comments", partial: "posts/post_comments", locals: { post: @post })
+= turbo_stream.replace("post#{@post.id}commentsModalContent", partial: 'posts/comments_modal_content', locals: { post: @post })

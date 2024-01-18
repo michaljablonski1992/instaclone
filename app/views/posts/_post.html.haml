@@ -37,6 +37,7 @@
               aria_label: "Slide #{i+1}" }
       = render 'posts/post_actions', post: post
       = render 'posts/post_comments', post: post
+      = render 'posts/comments_modal', post: post
       .card-text.mt-2
         %span.fw-bold= post.user.username
         %span= post.caption

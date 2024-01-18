@@ -4,13 +4,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.create(user: current_user, body: params[:comment_body])
 
     respond_to do |format|
-      format.turbo_stream do 
-        render turbo_stream: turbo_stream.replace(
-          "post#{@post.id}comments",
-          partial: "posts/post_comments",
-          locals: {post: @post}
-        )
-      end
+      format.turbo_stream
     end
   end
 
@@ -20,11 +14,7 @@ class CommentsController < ApplicationController
       @comment.destroy
 
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.remove(
-            "post#{@comment.post_id}ModalComment#{@comment.id}"
-          )
-        end
+        format.turbo_stream { @post = @comment.post }
       end
     end
   end

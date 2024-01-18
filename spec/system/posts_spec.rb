@@ -136,9 +136,8 @@ RSpec.describe 'Posts', type: :system do
     expect(post.likers.count).to eq 0
   end
 
-  ## TODO: split me to smaller tests
   it 'gives ability to add comment' do
-    post_body = 'Example comment test'
+    comment_body = 'Example comment test'
     post = create(:post)
     user = post.user
     # sign in, visit root
@@ -156,40 +155,82 @@ RSpec.describe 'Posts', type: :system do
         assert_no_css('.top-comment')
         # assert no commentators
         find('.show-comments-btn').click
-        expect(page).to have_selector '.comments-modal'
-        within('.comments-modal.show') do
+        within('.comments-modal') do
           assert_css('.no-comments-msg')
-          sleep 1 # TODO: get rid of sleep
+          sleep 0.3
           click_button('Close', class: 'btn-close')
         end
-        expect(page).to_not have_selector '.comments-modal'
 
         ## add comment
-        find('.comment-input').set post_body
+        find('.comment-input').set comment_body
         find('.post-btn').click
         wait_for_turbo
 
         # assert comment added
         assert_css('.view-all-comments', text: I18n.t('views.post_card.view_all_comments', count: 1))
-        assert_css('.top-comment', text: "#{user.username} #{post_body}")
+        assert_css('.top-comment', text: "#{user.username} #{comment_body}")
         # show commentators in 2 ways
         ['.show-comments-btn', '.view-all-comments'].each do |klass|
           find(klass).click
           expect(all('.modal-comment-cnt').count).to eq 1
           within '.modal-comment-cnt' do
-            expect(find('.comment-body').text).to eq post_body
+            expect(find('.comment-body').text).to eq comment_body
             expect(find('.comment-username').text).to eq user.username
           end
-          sleep 1 # TODO: get rid of sleep
+          sleep 0.3
           click_button('Close', class: 'btn-close')
         end
+      end
+    end
+  end
 
-        ## delete comment - TODO: test if user can delete only his comments -- when implemented
+  it 'gives ability to delete my own comments' do
+    mapped_comments = -> {
+      all('.modal-comment-cnt .modal-comment').map {|el| [el.find('.comment-username').text, el.find('.comment-body').text]}
+    }
+    post = create(:post)
+    user = post.user
+    comment = create(:comment, user: user, post: post)
+    comment2 = create(:comment, user: user, post: post)
+    # sign in, visit root
+    login_as(user)
+    visit root_path
+
+    # comment
+    within '#posts-list' do
+      within first('.post-cnt') do
+        # assert comments - comments section
+        assert_css('.view-all-comments', text: I18n.t('views.post_card.view_all_comments', count: 2))
+        assert_css('.top-comment', text: "#{user.username} #{comment.body}")
+        assert_css('.top-comment', text: "#{user.username} #{comment2.body}")
+        # assert comments - modal
         find('.show-comments-btn').click
-        within '.modal-comment-cnt' do
-          find('.btn-delete-comment').click
-        end
-        # TODO FIXME: refresh 'view x comments', 'top comments', 'no comments yet'
+        expect(mapped_comments.call).to eq([
+          [user.username, comment.body], 
+          [user.username, comment2.body]
+        ])
+
+        ## delete first comment
+        within(first('.modal-comment-cnt')) { find('.btn-delete-comment').click }
+        wait_for_turbo
+        
+        # assert comments - comments section
+        assert_css('.view-all-comments', text: I18n.t('views.post_card.view_all_comments', count: 1), visible: false)
+        assert_css('.top-comment', text: "#{user.username} #{comment2.body}", visible: false)
+        # assert comments - modal
+        expect(mapped_comments.call).to eq([ 
+          [user.username, comment2.body]
+        ])
+
+        ## delete last comment
+        within(first('.modal-comment-cnt')) { find('.btn-delete-comment').click }
+        wait_for_turbo
+
+        # assert comments - comments section
+        assert_no_css('.view-all-comments')
+        assert_no_css('.top-comment')
+        # assert comments - modal
+        within('.comments-modal') { assert_css('.no-comments-msg') }
       end
     end
   end
