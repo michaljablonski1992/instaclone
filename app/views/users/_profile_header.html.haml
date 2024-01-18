@@ -1,0 +1,15 @@
+.container.border-bottom.d-flex.justify-content-center.align-items-center.gap-5.profile-header-cnt
+  = image_tag user.profile_picture, class: 'pp-img img-thumbnail rounded-circle w-25'
+
+  .w-50.d-flex.flex-column.gap-4
+    .d-flex.gap-3.align-items-center
+      %p.m-0.fw-bold= user.username
+      %button.btn.border.border-1= t('message')
+      %button.btn.btn-primary= t('follow')
+    .d-flex.gap-5
+      %small.fw-bold= t('views.users.posts', count: user.posts.count)
+      %small.fw-bold= t('views.users.followers', count: 100)
+      %small.fw-bold= t('views.users.followings', count: 1)
+    .d-flex.flex-column
+      %small.fw-bold= user.full_name
+      %small= user.bio

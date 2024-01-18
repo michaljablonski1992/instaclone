@@ -13,4 +13,8 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true
   validates :username, presence: true
+
+  def profile_picture
+    profile_pic.attached? ? profile_pic : 'user-pp.png'
+  end
 end

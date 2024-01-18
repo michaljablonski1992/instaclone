@@ -17,7 +17,7 @@
           %i.fa-regular.fa-heart.fa-xl
           %span.dropdown
             %a{ type: 'button', aria_expanded: 'false', data: { bs_toggle: 'dropdown' } }
-              = image_tag user_pp, class: 'img-thumbnail rounded-circle'
+              = image_tag current_user.profile_picture, class: 'img-thumbnail rounded-circle'
             %ul.dropdown-menu
               %li
                 = link_to t('views.devise.logout'), destroy_user_session_path, class: 'dropdown-item', data: { turbo_method: :delete }

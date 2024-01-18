@@ -1,0 +1,13 @@
+en:
+  views:
+    users:
+      posts:
+        one: '%{count} post'
+        other: '%{count} posts'
+      followers:
+        one: '%{count} follower'
+        other: '%{count} followers'
+      followings:
+        one: '%{count} following'
+        other: '%{count} followings'
+      

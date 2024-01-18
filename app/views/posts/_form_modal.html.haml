@@ -17,7 +17,7 @@
                   - post.errors.each do |error|
                     %li= error.full_message
             .my-2
-              = image_tag user_pp, class: 'pp-img img-thumbnail rounded-circle'
+              = image_tag current_user.profile_picture, class: 'pp-img img-thumbnail rounded-circle'
               %span.fw-bold.mx-2= current_user.username
             %div.mb-2
               = form.text_area :caption, rows: 8, placeholder: t('views.post_modal.caption_placeholder'), class: 'caption-area form-control border-0'
