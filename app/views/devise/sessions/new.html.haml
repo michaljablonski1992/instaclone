@@ -8,7 +8,7 @@
         .card-body.pt-0
           = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
             .mb-3.mt-4
-              = f.email_field :email, class: 'form-control', placeholder: t('views.devise.email_placeholder')
+              = f.text_field :login, class: 'form-control', placeholder: t('views.devise.email_or_username_placeholder')
             .mb-3
               = f.password_field :password, class: 'form-control', placeholder: t('views.devise.password_placeholder')
             = f.submit t('views.devise.login'), class: 'btn btn-primary w-100'

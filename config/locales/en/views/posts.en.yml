@@ -1,0 +1,6 @@
+en:
+  views:
+    posts:
+      post_created: Post was successfully created
+      post_destroyed: Post was successfully destroyed
+      no_posts: This user has no posts yet

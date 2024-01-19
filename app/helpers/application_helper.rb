@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include CustomFormFor
+  
   def flash_class(name)
     case name
     when 'alert', 'error' then 'danger'

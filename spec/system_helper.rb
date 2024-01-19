@@ -9,8 +9,22 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 end
 
+def login_and_visit_root(user)
+  login_and_redirect(user, root_path)
+end
+
+def login_and_redirect(user, path)
+  login_as user
+  visit path
+end
+
+def sign_out
+  find('.profile-dropdown').click
+  find('.profile-menu .logout').click
+end
+
 def sign_in(email, password)
-  find('#user_email').set email
+  find('#user_login').set email
   find('#user_password').set password
   click_on 'Log in'
 end
@@ -52,4 +66,8 @@ end
 # hides bootstrap modal
 def hide_bs_modal(selector)
   page.evaluate_script("bootstrap.Modal.getInstance(document.querySelector('#{selector}')).hide();")
+end
+
+def remove_flashes
+  all('#flash_message .flash').each {|el| el.click }
 end

@@ -5,5 +5,5 @@
         .view-all-comments= t('views.post_card.view_all_comments', count: post.comments.count)
   - post.comments.last(5).each do |comment|
     %p.card-text.m-0.top-comment
-      %span.fw-bold= comment.user.username
+      %span.fw-bold= link_to comment.user.username, comment.user, class: 'no-decor username big', target: '_top'
       = comment.body

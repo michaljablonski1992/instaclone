@@ -1,8 +1,8 @@
 en:
   views:
     devise:
-      email_placeholder: User name or Email address
-      email_signup_placeholder: Email address
+      email_or_username_placeholder: User name or Email address
+      email_placeholder: Email address
       password_placeholder: Password
       login: Log in
       login_w_fb: Log in with Facebook
@@ -15,5 +15,15 @@ en:
       full_name_placeholder: Full name
       username_placeholder: User name
       password_confirmation_placeholder: Password confirmation
+      phone_number_placeholder: Phone number
+      new_password_placeholder: New password
+      new_password_confirmation_placeholder: New password confirmation
+      new_password_info: Leave it blank if you don't want to change it.
+      current_password_placeholder: Current password
+      current_password_req_info: Current password is required to submit.
       logout: Log out
+      profile: My profile
+      settings: Settings
+      edit_profile: Edit profile
+      discover_acc_info: "Help people discover your account by using the name you're known by: either your full name or business name."
       

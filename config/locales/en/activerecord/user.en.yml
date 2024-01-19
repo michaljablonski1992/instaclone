@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        profile_pic: Profile picture

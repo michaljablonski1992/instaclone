@@ -16,6 +16,7 @@ body {
 
 .no-decor {
   text-decoration: none;
+  color: black;
 }
 
 #flash_message {
@@ -23,9 +24,28 @@ body {
   width: 100%;
   top: 0;
   z-index: 9999;
+  .flash {
+    cursor: pointer;
+  }
 }
 
 .button-no-default {
   background: none; 
   border: none;
+}
+
+.username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &.big {
+    max-width: 10rem;
+  }
+  &.small {
+    max-width: 3.5rem;
+  }
+}
+
+.pp-img {
+  min-width: 32px;
 }

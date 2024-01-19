@@ -3,17 +3,17 @@
     .card-header.bg-white
       .d-flex.justify-content-between
         %div
-          = image_tag current_user.profile_picture, class: 'img-thumbnail rounded-circle pp-img'
-          .fw-bold.mx-2.d-inline-block= post.user.username
-        %div
-          .dropdown
-            %a.btn.text-dark.fs-4.post-more.no-decor{ href: '#', role: 'button', data: { bs_toggle: 'dropdown'}, aria_expanded: 'false' }
-              = '...'
-            %ul.dropdown-menu
-              %li
-                %a.dropdown-item{ href: '#' }= t('views.post_card.edit_post')
-              %li
-                %a.dropdown-item{ href: '#' }= t('views.post_card.delete_post')
+          = link_to post.user, class: 'no-decor' do
+            = image_tag current_user.profile_picture, class: 'img-thumbnail rounded-circle pp-img'
+          .fw-bold.mx-2.d-inline-block.post-username-link= link_to post.user.username, post.user, class: 'no-decor'
+        - if post.user == current_user
+          %div
+            .dropdown
+              %a.btn.text-dark.fs-4.post-more.no-decor{ href: '#', role: 'button', data: { bs_toggle: 'dropdown'}, aria_expanded: 'false' }
+                = '...'
+              %ul.dropdown-menu
+                %li
+                  = button_to t('views.post_card.delete_post'), post_path(post, from_show: !!@show), method: :delete, class: 'dropdown-item'
 
     .card-body
       .carousel.slide{ id: post_imgs_id(post), data: { bs_ride: 'true' } }

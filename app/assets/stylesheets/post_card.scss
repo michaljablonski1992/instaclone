@@ -6,7 +6,7 @@
   }
   
   .post-more {
-    vertical-align: sub;
+    vertical-align: baseline;
     line-height: 0.2em;
     border-color: transparent !important;
   }
@@ -48,14 +48,12 @@
       max-height: 2.5rem;
     }
   }
-  .modal-username {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 10rem;
-  }
   .comment-input {
     min-height: 4rem;
     max-height: 15rem;
+  }
+
+  .pp-img, .post-username-link {
+    vertical-align: middle;
   }
 }

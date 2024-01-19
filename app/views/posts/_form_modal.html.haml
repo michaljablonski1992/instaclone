@@ -1,6 +1,6 @@
 #postModal.modal.fade.modal-lg{ tabindex:'-1', aria_hidden: 'true', aria_labelledby: 'postModalLabel', data: { bs_backdrop: 'static', bs_keyboard: 'false' }}
   .modal-dialog.modal-dialog-centered
-    = form_with(model: post) do |form|
+    = form_with model: post do |form|
       .modal-content
         .modal-header
           %h5#postModalLabel.modal-title= t('views.post_modal.create_new_post')
