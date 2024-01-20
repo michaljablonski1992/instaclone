@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  HOME_PAGE_SUGGESTIONS_COUNT = 5
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -47,5 +49,15 @@ class User < ApplicationRecord
   end
   def cancel_request!(user)
     self.waiting_sent_requests.find_by(followed: user)&.destroy
+  end
+
+  ## suggestions
+  def suggestions(count: HOME_PAGE_SUGGESTIONS_COUNT)
+    @suggestions = [followers]
+    [followers, followings].flatten.uniq.each do |f|
+      @suggestions.append([f.followers, f.followings])
+    end
+    @suggestions = [@suggestions, User.all.sample(10)].flatten.uniq - [followings, self].flatten 
+    @suggestions = @suggestions.sample(count)
   end
 end

@@ -4,5 +4,4 @@
       = image_tag liker.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
     .d-flex.flex-column.mx-3.justify-content-center
       %small.fw-bold.username.big= link_to liker.username, liker, class: 'no-decor', target: '_top'
-  = link_to root_path, class: 'btn btn-primary no-decor' do
-    %small.fw-bold.text-white= t('follow')
+  = render 'common/follow_state', user: liker, as_text: true

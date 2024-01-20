@@ -1,7 +1,11 @@
-- if current_user.followings.include?(user)
-  = button_to t('unfollow'), unfollow_path(user_id: user.id), method: :delete, class: 'btn btn-danger unfollow-btn'
+- wo_unfollow = local_assigns[:wo_unfollow] || false
+- as_text = local_assigns[:as_text] || false
+- prfx = (as_text ? 'fw-bold small text' : 'btn')
+
+- if !wo_unfollow && current_user.followings.include?(user)
+  = button_to t('unfollow'), unfollow_path(user_id: user.id), method: :delete, class: "btn #{prfx}-danger unfollow-btn"
 - elsif current_user.waiting_followings.include?(user)
-  = button_to t('cancel'), cancel_request_path(user_id: user.id), method: :delete, class: 'btn btn-secondary cancel-request-btn'
+  = button_to t('cancel'), cancel_request_path(user_id: user.id), method: :delete, class: "btn #{prfx}-secondary cancel-request-btn"
 - elsif current_user == user
 - else
-  = button_to t('follow'), follow_path(user_id: user.id), method: :post, class: 'btn btn-primary follow-btn'
+  = button_to t('follow'), follow_path(user_id: user.id), method: :post, class: "btn #{prfx}-primary follow-btn"

@@ -146,6 +146,22 @@ RSpec.describe 'Posts', type: :system do
       end
     end
 
+    it 'can use follow feature from likers modal' do
+      # create records
+      post = create(:post)
+      user = post.user
+      user2 = create(:user)
+      user3 = create(:user)
+      create(:like, post: post, user: user)
+      create(:like, post: post, user: user3)
+      # sign in, visit root
+      login_and_visit_root(user)
+      within_first_post { find('.post-likes').click }
+      ### TODO FIXME - follow/cancel/unfollow will hide modal
+      ## after action -> just button change
+      # binding.pry
+    end
+
     it 'adds comment' do
       comment_body = 'Example comment test'
       post = create(:post)

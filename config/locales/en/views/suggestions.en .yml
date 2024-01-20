@@ -2,4 +2,5 @@ en:
   views:
     suggestions:
       suggestions_for_you: Suggestions for you
-      see_all: See all
+      see_more: See more
+      suggested_by_system: Suggested for you by InstaClone

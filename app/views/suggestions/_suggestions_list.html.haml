@@ -2,7 +2,7 @@
   .d-flex.flex-row.justify-content-between
     %p.text-muted.fw-bold= t('views.suggestions.suggestions_for_you')
     = link_to root_path, class: 'no-decor' do
-      %small.fw-bold.text-dark= t('views.suggestions.see_all')
+      %small.fw-bold.text-dark= t('views.suggestions.see_more')
   .d-flex.flex-column.gap-3.px-2
-    - 5.times do
-      = render 'suggestions/suggestion'
+    - current_user.suggestions.each do |suggestion|
+      = render 'suggestions/suggestion', suggestion: suggestion

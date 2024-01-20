@@ -1,8 +1,10 @@
 .d-flex.justify-content-between.suggestion
   .d-flex
-    = image_tag 'user-pp.png', class: 'pp-img suggestion-img img-thumbnail rounded-circle'
+    = link_to suggestion, class: 'no-decor' do
+      = image_tag suggestion.profile_picture, class: 'pp-img pp-img-1 suggestion-img img-thumbnail rounded-circle'
     .d-flex.flex-column.mx-3
-      %small.fw-bold.suggestion-username.username.big XYZ
-      %small.text-muted.suggestion-reason.username.big Suggested for you by Instagram as He followed you before
-  = link_to root_path, class: 'no-decor' do
-    %small.fw-bold.text-primary= t('follow')
+      %small.fw-bold.suggestion-username.username.big
+        = link_to suggestion, class: 'no-decor' do
+          = suggestion.username
+      %small.text-muted.suggestion-reason.username= t('views.suggestions.suggested_by_system')
+  = render 'common/follow_state', user: suggestion, wo_unfollow: true, as_text: true
