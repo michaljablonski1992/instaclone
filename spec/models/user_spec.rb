@@ -184,6 +184,54 @@ RSpec.describe User, :type => :model do
       expect(to_follow.followers.count).to eq 0
       expect(follower.followings.count).to eq 0
     end
+
+    it 'can decline request' do
+      # create follower and user to follow
+      follower = create(:user)
+      to_follow = create(:user)
+
+      # do follow, expect 1 follow created
+      follower.follow!(to_follow)
+
+      # expect no request, 1 follower
+      expect(to_follow.follow_requests.count).to eq 1
+      expect(to_follow.followers.count).to eq 0
+      expect(follower.followings.count).to eq 0
+      expect(follower.waiting_sent_requests.count).to eq 1
+
+      # decline request
+      to_follow.follow_requests.each(&:decline!)
+
+      # expect no request, to no follows
+      expect(to_follow.follow_requests.count).to eq 0
+      expect(to_follow.followers.count).to eq 0
+      expect(follower.followings.count).to eq 0
+      expect(follower.waiting_sent_requests.count).to eq 0
+    end
+
+    it 'can cancel request' do
+      # create follower and user to follow
+      follower = create(:user)
+      to_follow = create(:user)
+
+      # do follow, expect 1 follow created
+      follower.follow!(to_follow)
+
+      # expect no request, 1 follower
+      expect(to_follow.follow_requests.count).to eq 1
+      expect(to_follow.followers.count).to eq 0
+      expect(follower.followings.count).to eq 0
+      expect(follower.waiting_sent_requests.count).to eq 1
+
+      # cancel request
+      follower.cancel_request!(to_follow)
+
+      # expect no request, to no follows
+      expect(to_follow.follow_requests.count).to eq 0
+      expect(to_follow.followers.count).to eq 0
+      expect(follower.followings.count).to eq 0
+      expect(follower.waiting_sent_requests.count).to eq 0
+    end
   end
 
   context 'follows not private user' do
