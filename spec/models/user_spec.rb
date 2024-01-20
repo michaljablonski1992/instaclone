@@ -197,7 +197,7 @@ RSpec.describe User, :type => :model do
       expect(to_follow.follow_requests.count).to eq 1
       expect(to_follow.followers.count).to eq 0
       expect(follower.followings.count).to eq 0
-      expect(follower.waiting_sent_requests.count).to eq 1
+      expect(follower.waiting_followings.count).to eq 1
 
       # decline request
       to_follow.follow_requests.each(&:decline!)
@@ -206,7 +206,7 @@ RSpec.describe User, :type => :model do
       expect(to_follow.follow_requests.count).to eq 0
       expect(to_follow.followers.count).to eq 0
       expect(follower.followings.count).to eq 0
-      expect(follower.waiting_sent_requests.count).to eq 0
+      expect(follower.waiting_followings.count).to eq 0
     end
 
     it 'can cancel request' do
@@ -221,7 +221,7 @@ RSpec.describe User, :type => :model do
       expect(to_follow.follow_requests.count).to eq 1
       expect(to_follow.followers.count).to eq 0
       expect(follower.followings.count).to eq 0
-      expect(follower.waiting_sent_requests.count).to eq 1
+      expect(follower.waiting_followings.count).to eq 1
 
       # cancel request
       follower.cancel_request!(to_follow)
@@ -230,7 +230,7 @@ RSpec.describe User, :type => :model do
       expect(to_follow.follow_requests.count).to eq 0
       expect(to_follow.followers.count).to eq 0
       expect(follower.followings.count).to eq 0
-      expect(follower.waiting_sent_requests.count).to eq 0
+      expect(follower.waiting_followings.count).to eq 0
     end
   end
 

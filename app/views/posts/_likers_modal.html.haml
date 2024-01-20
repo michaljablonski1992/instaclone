@@ -3,11 +3,11 @@
     .modal-content
       .modal-header
         %h5.modal-title{ id: "#{post_id(post)}_likesModalLabel" }= t('views.post_card.post_likers')
-        %button.btn-close{ type: 'button', aria: { label: 'Close' }, data: { bs_dismiss: 'modal' } }
+        %button.btn-close{ type: :button, aria: { label: 'Close' }, data: { bs_dismiss: 'modal' } }
       .modal-body
         .d-flex.flex-column.gap-3
           - if post.likers.any?
             - post.likers.each do |liker|
               = render 'posts/liker', liker: liker
           - else
-            = t('views.post_card.no_likers')
+            .text-center= t('views.post_card.no_likers')

@@ -4,5 +4,9 @@ en:
   previous: Previous
   search: Search
   follow: Follow
+  unfollow: Unfollow
+  cancel: Cancel
   message: Message
   submit: Submit
+  accept: Accept
+  decline: Decline

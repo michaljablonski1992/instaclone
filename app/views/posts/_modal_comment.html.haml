@@ -2,7 +2,7 @@
   .d-flex.justify-content-between.modal-comment
     .d-flex
       = link_to comment.user, class: 'no-decor', target: '_top' do
-        = image_tag comment.user.profile_picture, class: 'img-thumbnail rounded-circle pp-img'
+        = image_tag comment.user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
       .d-flex.flex-column.mx-3.justify-content-center
         %small.fw-bold.username.big.comment-username= link_to comment.user.username, comment.user, class: 'no-decor', target: '_top'
         %small.comment-body

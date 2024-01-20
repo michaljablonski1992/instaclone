@@ -41,12 +41,30 @@ body {
   &.big {
     max-width: 10rem;
   }
+  &.medium {
+    max-width: 5rem;
+  }
   &.small {
     max-width: 3.5rem;
   }
 }
 
-.pp-img, #user-navbar .img-thumbnail {
+.pp-img {
   min-width: 32px;
   min-height: 32px;
+}
+
+
+
+.pp-img-1 {
+  width: 42px;
+  height: 42px;
+}
+.pp-img-2 {
+  width: 48px;
+  height: 48px;
+}
+.pp-img-3 {
+  width: 115px;
+  height: 115px;
 }

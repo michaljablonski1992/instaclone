@@ -7,7 +7,7 @@
       .d-flex.align-items-center
         - pp = resource.profile_picture
         - pp = @old_picture  if @old_picture.present? && @old_picture != resource.profile_picture
-        = image_tag pp, class: 'pp-img img-thumbnail rounded-circle'
+        = image_tag pp, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
         .d-flex.flex-column.mx-3.justify-content-center
           %small.fw-bold.username.big= resource.username
           = f.file_field :profile_pic, class: 'form-control form-control-sm'

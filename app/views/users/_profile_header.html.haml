@@ -1,16 +1,17 @@
 .container.border-bottom.d-flex.justify-content-center.align-items-center.gap-5.profile-header-cnt
-  = image_tag user.profile_picture, class: 'pp-img img-thumbnail rounded-circle w-25'
+  = image_tag user.profile_picture, class: 'pp-img pp-img-3 img-thumbnail rounded-circle'
 
   .w-50.d-flex.flex-column.gap-4
     .d-flex.gap-3.align-items-center
       %p.m-0.fw-bold.username= user.username
       %button.btn.border.border-1= t('message')
-      - unless user == current_user
-        %button.btn.btn-primary= t('follow')
+      = render 'common/follow_state', user: user
+      - if user == current_user
+        = link_to t('views.devise.settings'), edit_user_registration_path, class: 'btn btn-transparent border'
     .d-flex.gap-5
       %small.fw-bold.posts-count= t('views.users.posts_x', count: user.posts.count)
-      %small.fw-bold.followers-count= t('views.users.followers_x', count: 100)
-      %small.fw-bold.followings-count= t('views.users.followings_x', count: 1)
+      %small.fw-bold.followers-count= t('views.users.followers_x', count: user.followers.count)
+      %small.fw-bold.followings-count= t('views.users.followings_x', count: user.followings.count)
     .d-flex.flex-column
       %small.fw-bold.full_name= user.full_name
       %small.bio= user.bio

@@ -141,9 +141,8 @@ RSpec.describe 'Users profile page', type: :system do
     expect(find('.username').text).to eq user.username
     expect(find('.full_name').text).to eq user.full_name
     expect(find('.posts-count').text).to eq I18n.t('views.users.posts_x', count: user.posts.count)
-    ## TODO: change me after followers/followings implementation
-    expect(find('.followers-count').text).to eq I18n.t('views.users.followers_x', count: 100)
-    expect(find('.followings-count').text).to eq I18n.t('views.users.followings_x', count: 1)
+    expect(find('.followers-count').text).to eq I18n.t('views.users.followers_x', count: 0)
+    expect(find('.followings-count').text).to eq I18n.t('views.users.followings_x', count: 0)
     expect(find('.bio').text).to eq user.bio
   end
   

@@ -5,26 +5,17 @@
     .d-flex.gap-2
       #navbarSupportedContent.collapse.navbar-collapse
         %form.d-flex.me-5{ role: 'search' }
-          %input.form-control.me-2.border-0.search-input{ aria_label: 'Search', placeholder: t('search'), type: 'search'}
+          %input.form-control.me-2.border-0.search-input{ aria_label: 'Search', placeholder: t('search'), type: :search}
         .navbar-collapse.gap-4.d-flex
           = link_to root_path, class: 'text-dark' do
             %i.fa-solid.fa-house.fa-xl
           %i.fa-brands.fa-facebook-messenger.fa-xl
-          %a#create-post.text-dark{type: 'button', data: { bs_target: '#postModal', bs_toggle: 'modal' }}
+          %a#create-post.text-dark{type: :button, data: { bs_target: '#postModal', bs_toggle: 'modal' }}
             %i.fa-regular.fa-square-plus.fa-xl
           %i.fa-regular.fa-compass.fa-xl
-          %i.fa-regular.fa-heart.fa-xl
-          %span.dropdown.profile-dropdown
-            %a{ type: 'button', aria_expanded: 'false', data: { bs_toggle: 'dropdown' } }
-              = image_tag current_user.profile_picture, class: 'img-thumbnail rounded-circle'
-            %ul.dropdown-menu.profile-menu
-              %li
-                = link_to t('views.devise.profile'), user_path(current_user), class: 'dropdown-item goto-profile'
-              %li
-                = link_to t('views.devise.settings'), edit_user_registration_path, class: 'dropdown-item goto-settings'
-              %li
-                = link_to t('views.devise.logout'), destroy_user_session_path, class: 'dropdown-item logout', data: { turbo_method: :delete }
-      %button.navbar-toggler{ type:'button', aria_controls: 'navbarSupportedContent',  |
+          = render 'layouts/navbar/follows'
+          = render 'layouts/navbar/profile_dropdown'
+      %button.navbar-toggler{ type: :button, aria_controls: 'navbarSupportedContent',  |
           aria_expanded: 'false', aria_label: 'Toggle navigation',                       |
           data: { bs_target: '#navbarSupportedContent', bs_toggle: 'collapse' }}
         %span.navbar-toggler-icon

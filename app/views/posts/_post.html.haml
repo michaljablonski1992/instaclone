@@ -4,7 +4,7 @@
       .d-flex.justify-content-between
         %div
           = link_to post.user, class: 'no-decor' do
-            = image_tag current_user.profile_picture, class: 'img-thumbnail rounded-circle pp-img'
+            = image_tag current_user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
           .fw-bold.mx-2.d-inline-block.post-username-link= link_to post.user.username, post.user, class: 'no-decor'
         - if post.user == current_user
           %div
@@ -22,16 +22,16 @@
             .carousel-item{ class: ('active' if i == 0) }
               = image_tag img, class: 'd-block w-100 post-image'
           - if post.images.count >= 2
-            %button.carousel-control-prev{ type: 'button', data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'prev' } }
+            %button.carousel-control-prev{ type: :button, data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'prev' } }
               %span.carousel-control-prev-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
               %span.visually-hidden= t('previous')
-            %button.carousel-control-next{ type: 'button', data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'next' } }
+            %button.carousel-control-next{ type: :button, data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'next' } }
               %span.carousel-control-next-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
               %span.visually-hidden= t('next')
         .carousel-indicators
           - post.images.each_with_index do |img, i|
             %button.bg-dark{                                             |
-              class: ('active' if i == 0), type: 'button',               |
+              class: ('active' if i == 0), type: :button,               |
               data: { bs_target: "##{post_imgs_id(post)}",               |
               bs_slide_to: i.to_s }, aria_current: ('true' if i == 0),   |
               aria_label: "Slide #{i+1}" }

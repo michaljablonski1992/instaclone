@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :accepted_sent_requests, -> { where(accepted: true) }, class_name: 'Follow', foreign_key: 'follower_id'
   has_many :followers, through: :accepted_recieved_requests, source: :follower
   has_many :followings, through: :accepted_sent_requests, source: :followed
+  has_many :waiting_followings, through: :waiting_sent_requests, source: :followed
 
   validates :profile_pic, blob: { content_type: :image } 
   validates :full_name, presence: true

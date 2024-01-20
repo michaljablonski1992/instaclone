@@ -1,0 +1,10 @@
+%span.dropdown.profile-dropdown
+  %a{ type: :button, aria_expanded: 'false', data: { bs_toggle: 'dropdown' } }
+    = image_tag current_user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
+  %ul.dropdown-menu.profile-menu
+    %li
+      = link_to t('views.devise.profile'), user_path(current_user), class: 'dropdown-item goto-profile'
+    %li
+      = link_to t('views.devise.settings'), edit_user_registration_path, class: 'dropdown-item goto-settings'
+    %li
+      = link_to t('views.devise.logout'), destroy_user_session_path, class: 'dropdown-item logout', data: { turbo_method: :delete }

@@ -1,0 +1,20 @@
+.dropstart.follows-dropdown
+  %i.fa-regular.fa-heart.fa-xl{ type: :button, aria_expanded: 'false', data: { bs_toggle: 'dropdown' } }
+  %ul.dropdown-menu.p-4.follows-cnt
+    - if current_user.follow_requests.any?
+      - current_user.follow_requests.each do |fr|
+        %li.follow-cnt
+          .d-flex.justify-content-between
+            .d-flex
+              = image_tag fr.follower.profile_picture, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
+              .d-flex.flex-column.mx-3.justify-content-center
+                %small.fw-bold.follower-username.username.big
+                  = link_to fr.follower, class: 'no-decor' do
+                    = fr.follower.username
+            .d-flex.flex-row.align-items-end.justify-content-between.request-btn-cnt
+              = button_to accept_follow_path(follow_id: fr.id), method: :post, class: 'btn btn-primary no-decor me-1' do
+                %small.fw-bold.text-white= t('accept')
+              = button_to decline_follow_path(follow_id: fr.id), method: :delete, class: 'btn btn-danger no-decor' do
+                %small.fw-bold.text-white= t('decline')
+    - else
+      %li.follow-cnt.text-center= t('views.follows.no_follows_info')

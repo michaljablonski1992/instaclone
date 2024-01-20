@@ -1,9 +1,5 @@
 .post-card {
   width: 25rem;
-
-  .pp-img {
-    width: 10%;
-  }
   
   .post-more {
     vertical-align: baseline;
@@ -35,17 +31,6 @@
     .like-btn {
       border: none; 
       background: none;
-    }
-  }
-  .liker-cnt {
-    .pp-img {
-      width: 2.5rem;
-    }
-  }
-  .modal-comment-cnt {
-    .pp-img {
-      width: 2.5rem; 
-      max-height: 2.5rem;
     }
   }
   .comment-input {
