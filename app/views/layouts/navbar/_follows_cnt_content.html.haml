@@ -1,0 +1,18 @@
+- if current_user.follow_requests.any?
+  - current_user.follow_requests.each_with_index do |fr, idx|
+    - first = (idx == 0)
+    %li.follow-cnt
+      .d-flex.justify-content-between.follow-cnt-inner.py-2{ class: ('border-top' unless first) }
+        .d-flex
+          = image_tag fr.follower.profile_picture, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
+          .d-flex.flex-column.mx-3.justify-content-center
+            %small.fw-bold.follower-username.username.big
+              = link_to fr.follower, class: 'no-decor' do
+                = fr.follower.username
+        .d-flex.flex-row.align-items-center.justify-content-between.request-btn-cnt
+          = button_to accept_follow_path(follow_id: fr.id), method: :post, class: 'btn-accept-request btn btn-primary no-decor me-1' do
+            %small.fw-bold.text-white= t('accept')
+          = button_to decline_follow_path(follow_id: fr.id), method: :delete, class: 'btn-decline-request btn btn-danger no-decor' do
+            %small.fw-bold.text-white= t('decline')
+- else
+  %li.text-center= t('views.follows.no_follows_info')

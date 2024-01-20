@@ -21,12 +21,11 @@ class FollowsController < ApplicationController
 
   def accept_follow
     @follow_req.accept!
-    redirect_back!
+    requests_actions_respond
   end
-
   def decline_follow
     @follow_req.decline!
-    redirect_back!
+    requests_actions_respond
   end
 
 
@@ -42,6 +41,17 @@ class FollowsController < ApplicationController
 
   def set_follow_req
     @follow_req = current_user.follow_requests.find(params[:follow_id])
+  end
+
+  def requests_actions_respond
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update(
+          'follows-cnt',
+          partial: 'layouts/navbar/follows_cnt_content'
+        )
+      end
+    end
   end
 
 end

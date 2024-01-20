@@ -43,6 +43,19 @@ RSpec.describe 'Users profile page', type: :system do
         assert_current_path root_path
       end
 
+      it "can see private user's post when followed" do
+        # follow user
+        @user.follow!(@user2)
+        @user2.follow_requests.each(&:accept!)
+
+        4.times { create(:post, user: @user2) }
+        login_as @user
+        visit user_path(@user2)
+
+        # can see posts
+        expect(all('.profile-posts-cnt .profile-post').count).to eq @user2.posts.count
+      end
+
       it 'sees info when no posts' do
         login_as @user
         visit user_path(@user)
@@ -52,6 +65,19 @@ RSpec.describe 'Users profile page', type: :system do
         within '.no-posts-info' do
           assert_content I18n.t('views.posts.no_posts')
         end
+      end
+
+      it 'sees his posts count' do
+        login_as @user
+        visit user_path(@user)
+
+        # assert no posts yet
+        expect(find('.posts-count').text).to eq I18n.t('views.users.posts_x', count: 0)
+
+        # create 7 posts, visit page, assert
+        7.times { create(:post, user: @user) }
+        visit user_path(@user)
+        expect(find('.posts-count').text).to eq I18n.t('views.users.posts_x', count: 7)
       end
     end
 

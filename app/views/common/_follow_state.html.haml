@@ -1,7 +1,7 @@
 - if current_user.followings.include?(user)
-  = button_to t('unfollow'), unfollow_path(user_id: user.id), method: :delete, class: 'btn btn-danger'
+  = button_to t('unfollow'), unfollow_path(user_id: user.id), method: :delete, class: 'btn btn-danger unfollow-btn'
 - elsif current_user.waiting_followings.include?(user)
-  = button_to t('cancel'), cancel_request_path(user_id: user.id), method: :delete, class: 'btn btn-secondary'
+  = button_to t('cancel'), cancel_request_path(user_id: user.id), method: :delete, class: 'btn btn-secondary cancel-request-btn'
 - elsif current_user == user
 - else
-  = button_to t('follow'), follow_path(user_id: user.id), method: :post, class: 'btn btn-primary'
+  = button_to t('follow'), follow_path(user_id: user.id), method: :post, class: 'btn btn-primary follow-btn'
