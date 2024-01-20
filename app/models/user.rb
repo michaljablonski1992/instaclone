@@ -17,17 +17,28 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_one_attached :profile_pic, dependent: :destroy
-  validates :profile_pic, blob: { content_type: :image } 
-
   has_many :likes, dependent: :destroy
-
   has_many :comments, dependent: :destroy
+  has_many :follow_requests, -> {where(accepted: false) }, class_name: 'Follow', foreign_key: 'followed_id'
+  has_many :accepted_recieved_requests, -> {where(accepted: true) }, class_name: 'Follow', foreign_key: 'followed_id'
+  has_many :accepted_sent_requests, -> {where(accepted: true) }, class_name: 'Follow', foreign_key: 'follower_id'
+  has_many :followers, through: :accepted_recieved_requests, source: :follower
+  has_many :followings, through: :accepted_sent_requests, source: :followed
 
+  validates :profile_pic, blob: { content_type: :image } 
   validates :full_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
 
   def profile_picture
     (profile_pic.attached? && profile_pic.blob.present? && profile_pic.blob.persisted?) ? profile_pic : 'user-pp.png'
+  end
+
+  def follow!(user)
+    Follow.create(follower: self, followed: user)
+  end
+
+  def unfollow!(user)
+    self.accepted_sent_requests.find_by(followed: user)&.destroy
   end
 end

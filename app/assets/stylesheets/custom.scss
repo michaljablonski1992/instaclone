@@ -46,6 +46,7 @@ body {
   }
 }
 
-.pp-img {
+.pp-img, #user-navbar .img-thumbnail {
   min-width: 32px;
+  min-height: 32px;
 }

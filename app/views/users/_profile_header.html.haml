@@ -5,7 +5,8 @@
     .d-flex.gap-3.align-items-center
       %p.m-0.fw-bold.username= user.username
       %button.btn.border.border-1= t('message')
-      %button.btn.btn-primary= t('follow')
+      - unless user == current_user
+        %button.btn.btn-primary= t('follow')
     .d-flex.gap-5
       %small.fw-bold.posts-count= t('views.users.posts_x', count: user.posts.count)
       %small.fw-bold.followers-count= t('views.users.followers_x', count: 100)
