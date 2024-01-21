@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @show = true
-    redirect_to root_path and return  if @post.user.private? && !(@post.user == current_user)
+    redirect_to root_path and return  unless current_user.can_see_posts?(@post.user)
   end
 
   # GET /posts/new

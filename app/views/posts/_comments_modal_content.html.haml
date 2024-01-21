@@ -1,4 +1,4 @@
-= turbo_frame_tag "post#{post.id}commentsModalContent", class: 'modal-content' do
+= turbo_frame_tag post_comments_modal_content_id(post), class: 'modal-content' do
   .modal-header
     %h5.modal-title{ id: "post#{post.id}_commentsModalLabel" }= t('views.post_card.post_comments')
     %button.btn-close{ value: 'Close', type: :button, aria: { label: 'Close' }, data: { bs_dismiss: 'modal' }}

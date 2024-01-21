@@ -1,4 +1,4 @@
-= turbo_frame_tag "post#{post.id}comments", class: 'comments-cnt' do
+= turbo_frame_tag post_comments_id(post), class: 'comments-cnt' do
   - if post.comments.count > 0
     %a.no-decor{ data: { bs_target: "#post#{post.id}_commentsModal", bs_toggle: 'modal' }, href: '#' }
       %small.text-muted

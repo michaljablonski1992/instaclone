@@ -1,6 +1,7 @@
 require 'system_helper'
 
 RSpec.describe 'Suggestions feature', type: :system do
+  include DomIdsHelper
   before(:each) { @user = create(:user, private: false); @user2 = create(:user) }
 
   describe 'user' do
@@ -15,19 +16,41 @@ RSpec.describe 'Suggestions feature', type: :system do
     end
 
     it 'can see more suggestions at suggestions page' do
-      ### TODO - no suggestions page yet
+      ### TODO - test me
     end
 
     it 'can use follow feature from suggestions page' do
-      ### TODO - no suggestions page yet
+      ### TODO - test me
     end
 
-    it 'can use follow features' do
-      ### TODO FIXME - follow/cancel will show another suggestions
-      ## suggestions should stay the same 
-      ## if cancel(request sent) then just button change
-      ## if followed(not private user) then add additional suggestion at the bottom
-      # binding.pry
+    it 'can use follow features - private user' do
+      user3 = create(:user)
+      user4 = create(:user)
+      # login user and visit another's user profile page
+      login_as @user2
+      visit root_path
+
+      within "##{suggestion_id(user3)}" do
+        assert_no_css('.cancel-request-btn')
+        find('.follow-btn').click
+        assert_no_css('.follow-btn')
+        assert_css('.cancel-request-btn')
+      end
+    end
+
+    it 'can use follow features - non-private user' do
+      user3 = create(:user, private: false)
+      user4 = create(:user, private: false)
+      # login user and visit another's user profile page
+      login_as @user2
+      visit root_path
+
+      within "##{suggestion_id(user3)}" do
+        assert_no_css('.unfollow-btn')
+        find('.follow-btn').click
+        assert_no_css('.follow-btn')
+        assert_css('.unfollow-btn')
+      end
     end
     
   end

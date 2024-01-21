@@ -1,4 +1,4 @@
-.d-flex.justify-content-between.suggestion
+.d-flex.justify-content-between.suggestion{ id: suggestion_id(suggestion) }
   .d-flex
     = link_to suggestion, class: 'no-decor' do
       = image_tag suggestion.profile_picture, class: 'pp-img pp-img-1 suggestion-img img-thumbnail rounded-circle'
@@ -7,4 +7,4 @@
         = link_to suggestion, class: 'no-decor' do
           = suggestion.username
       %small.text-muted.suggestion-reason.username= t('views.suggestions.suggested_by_system')
-  = render 'common/follow_state', user: suggestion, wo_unfollow: true, as_text: true
+  = render 'common/follow_state', user: suggestion, content_id: suggestion_id(suggestion), as_text: true

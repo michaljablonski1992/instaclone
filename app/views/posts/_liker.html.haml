@@ -1,7 +1,7 @@
-.d-flex.justify-content-between.liker-cnt
+.d-flex.justify-content-between.liker-cnt{ id: liker_id(liker) }
   .d-flex
     = link_to liker, class: 'no-decor', target: '_top' do
       = image_tag liker.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
     .d-flex.flex-column.mx-3.justify-content-center
       %small.fw-bold.username.big= link_to liker.username, liker, class: 'no-decor', target: '_top'
-  = render 'common/follow_state', user: liker, as_text: true
+  = render 'common/follow_state', user: liker, content_id: liker_id(liker), as_text: true

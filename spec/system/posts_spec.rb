@@ -3,6 +3,7 @@ require './spec/helpers/system_posts_helper'
 
 RSpec.describe 'Posts', type: :system do
   include SystemPostsHelper
+  include DomIdsHelper
   before(:each) { @user = create(:user) }
 
   describe 'user' do
@@ -146,7 +147,7 @@ RSpec.describe 'Posts', type: :system do
       end
     end
 
-    it 'can use follow feature from likers modal' do
+    it 'can use follow feature from likers modal - follow private user' do
       # create records
       post = create(:post)
       user = post.user
@@ -157,9 +158,33 @@ RSpec.describe 'Posts', type: :system do
       # sign in, visit root
       login_and_visit_root(user)
       within_first_post { find('.post-likes').click }
-      ### TODO FIXME - follow/cancel/unfollow will hide modal
-      ## after action -> just button change
-      # binding.pry
+
+      within "##{liker_id(user3)}" do
+        assert_no_css('.cancel-request-btn')
+        find('.follow-btn').click
+        assert_no_css('.follow-btn')
+        assert_css('.cancel-request-btn')
+      end
+    end
+
+    it 'can use follow feature from likers modal - follow non-private user' do
+      # create records
+      post = create(:post)
+      user = post.user
+      user2 = create(:user)
+      user3 = create(:user, private: false)
+      create(:like, post: post, user: user)
+      create(:like, post: post, user: user3)
+      # sign in, visit root
+      login_and_visit_root(user)
+      within_first_post { find('.post-likes').click }
+
+      within "##{liker_id(user3)}" do
+        assert_no_css('.unfollow-btn')
+        find('.follow-btn').click
+        assert_no_css('.follow-btn')
+        assert_css('.unfollow-btn')
+      end
     end
 
     it 'adds comment' do

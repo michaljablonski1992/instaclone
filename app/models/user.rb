@@ -40,6 +40,10 @@ class User < ApplicationRecord
     (profile_pic.attached? && profile_pic.blob.present? && profile_pic.blob.persisted?) ? profile_pic : 'user-pp.png'
   end
 
+  def can_see_posts?(user)
+    !user.private? || user == self || followings.include?(user)
+  end
+
   ## follows
   def follow!(user)
     Follow.create(follower: self, followed: user)
@@ -52,7 +56,7 @@ class User < ApplicationRecord
   end
 
   ## suggestions
-  def suggestions(count: HOME_PAGE_SUGGESTIONS_COUNT)
+  def suggestions(count = HOME_PAGE_SUGGESTIONS_COUNT)
     @suggestions = [followers]
     [followers, followings].flatten.uniq.each do |f|
       @suggestions.append([f.followers, f.followings])

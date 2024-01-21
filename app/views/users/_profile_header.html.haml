@@ -1,11 +1,11 @@
-.container.border-bottom.d-flex.justify-content-center.align-items-center.gap-5.profile-header-cnt
+.container.border-bottom.d-flex.justify-content-center.align-items-center.gap-5.profile-header-cnt{ id: profile_header_id(user)}
   = image_tag user.profile_picture, class: 'pp-img pp-img-3 img-thumbnail rounded-circle'
 
   .w-50.d-flex.flex-column.gap-4
     .d-flex.gap-3.align-items-center
       %p.m-0.fw-bold.username= user.username
       %button.btn.border.border-1= t('message')
-      = render 'common/follow_state', user: user
+      = render 'common/follow_state', user: user, content_id: profile_header_id(user)
       - if user == current_user
         = link_to t('views.devise.settings'), edit_user_registration_path, class: 'btn btn-transparent border'
     .d-flex.gap-5

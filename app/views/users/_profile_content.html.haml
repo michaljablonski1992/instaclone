@@ -1,0 +1,12 @@
+.profile-content-cnt
+  = render 'users/profile_header', user: user
+
+  .container.d-flex.flex-column.profile-posts-cnt
+    .d-flex.justify-content-center.align-items-center
+      .w-content.border-2.border-top.border-dark
+        %i.fa-solid.fa-table-cells
+          %small= t('views.users.posts')
+    - if current_user.can_see_posts?(user)
+      = render 'users/profile_posts', user: user
+    - else
+      = render 'users/profile_private'

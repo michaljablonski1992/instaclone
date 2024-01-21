@@ -1,5 +1,4 @@
 class LikesController < ApplicationController
-  include PostHelper
   before_action :set_post
 
   def toggle_like
@@ -12,13 +11,7 @@ class LikesController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          post_actions_id(@post),
-          partial: 'posts/post_actions',
-          locals: { post: @post }
-        )
-      end
+      format.turbo_stream
     end
   end
 

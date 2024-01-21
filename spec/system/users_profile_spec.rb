@@ -56,6 +56,20 @@ RSpec.describe 'Users profile page', type: :system do
         expect(all('.profile-posts-cnt .profile-post').count).to eq @user2.posts.count
       end
 
+      it 'can see someones post on private user if followed when entered manually' do
+        # follow user
+        @user.follow!(@user2)
+        @user2.follow_requests.each(&:accept!)
+
+        # create post
+        post = create(:post, user: @user2)
+
+        # login and see
+        login_as @user
+        visit post_path(post)
+        assert_current_path post_path(post)
+      end
+
       it 'sees info when no posts' do
         login_as @user
         visit user_path(@user)
