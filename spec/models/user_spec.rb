@@ -1,6 +1,8 @@
 require 'rails_helper'
+require './spec/helpers/feeds_helper'
 
 RSpec.describe User, :type => :model do
+  include FeedsHelper
   subject { create(:user) }
 
   context 'validation' do
@@ -247,6 +249,93 @@ RSpec.describe User, :type => :model do
       expect(to_follow.follow_requests.count).to eq 0
       expect(to_follow.followers.count).to eq 1
       expect(follower.followings.count).to eq 1
+    end
+  end
+
+  context 'posts' do
+    it 'sees own profile picture if exists' do
+      subject.profile_picture == subject.profile_pic
+    end
+
+    it "sees default profile picture if own doesn't exist" do
+      subject.profile_pic.destroy
+      subject.profile_picture == User::DEF_PP
+    end
+
+    it 'can see his own post' do
+      expect(subject.can_see_posts?(subject)).to be true
+    end
+
+    it "see non-private user's posts" do
+      user = create(:user, private: false)
+      expect(subject.can_see_posts?(user)).to be true
+    end
+
+    it "can't see private user's posts" do
+      user = create(:user)
+      expect(subject.can_see_posts?(user)).to be false
+    end
+
+    it "can't see private user's posts if following but not accepted" do
+      user = create(:user)
+      subject.follow!(user)
+      expect(subject.can_see_posts?(user)).to be false
+    end
+
+    it "can see private user's posts if following and accepted" do
+      user = create(:user)
+      subject.follow!(user)
+      user.follow_requests.each(&:accept!)
+      expect(subject.can_see_posts?(user)).to be true
+    end
+  end
+
+  context 'suggestions' do
+    it 'can see suggestions' do
+      # me
+      user = create(:user, private: false)
+      # all_users -> not related to followers
+      all_users = []
+      3.times { all_users << create(:user)}
+      # followers
+      followers = []
+      2.times { followers << create(:user, private: false)}
+      followers.each{|follower| follower.follow!(user)}
+      # followings
+      followings = []
+      2.times { followings << create(:user, private: false)}
+      followings.each{|following| user.follow!(following)}
+      # followers of followers
+      followers_followers = []
+      followers.each {|follower| followers_followers << u = create(:user, private: false); u.follow!(follower)}
+      # followings of followers
+      followers_followings = []
+      followers.each {|follower| followers_followings << u = create(:user, private: false); follower.follow!(u)}
+      # followers of followings
+      followings_followers = []
+      followings.each {|following| followings_followers << u = create(:user, private: false); u.follow!(following)}
+      # followings of followings
+      followings_followings = []
+      followings.each {|following| followings_followings << u = create(:user, private: false); following.follow!(u)}
+
+      expected = [
+        followers, 
+        followers_followers, 
+        followers_followings, 
+        followings_followers, 
+        followings_followings
+      ].flatten.sort_by(&:id)
+      expect(user.suggestions(20).sort_by(&:id)).to eq expected
+    end
+  end
+
+  context 'feeds' do
+    it 'can see feeds' do
+      user = create(:user)
+      create_feeds(user)
+
+      expect(user.feeds.count).to eq 4
+      expect(user.feeds.map(&:user).uniq.sort).to eq [user, @user_following].sort
     end
   end
 end

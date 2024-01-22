@@ -2,5 +2,5 @@
   .d-flex.flex-column.gap-3
     = render 'story/stories_list'
     #posts-list.flex.flex-column
-      = render 'posts/posts_list', posts: current_user.posts
-  = render 'suggestions/suggestions_list'
+      = render 'posts/posts_list', posts: current_user.feeds
+  = render 'suggestions/home_suggestions_list'

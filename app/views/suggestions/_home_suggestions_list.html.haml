@@ -1,0 +1,6 @@
+.suggestions-list-cnt
+  .d-flex.flex-row.justify-content-between
+    %p.text-muted.fw-bold= t('views.suggestions.suggestions_for_you')
+    = link_to suggestions_path, class: 'no-decor', id: 'see-more-suggestions' do
+      %small.fw-bold.text-dark= t('views.suggestions.see_more')
+  = render 'suggestions/suggestions', count: User::HOME_PAGE_SUGGESTIONS_COUNT

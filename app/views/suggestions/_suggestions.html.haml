@@ -1,0 +1,3 @@
+.d-flex.flex-column.gap-3.px-2.suggestions-list
+  - current_user.suggestions(count).each do |suggestion|
+    = render 'suggestions/suggestion', suggestion: suggestion

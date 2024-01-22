@@ -1,4 +1,2 @@
 .container.w-50.p-5
-  .d-flex.flex-column.gap-3.px-2
-    - current_user.suggestions(50).each do |suggestion|
-      = render 'suggestions/suggestion', suggestion: suggestion
+  = render 'suggestions/suggestions', count: User::SUGGESTIONS_COUNT

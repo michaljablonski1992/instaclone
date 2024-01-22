@@ -1,6 +1,8 @@
 require 'system_helper'
+require './spec/helpers/system_follows_helper'
 
 RSpec.describe 'Follows feature', type: :system do
+  include SystemFollowsHelper
   before(:each) { @user = create(:user, private: false); @user2 = create(:user) }
 
   describe 'user' do
@@ -9,11 +11,7 @@ RSpec.describe 'Follows feature', type: :system do
       login_as @user2
       visit user_path(@user)
 
-      # assert no unfollow btn visible, do follow, btn follow changed to unfollow
-      assert_no_css('.unfollow-btn')
-      find('.follow-btn').click
-      assert_no_css('.follow-btn')
-      assert_css('.unfollow-btn')
+      test_follow
     end
 
     it 'unfollows another user' do
@@ -24,11 +22,7 @@ RSpec.describe 'Follows feature', type: :system do
       login_as @user2
       visit user_path(@user)
 
-      # assert no follow btn visible, do unfollow, btn unfollow changed to follow
-      assert_no_css('.follow-btn')
-      find('.unfollow-btn').click
-      assert_no_css('.unfollow-btn')
-      assert_css('.follow-btn')
+      test_unfollow
     end
 
     it 'send follow request to private user' do
@@ -37,10 +31,7 @@ RSpec.describe 'Follows feature', type: :system do
       visit user_path(@user2)
 
       # assert no unfollow btn visible, do follow, btn follow changed to unfollow
-      assert_no_css('.cancel-request-btn')
-      find('.follow-btn').click
-      assert_no_css('.follow-btn')
-      assert_css('.cancel-request-btn')
+      test_follow_private
     end
 
     it 'cancels follow request' do
@@ -50,11 +41,7 @@ RSpec.describe 'Follows feature', type: :system do
       login_as @user
       visit user_path(@user2)
 
-      # assert no unfollow btn visible, do follow, btn follow changed to unfollow
-      assert_no_css('.follow-btn')
-      find('.cancel-request-btn').click
-      assert_no_css('.cancel-request-btn')
-      assert_css('.follow-btn')
+      test_cancel_follow_request
     end
 
     it 'sees follow requests' do

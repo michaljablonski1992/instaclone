@@ -1,12 +1,27 @@
 require 'system_helper'
 require './spec/helpers/system_posts_helper'
+require './spec/helpers/system_follows_helper'
+require './spec/helpers/feeds_helper'
 
 RSpec.describe 'Posts', type: :system do
   include SystemPostsHelper
+  include SystemFollowsHelper
+  include FeedsHelper
   include DomIdsHelper
   before(:each) { @user = create(:user) }
 
   describe 'user' do
+    it 'sees posts' do
+      create_feeds(@user)
+
+      # sign in, visit root
+      login_and_visit_root(@user)
+      within '#posts-list' do
+        expect(all('.post-card').count).to eq 4
+        expect(all('.post-card .post-username-link').map(&:text).uniq.sort).to eq [@user.username, @user_following.username].sort
+      end
+    end
+
     it 'submits invalid post' do
       # sign in, visit root
       login_and_visit_root(@user)
@@ -159,12 +174,7 @@ RSpec.describe 'Posts', type: :system do
       login_and_visit_root(user)
       within_first_post { find('.post-likes').click }
 
-      within "##{liker_id(user3)}" do
-        assert_no_css('.cancel-request-btn')
-        find('.follow-btn').click
-        assert_no_css('.follow-btn')
-        assert_css('.cancel-request-btn')
-      end
+      test_follow_private("##{liker_id(user3)}")
     end
 
     it 'can use follow feature from likers modal - follow non-private user' do
@@ -179,12 +189,7 @@ RSpec.describe 'Posts', type: :system do
       login_and_visit_root(user)
       within_first_post { find('.post-likes').click }
 
-      within "##{liker_id(user3)}" do
-        assert_no_css('.unfollow-btn')
-        find('.follow-btn').click
-        assert_no_css('.follow-btn')
-        assert_css('.unfollow-btn')
-      end
+      test_follow("##{liker_id(user3)}")
     end
 
     it 'adds comment' do
@@ -253,6 +258,7 @@ RSpec.describe 'Posts', type: :system do
         assert_css('.top-comment', text: "#{user.username} #{comment2.body}")
         # assert comments - modal
         find('.show-comments-btn').click
+        assert_css '.modal-comment-cnt', visible: true
         expect(mapped_comments.call).to eq([
           [user.username, comment.body], 
           [user.username, comment2.body]

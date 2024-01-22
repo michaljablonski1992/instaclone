@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   HOME_PAGE_SUGGESTIONS_COUNT = 5
+  SUGGESTIONS_COUNT = 30
+  DEF_PP = 'user-pp.png'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -37,7 +39,7 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
 
   def profile_picture
-    (profile_pic.attached? && profile_pic.blob.present? && profile_pic.blob.persisted?) ? profile_pic : 'user-pp.png'
+    (profile_pic.attached? && profile_pic.blob.present? && profile_pic.blob.persisted?) ? profile_pic : DEF_PP
   end
 
   def can_see_posts?(user)
@@ -61,7 +63,13 @@ class User < ApplicationRecord
     [followers, followings].flatten.uniq.each do |f|
       @suggestions.append([f.followers, f.followings])
     end
-    @suggestions = [@suggestions, User.all.sample(10)].flatten.uniq - [followings, self].flatten 
+    @suggestions.flatten!
+    @suggestions = (@suggestions - [followings, self].flatten)
     @suggestions = @suggestions.sample(count)
+  end
+
+  ## feeds
+  def feeds
+    Post.where(user: [self, self.followings].flatten).order(created_at: :desc)
   end
 end

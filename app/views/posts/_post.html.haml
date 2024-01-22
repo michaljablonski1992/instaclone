@@ -4,7 +4,7 @@
       .d-flex.justify-content-between
         %div
           = link_to post.user, class: 'no-decor' do
-            = image_tag current_user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
+            = image_tag post.user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
           .fw-bold.mx-2.d-inline-block.post-username-link= link_to post.user.username, post.user, class: 'no-decor'
         - if post.user == current_user
           %div
