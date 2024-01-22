@@ -1,5 +1,6 @@
 .dropstart.follows-dropdown
   %i.fa-regular.fa-heart.fa-xl{ type: :button, aria_expanded: 'false', data: { bs_toggle: 'dropdown', bs_auto_close: 'outside' } }
+  %span#follows-count.small= current_user.follow_requests.count
   %ul.dropdown-menu.p-3#follows-cnt
     = render 'layouts/navbar/follows_cnt_content'
     

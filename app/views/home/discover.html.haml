@@ -1,0 +1,4 @@
+.container.d-flex.flex-column.discovers-cnt.mt-4
+  .row
+    - current_user.discovers.each do |post|
+      = render 'common/profile_post', post: post

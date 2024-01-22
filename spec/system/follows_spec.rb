@@ -69,9 +69,11 @@ RSpec.describe 'Follows feature', type: :system do
       visit root_path
 
       # open dropdown and accept request
+      expect(find('#follows-count').text).to eq '1'
       find('#user-navbar .follows-dropdown').click
       first('#follows-cnt .follow-cnt .btn-accept-request').click
       wait_for_turbo
+      expect(find('#follows-count').text).to eq '0'
 
       # assert follower accepted
       expect(@user2.followers.reload).to eq [@user]
@@ -86,9 +88,11 @@ RSpec.describe 'Follows feature', type: :system do
       visit root_path
 
       # open dropdown and accept request
+      expect(find('#follows-count').text).to eq '1'
       find('#user-navbar .follows-dropdown').click
       first('#follows-cnt .follow-cnt .btn-decline-request').click
       wait_for_turbo
+      expect(find('#follows-count').text).to eq '0'
 
       # assert follower accepted
       expect(@user2.followers.reload).to eq []
@@ -96,8 +100,5 @@ RSpec.describe 'Follows feature', type: :system do
     end
     
   end
-
-  
-  private
   
 end

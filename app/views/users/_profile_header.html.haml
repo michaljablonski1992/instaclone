@@ -4,7 +4,7 @@
   .w-50.d-flex.flex-column.gap-4
     .d-flex.gap-3.align-items-center
       %p.m-0.fw-bold.username= user.username
-      %button.btn.border.border-1= t('message')
+      -# %button.btn.border.border-1= t('message')
       = render 'common/follow_state', user: user, content_id: profile_header_id(user)
       - if user == current_user
         = link_to t('views.devise.settings'), edit_user_registration_path, class: 'btn btn-transparent border'

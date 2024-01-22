@@ -6,6 +6,6 @@ FactoryBot.define do
     latitude { 1.5 }
     allow_comments { false }
     show_likes_count { false }
-    images { [Rack::Test::UploadedFile.new('spec/fixtures/image.png', 'image/png')] }
+    images { [Rack::Test::UploadedFile.new('spec/fixtures/view.jpg', 'image/jpg')] }
   end
 end

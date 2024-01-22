@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   HOME_PAGE_SUGGESTIONS_COUNT = 5
-  SUGGESTIONS_COUNT = 30
+  SUGGESTIONS_COUNT = 20
   DEF_PP = 'user-pp.png'
+  DISCOVERS_COUNT = 32
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -64,17 +65,26 @@ class User < ApplicationRecord
 
   ## suggestions
   def suggestions(count = HOME_PAGE_SUGGESTIONS_COUNT)
-    @suggestions = [followers]
+    suggestions = [followers]
     [followers, followings].flatten.uniq.each do |f|
-      @suggestions.append([f.followers, f.followings])
+      suggestions.append([f.followers, f.followings])
     end
-    @suggestions.flatten!
-    @suggestions = (@suggestions - [followings, self].flatten)
-    @suggestions = @suggestions.sample(count)
+    suggestions = suggestions.flatten.uniq
+    suggestions = (suggestions - [followings, self].flatten)
+    suggestions = suggestions.sample(count)
+    suggestions
   end
 
   ## feeds
   def feeds
     Post.where(user: [self, self.followings].flatten).order(created_at: :desc)
+  end
+
+  ## discovers
+  def discovers(count = DISCOVERS_COUNT)
+    Post.joins(:user)
+        .where('users.private IS false')
+        .where.not(user: [self, self.followings].flatten)
+        .order(created_at: :desc)
   end
 end

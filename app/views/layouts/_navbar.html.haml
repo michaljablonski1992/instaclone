@@ -8,14 +8,15 @@
         .navbar-collapse.gap-4.d-flex
           = link_to root_path, class: 'text-dark' do
             %i.fa-solid.fa-house.fa-xl
-          %i.fa-brands.fa-facebook-messenger.fa-xl
+          -# %i.fa-brands.fa-facebook-messenger.fa-xl
           %a#create-post.text-dark{type: :button, data: { bs_target: '#postModal', bs_toggle: 'modal' }}
             %i.fa-regular.fa-square-plus.fa-xl
-          %i.fa-regular.fa-compass.fa-xl
+          = link_to discover_path, id: 'discover-link', class: 'text-dark' do
+            %i.fa-regular.fa-compass.fa-xl
           = render 'layouts/navbar/follows'
           = render 'layouts/navbar/profile_dropdown'
       %button.navbar-toggler{ type: :button, aria_controls: 'navbarSupportedContent',  |
-          aria_expanded: 'false', aria_label: 'Toggle navigation',                       |
+          aria_expanded: 'false', aria_label: 'Toggle navigation',                     |
           data: { bs_target: '#navbarSupportedContent', bs_toggle: 'collapse' }}
         %span.navbar-toggler-icon
 

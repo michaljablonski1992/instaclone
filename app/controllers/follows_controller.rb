@@ -1,5 +1,4 @@
 class FollowsController < ApplicationController
-  include DomIdsHelper
   before_action :set_user, only: [:follow, :unfollow, :cancel_request]
   before_action :set_follow_req, only: [:accept_follow, :decline_follow]
 
@@ -41,25 +40,15 @@ class FollowsController < ApplicationController
   end
 
   def follows_actions_respond
-    content_id = params[:content_id]
+    @content_id = params[:content_id]
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          content_id,
-          **partial_data_from_content_id(content_id)
-        )
-      end
+      format.turbo_stream { render 'follows_actions_respond' }
     end
   end
 
   def requests_actions_respond
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.update(
-          'follows-cnt',
-          partial: 'layouts/navbar/follows_cnt_content'
-        )
-      end
+      format.turbo_stream { render 'requests_actions_respond' }
     end
   end
 
