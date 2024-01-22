@@ -5,9 +5,9 @@ class User < ApplicationRecord
   DISCOVERS_COUNT = 32
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   # allow user to login using username or email
   attr_accessor :login

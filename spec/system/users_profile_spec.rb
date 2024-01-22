@@ -194,7 +194,7 @@ RSpec.describe 'Users profile page', type: :system do
           do_search(d[0])
           if d[1].any?
             expected = d[1].map(&:username)
-            expect(all('#search_results .username').map(&:text)).to eq expected
+            expect(all('#search_results .username').map(&:text).sort).to eq expected.sort
           else
             within('#search_results') { assert_content I18n.t('no_results')}
           end

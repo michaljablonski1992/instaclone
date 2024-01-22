@@ -24,6 +24,8 @@ def sign_out
 end
 
 def sign_in(email, password)
+  find('#user_login').set ''
+  find('#user_password').set ''
   find('#user_login').set email
   find('#user_password').set password
   click_on 'Log in'

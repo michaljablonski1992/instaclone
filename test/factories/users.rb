@@ -7,6 +7,7 @@ FactoryBot.define do
     password_confirmation { 'fancy_password123' }
     bio { 'my bio is cool' }
     profile_pic { Rack::Test::UploadedFile.new('spec/fixtures/image.png', 'image/png') }
+    confirmed_at { 10.minutes.ago }
     private { true }
   end
 end

@@ -343,7 +343,7 @@ RSpec.describe User, :type => :model do
 
   context 'search' do
     it 'can be found' do
-      test_search {|d| expect(User.search(d[0])).to eq d[1] }
+      test_search {|d| expect(User.search(d[0]).sort).to eq d[1].sort }
     end
   end
 end
