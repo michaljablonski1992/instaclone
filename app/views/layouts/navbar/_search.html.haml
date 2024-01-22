@@ -1,0 +1,7 @@
+= form_with(url: users_path, method: :get, class: 'd-flex me-5', 
+  data: { turbo_frame: 'search_results', controller: 'search-results' }) do |f|
+  .dropdown
+    = f.text_field :search_query, class: 'form-control me-2 border-0', type: 'search', placeholder: t('search'),
+      aria: { label: 'Search', expanded: 'false'}, 
+      data: { bs_toggle: 'dropdown', action: 'input->search-results#search'}
+    = render 'layouts/navbar/search_results', users: []

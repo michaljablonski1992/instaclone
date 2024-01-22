@@ -1,8 +1,10 @@
 require 'rails_helper'
 require './spec/helpers/feeds_helper'
+require './spec/helpers/search_helper'
 
 RSpec.describe User, :type => :model do
   include FeedsHelper
+  include SearchHelper
   subject { create(:user) }
 
   context 'validation' do
@@ -336,6 +338,12 @@ RSpec.describe User, :type => :model do
 
       expect(user.feeds.count).to eq 4
       expect(user.feeds.map(&:user).uniq.sort).to eq [user, @user_following].sort
+    end
+  end
+
+  context 'search' do
+    it 'can be found' do
+      test_search {|d| expect(User.search(d[0])).to eq d[1] }
     end
   end
 end

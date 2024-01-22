@@ -1,9 +1,17 @@
 require 'system_helper'
 require './spec/helpers/system_posts_helper'
+require './spec/helpers/search_helper'
 
 RSpec.describe 'Users profile page', type: :system do
   include SystemPostsHelper
+  include SearchHelper
   before(:each) { @user = create(:user, private: false); @user2 = create(:user) }
+
+  def do_search(q)
+    find('#search_query').set q
+    wait_for_turbo
+    sleep 0.2 # delay on change
+  end
 
   describe 'user' do
     context 'show profile page' do
@@ -155,6 +163,43 @@ RSpec.describe 'Users profile page', type: :system do
         within_first_post { first('.top-comment .username').click }
         assert_current_path user_path(@user)
       end
+
+      it 'tries by search results username' do
+        create_post_and_comments
+        login_and_visit_root(@user)
+        find('#search_query').click
+        do_search(@user.username)
+        first('#search_results .username').click
+
+        assert_current_path user_path(@user)
+      end
+
+      it 'tries by search results profile picture' do
+        create_post_and_comments
+        login_and_visit_root(@user)
+        find('#search_query').click
+        do_search(@user.username)
+        first('#search_results .pp-img').click
+
+        assert_current_path user_path(@user)
+      end
+    end
+
+    context 'search' do
+      it 'can be find users' do
+        login_and_visit_root(@user)
+        
+        find('#search_query').click
+        test_search do |d|
+          do_search(d[0])
+          if d[1].any?
+            expected = d[1].map(&:username)
+            expect(all('#search_results .username').map(&:text)).to eq expected
+          else
+            within('#search_results') { assert_content I18n.t('no_results')}
+          end
+        end
+      end
     end
   end
 
@@ -166,7 +211,6 @@ RSpec.describe 'Users profile page', type: :system do
     user2 = create(:user)
     user3 = create(:user)
     create(:like, user: @user, post: post)
-    create(:like, user: user3, post: post)
   end
 
   def create_post_and_comments

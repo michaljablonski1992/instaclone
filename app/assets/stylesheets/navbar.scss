@@ -1,5 +1,12 @@
 #user-navbar {
   .search-input {
-    background: #efefef;
+    background: var(--input-background-color);
+  }
+  #search_query {
+    background: var(--input-background-color);
+  }
+
+  #search-results-cnt {
+    width: 25rem;
   }
 }

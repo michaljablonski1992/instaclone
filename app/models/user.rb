@@ -38,6 +38,11 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
 
+  def self.search(q)
+    _q = "%#{q.downcase}%"
+    User.where("lower(username) LIKE ? or lower(full_name) LIKE ?", _q, _q)
+  end
+
   def profile_picture
     (profile_pic.attached? && profile_pic.blob.present? && profile_pic.blob.persisted?) ? profile_pic : DEF_PP
   end

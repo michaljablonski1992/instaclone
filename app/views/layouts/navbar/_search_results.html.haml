@@ -1,0 +1,15 @@
+%ul#search-results-cnt.dropdown-menu.px-3.py-2.mt-2
+  = turbo_frame_tag 'search_results' do
+    - if users.any?
+      - users.each do |u|
+        %li.my-2
+          .d-flex.justify-content-between
+            .d-flex
+              = link_to u, class: 'no-decor', target: '_top' do
+                = image_tag u.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
+              .d-flex.flex-column.mx-3.justify-content-center
+                %small.fw-bold.username.big
+                  = link_to u, class: 'no-decor', target: '_top' do
+                    = u.username
+    - else
+      %li.text-center= t('no_results')

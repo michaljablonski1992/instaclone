@@ -4,8 +4,7 @@
       = image_tag 'logo.png', id: 'logo-img'
     .d-flex.gap-2
       #navbarSupportedContent.collapse.navbar-collapse
-        %form.d-flex.me-5{ role: 'search' }
-          %input.form-control.me-2.border-0.search-input{ aria_label: 'Search', placeholder: t('search'), type: :search}
+        = render 'layouts/navbar/search'
         .navbar-collapse.gap-4.d-flex
           = link_to root_path, class: 'text-dark' do
             %i.fa-solid.fa-house.fa-xl
