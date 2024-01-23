@@ -1,4 +1,5 @@
 class UserMailer < Devise::Mailer
+  include MailerHelper
   layout 'bootstrap-mailer'
   default template_path: 'devise/mailer'
 
