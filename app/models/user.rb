@@ -72,6 +72,9 @@ class User < ApplicationRecord
     suggestions = suggestions.flatten.uniq
     suggestions = (suggestions - [followings, self].flatten)
     suggestions = suggestions.sample(count)
+    if suggestions.blank?
+      suggestions = User.where.not(id: [followings, self].flatten).sample(count)
+    end
     suggestions
   end
 
