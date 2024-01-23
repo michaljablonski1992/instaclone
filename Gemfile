@@ -49,6 +49,7 @@ gem 'sassc-rails'
 
 # bootrap support
 gem 'bootstrap', '~> 5.3.2'
+gem 'bootstrap-email'
 
 # internationalization
 gem 'rails-i18n'

@@ -71,6 +71,8 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
@@ -83,8 +85,8 @@ Rails.application.configure do
     address:         'smtp.gmail.com',
     port:            587,
     domain:          'instaclone.com',
-    user_name:       'macscrat5@gmail.com ',
-    password:        'cszu vjyl tmvr deeg',
+    user_name:       Rails.application.credentials.smtp[:username],
+    password:        Rails.application.credentials.smtp[:password],
     authentication:  'plain',
     enable_starttls: true,
     open_timeout:    5,
