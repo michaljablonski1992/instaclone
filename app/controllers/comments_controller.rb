@@ -1,10 +1,17 @@
 class CommentsController < ApplicationController
   before_action :set_post, only: [:create]
   def create 
-    @comment = @post.comments.create(user: current_user, body: params[:comment_body])
+    if @post.allow_comments?
+      @comment = @post.comments.create(user: current_user, body: params[:comment_body])
+    end
 
     respond_to do |format|
-      format.turbo_stream
+      if @post.allow_comments?
+        format.turbo_stream
+      else
+        format.html { redirect_to root_path, status: :unprocessable_entity }
+        format.json { render json: {}, status: :unprocessable_entity }
+      end
     end
   end
 

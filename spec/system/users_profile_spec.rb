@@ -10,7 +10,7 @@ RSpec.describe 'Users profile page', type: :system do
   def do_search(q)
     find('#search_query').set q
     wait_for_turbo
-    sleep 0.2 # delay on change
+    sleep 0.5 # delay on change
   end
 
   describe 'user' do
@@ -100,6 +100,44 @@ RSpec.describe 'Users profile page', type: :system do
         7.times { create(:post, user: @user) }
         visit user_path(@user)
         expect(find('.posts-count').text).to eq I18n.t('views.users.posts_x', count: 7)
+      end
+
+      it "sees post's comments count if post allows commenting" do
+        create(:post, user: @user, allow_comments: true)
+        login_as @user
+        visit user_path(@user)
+
+        first('.profile-post').hover
+        within first('.profile-post') { assert_css('.profile-post-comments') }
+      end
+
+      it "cannot see post's comments count if post doesn't allow commenting" do
+        create(:post, user: @user, allow_comments: false)
+        login_as @user
+        visit user_path(@user)
+
+        first('.profile-post').hover
+        within first('.profile-post') { assert_no_css('.profile-post-comments') }
+      end
+
+      it "sees post's likes count if post allows it" do
+        user = create(:user, private: false)
+        create(:post, user: user, show_likes_count: true)
+        login_as @user
+        visit user_path(user)
+
+        first('.profile-post').hover
+        within first('.profile-post') { assert_css('.profile-post-likes') }
+      end
+
+      it "cannot see post's likes count if post doesn't allow it" do
+        user = create(:user, private: false)
+        create(:post, user: user, show_likes_count: false)
+        login_as @user
+        visit user_path(user)
+
+        first('.profile-post').hover
+        within first('.profile-post') { assert_no_css('.profile-post-likes') }
       end
     end
 

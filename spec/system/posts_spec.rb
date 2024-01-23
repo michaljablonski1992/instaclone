@@ -209,6 +209,7 @@ RSpec.describe 'Posts', type: :system do
         assert_no_css '.top-comment'
         # assert no commentators
         find('.show-comments-btn').click
+        assert_css('.comments-modal')
         within('.comments-modal') do
           assert_css('.no-comments-msg')
           sleep 0.3
@@ -285,6 +286,42 @@ RSpec.describe 'Posts', type: :system do
         assert_no_css '.top-comment'
         # assert comments - modal
         within('.comments-modal') { assert_css('.no-comments-msg') }
+      end
+    end
+
+    it 'cannot add comment / see comments info if post not allow it' do
+      user = create(:user, private: false)
+      @user.follow!(user)
+      create(:post, user: user, allow_comments: false)
+      # sign in, visit root
+      login_and_visit_root(@user)
+      within_first_post do
+        assert_no_css('.comments-cnt')
+        assert_no_css('.show-comments-btn')
+        assert_no_css('.comments-modal', visible: :all)
+        assert_no_css('.add-comment-form')
+      end
+    end
+
+    it 'cannot see likes count and likers list if post does not allow it' do
+      user = create(:user, private: false)
+      @user.follow!(user)
+      create(:post, user: user, show_likes_count: false)
+      # sign in, visit root
+      login_and_visit_root(@user)
+      within_first_post do
+        assert_no_css('.post-likes')
+        assert_no_css('.likers-modal', visible: :all)
+      end
+    end
+
+    it 'can see likes count and likers list for own post even if post does not allow it' do
+      create(:post, user: @user, show_likes_count: false)
+      # sign in, visit root
+      login_and_visit_root(@user)
+      within_first_post do
+        assert_css('.post-likes')
+        assert_css('.likers-modal', visible: :all)
       end
     end
 

@@ -1,12 +1,16 @@
 .col-lg-4.col-md-6.col-sm-8.p-3.mb-4.profile-post
   = link_to post do
     = image_tag post.images.first, class: 'img-thumbnail'
-    .d-flex.align-items-center.justify-content-center.gap-1.w-100.profile-post-likes
-      %i.fa-solid.fa-heart.fa-xl.text-white
-      %small.text-white.fw-bold
-        = post.likes.count
-      %i.fa-solid.fa-comment.fa-xl.fa-flip-horizontal.text-white
-      %small.text-white.fw-bold
-        = post.comments.count
+    .d-flex.align-items-center.justify-content-center.gap-1.w-100.profile-post-info 
+      - if current_user == post.user || post.show_likes_count?
+        %span.profile-post-likes
+          %i.fa-solid.fa-heart.fa-xl.text-white
+          %small.text-white.fw-bold
+            = post.likes.count
+      - if post.allow_comments?
+        %span.profile-post-comments
+          %i.fa-solid.fa-comment.fa-xl.fa-flip-horizontal.text-white
+          %small.text-white.fw-bold
+            = post.comments.count
     - if post.images.count > 1
       %i.fa-solid.fa-images.text-white.multiple-images

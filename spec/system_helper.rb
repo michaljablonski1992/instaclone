@@ -41,8 +41,8 @@ end
 def assert_css(selector, **args)
   expect(page).to have_css(selector, **args)
 end
-def assert_no_css(selector)
-  expect(page).to have_no_css(selector)
+def assert_no_css(selector, **args)
+  expect(page).to have_no_css(selector, **args)
 end
 
 def assert_current_path(path)

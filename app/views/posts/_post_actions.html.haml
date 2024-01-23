@@ -2,9 +2,11 @@
   .d-flex.justify-content-start.align-items-center.gap-1.mb-3
     = button_to toggle_like_path(post_id: post.id), method: :post, class: 'like-btn', id: "##{post_actions_id(post)}-likeBtn" do
       %i{ class: "#{post.liked_by_user?(current_user) ? "fa-solid text-danger" : "fa-regular"} fa-heart fa-xl" }
-    %a.no-decor.show-comments-btn{ data: { bs_target: "#post#{post.id}_commentsModal", bs_toggle: 'modal' }, href: "#"}
-      %i.fa-regular.fa-comment.fa-xl.fa-flip-horizontal.text-dark
-  %a.text-dark.no-decor{ href: '#', data: { bs_target: "##{post_id(post)}_likesModal", bs_toggle: 'modal' } }
-    %small.fw-bold.my-1.post-likes
-      = t('views.post_card.likes_x', count: post.likes.count)
-  = render 'posts/likers_modal', post: post
+    - if post.allow_comments?
+      %a.no-decor.show-comments-btn{ data: { bs_target: "#post#{post.id}_commentsModal", bs_toggle: 'modal' }, href: "#"}
+        %i.fa-regular.fa-comment.fa-xl.fa-flip-horizontal.text-dark
+  - if current_user == post.user || post.show_likes_count?
+    %a.text-dark.no-decor{ href: '#', data: { bs_target: "##{post_id(post)}_likesModal", bs_toggle: 'modal' } }
+      %small.fw-bold.my-1.post-likes
+        = t('views.post_card.likes_x', count: post.likes.count)
+      = render 'posts/likers_modal', post: post
