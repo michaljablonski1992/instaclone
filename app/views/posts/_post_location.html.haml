@@ -1,0 +1,11 @@
+- data = { lng: post.longitude.to_f,                              |
+  lat: post.latitude.to_f,                                        |
+  location_provided: post.location_provided?.to_s,                |
+  maps_target: 'location', action: 'click->maps#show_location' }  |
+.location-cnt.text-muted{data: { controller: 'maps' }, class: ('location-provided' if post.location_provided?)}
+  %i.fa-solid.fa-earth-europe
+  %span.location.ms-1{ data: data }
+    - if post.location_provided?
+      %i.fa.fa-spinner.fa-spin
+    - else
+      = t('views.post_modal.no_location_set')

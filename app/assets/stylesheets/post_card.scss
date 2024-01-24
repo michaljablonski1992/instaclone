@@ -41,4 +41,11 @@
   .pp-img, .post-username-link {
     vertical-align: middle;
   }
+
+  .location-cnt {
+    cursor: default;
+    &.location-provided {
+      cursor: pointer;
+    }
+  }
 }

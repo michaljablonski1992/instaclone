@@ -1,0 +1,19 @@
+:css
+  #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;};
+:javascript
+  document.addEventListener('turbo:load', function(){
+    document.getElementById('mapModal').addEventListener('shown.bs.modal', function (event) {
+      window.loadMap('map');
+    })
+  });
+
+#mapModal.modal.fade.modal-xl{aria: { hidden: 'true', labelledby: 'mapModalLabel'}, tabindex: "-1", data: { bs_backdrop: 'static', bs_keyboard: 'false' } }
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %h5#mapModalLabel.modal-title= t('views.post_modal.set_location')
+      .modal-body
+        #map
+      .modal-footer
+        %button.btn.btn-primary#confirm-location{ data: { controller: 'maps', action: 'click->maps#confirm_location', bs_dismiss: 'modal', bs_target: '#postModal', bs_toggle: 'modal' }}
+          = t('views.post_modal.confirm_location')

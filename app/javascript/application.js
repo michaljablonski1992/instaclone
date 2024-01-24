@@ -6,4 +6,7 @@ import 'bootstrap'
 import 'filepond'
 import 'custom/post_images_filepond'
 import 'filepond-plugin-image-preview'
-import 'filepond-plugin-file-validate-type';
+import 'filepond-plugin-file-validate-type'
+import 'leaflet'
+import 'leaflet-geocoder'
+import 'custom/leaflet_map'

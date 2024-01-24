@@ -16,4 +16,13 @@
   .filepond--root {
     max-height: 22rem;
   }
+  #set-location-btn {
+    cursor: pointer;
+  }
+}
+
+#mapModal {
+  .modal-body {
+    min-height: 40rem;
+  }
 }

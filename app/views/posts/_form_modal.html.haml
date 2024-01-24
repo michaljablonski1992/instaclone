@@ -1,6 +1,8 @@
 #postModal.modal.fade.modal-lg{ tabindex:'-1', aria_hidden: 'true', aria_labelledby: 'postModalLabel', data: { bs_backdrop: 'static', bs_keyboard: 'false' }}
   .modal-dialog.modal-dialog-centered
     = form_with model: post, class: 'w-100' do |form|
+      = form.hidden_field :longitude
+      = form.hidden_field :latitude
       .modal-content
         .modal-header
           %h5#postModalLabel.modal-title= t('views.post_modal.create_new_post')
@@ -21,11 +23,13 @@
             %div.mb-2
               = form.text_area :caption, rows: 8, placeholder: t('views.post_modal.caption_placeholder'), class: 'caption-area form-control border-0'
             %div
-              = form.text_field :location, placeholder: t('views.post_modal.location_placeholder'), class: 'form-control'
+              #set-location-btn.text-center.form-control.text-muted{data: { bs_dismiss: 'modal', bs_target: '#mapModal', bs_toggle: 'modal' }}
+                %i.fa-solid.fa-earth-europe
+                %span.location= t('views.post_modal.no_location_set')
             #adv-settings-accordion.accordion.mt-2
               .accordion-item
                 %h2#adv-settings-accordion-one.accordion-header
-                  %button.form-contro.accordion-button.collapsed{ :type => 'button',               |
+                  %button.form-control.accordion-button.collapsed{ :type => 'button',               |
                       aria_controls: 'adv-settings-accordion-collapseOne', aria_expanded: 'false', |
                       data: { bs_target: '#adv-settings-accordion-collapseOne', bs_toggle: 'collapse' }}
                     = t('views.post_modal.adv_settings')

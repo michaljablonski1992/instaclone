@@ -39,7 +39,8 @@
       - if post.allow_comments?
         = render 'posts/post_comments', post: post
         = render 'posts/comments_modal', post: post
-      .card-text.mt-2
+      .card-text.mt-3
+        = render 'posts/post_location', post: post
         %span.fw-bold= post.user.username
         %span= post.caption
       %small.text-muted= time_ago_in_words(post.created_at)
