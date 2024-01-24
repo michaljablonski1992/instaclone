@@ -29,8 +29,11 @@ export default class extends Controller {
   show_location(e) {
     let el = e.currentTarget;
     if(el.classList.contains('location-loaded')) {
-      var modal = new bootstrap.Modal(document.getElementById('mapModal'), {});
-      modal.show();
+      let modal_cnt = document.getElementById('mapModal');
+      let modal = new bootstrap.Modal(document.getElementById('mapModal'), {});
+      modal_cnt.querySelector('.modal-footer').classList.add('d-none');
+      modal_cnt.querySelector('.btn-close').classList.remove('d-none');
+      modal.show(el);
     }
   }
 }
