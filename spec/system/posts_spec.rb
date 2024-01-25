@@ -10,6 +10,54 @@ RSpec.describe 'Posts', type: :system do
   include DomIdsHelper
   before(:each) { @user = create(:user) }
 
+  def fill_post
+    within '#postModal' do
+      page.attach_file(Rails.root.join('spec/fixtures/image.png')) do
+        find('.filepond--drop-label').click
+      end
+      find('#post_caption').set 'Example caption'
+    end
+  end
+
+  def do_location_test(confirm: true, location: nil, exp_longitude: nil, exp_latitude: nil, exp_location_provided: false)
+    # sign in, visit root
+    login_and_visit_root(@user)
+    # click create post -> modal
+    find('#create-post').click
+    expect(page).to have_selector '#postModal.show'
+
+    # assert not location set, go to location map
+    within '#postModal' do
+      expect(find('.location').text).to eq I18n.t('views.post_modal.no_location_set')
+      sleep 0.3
+      find('#set-location-btn').click
+    end
+
+    # within map do not set anything and click confirm
+    expect(page).to have_selector '#mapModal.show'
+    within '#mapModal' do
+      expect(page).to have_selector '#map.leaflet-container'
+      expect(page).to have_selector '#confirm-location'
+      if location.present? # set location
+        find('.leaflet-control-geocoder-form > input').set location
+        expect(page).to have_selector '.leaflet-control-geocoder-alternatives'
+        first('.leaflet-control-geocoder-alternatives > li').click
+      end
+      # confirm or go back
+      confirm ? find('#confirm-location').click : find('.back-btn').click
+    end
+    expect(page).to have_selector '#postModal.show'
+
+    # create post, test if is OK in db
+    fill_post
+    click_on 'Post'
+    wait_for_turbo
+    post = Post.last
+    expect(post.longitude).to eq exp_longitude
+    expect(post.latitude).to eq exp_latitude
+    expect(post.location_provided?).to be exp_location_provided
+  end
+
   describe 'user' do
     it 'sees posts' do
       create_feeds(@user)
@@ -27,7 +75,7 @@ RSpec.describe 'Posts', type: :system do
       login_and_visit_root(@user)
       # click create post -> modal
       find('#create-post').click
-      expect(page).to have_selector '#postModal'
+      expect(page).to have_selector '#postModal.show'
 
       # click post, assert errors
       within('#postModal') { click_on 'Post' }
@@ -40,7 +88,7 @@ RSpec.describe 'Posts', type: :system do
       login_and_visit_root(@user)
       # click create post -> modal
       find('#create-post').click
-      expect(page).to have_selector '#postModal'
+      expect(page).to have_selector '#postModal.show'
 
       # click post, assert errors
       within('#postModal') do 
@@ -66,21 +114,13 @@ RSpec.describe 'Posts', type: :system do
 
       # click create post -> modal
       find('#create-post').click
-      expect(page).to have_selector '#postModal'
+      expect(page).to have_selector '#postModal.show'
 
-      # fill
-      within('#postModal') do
-        # add non valid file - only images allowed
-        page.attach_file(Rails.root.join('spec/fixtures/image.png')) do
-          find('.filepond--drop-label').click
-        end
-        find('#post_caption').set 'Example caption'
-
-        click_on 'Post'
-      end
+      fill_post
+      click_on 'Post'
 
       # assert post has been made
-      expect(page).to_not have_selector '#postModal'
+      expect(page).to_not have_selector '#postModal.show'
       assert_flash 'Post was successfully created'
       expect(Post.count).to be 1
       expect(all('#posts-list > .post-cnt').count).to be 1
@@ -339,6 +379,62 @@ RSpec.describe 'Posts', type: :system do
         find('.show-comments-btn').click
         within first('.modal-comment-cnt .modal-comment') do
           assert_no_css '.btn-delete-comment'
+        end
+      end
+    end
+
+    context 'using maps' do
+      it "can go to 'set postion' map, set nothing and confirm" do
+        do_location_test
+      end
+
+      it "can go to 'set postion' map, set nothing and go back" do
+        do_location_test(confirm: false)
+      end
+
+      it "can go to 'set postion' map, set location and confirm" do
+        do_location_test(location: 'Warsaw', exp_longitude: 21.071432, exp_latitude: 52.233717, exp_location_provided: true)
+      end
+
+      it "can go to 'set postion' map, set location and go back" do
+        do_location_test(confirm: false, location: 'Warsaw')
+      end
+
+      it 'cannot see location if not provided' do
+        post = create(:post, user: @user)
+        # sign in, visit root
+        login_and_visit_root(@user)
+        within_first_post do
+          # no location set info
+          expect(find('.location').text).to eq I18n.t('views.post_modal.no_location_set')
+          # can't be clicked
+          find('.location').click
+        end
+        # no map - location can't be clicked
+        expect(page).to_not have_selector '#mapModal.show'
+      end
+
+      it 'cannot see location if provided' do
+        longitude = 21.071432
+        latitude = 52.233717
+        post = create(:post, user: @user, longitude: longitude, latitude: latitude)
+        # sign in, visit root
+        login_and_visit_root(@user)
+        within_first_post do
+          expect(page).to have_selector '.location-loaded'
+          # location info
+          expect(find('.location').text).to eq 'Warsaw, Poland'
+          # can be clicked
+          find('.location').click
+        end
+        # map shows - location can be clicked
+        expect(page).to have_selector '#mapModal.show'
+        within '#mapModal' do
+          # assert marker set properly
+          expect(find('.leaflet-popup-content').text).to eq 'Warsaw, Poland'
+          data = evaluate_script('Object.entries(window.map_markers._layers)[0][1]._latlng')
+          expect(data['lat']).to eq latitude
+          expect(data['lng']).to eq longitude
         end
       end
     end

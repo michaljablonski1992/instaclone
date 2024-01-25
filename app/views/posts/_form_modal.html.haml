@@ -23,7 +23,7 @@
             %div.mb-2
               = form.text_area :caption, rows: 8, placeholder: t('views.post_modal.caption_placeholder'), class: 'caption-area form-control border-0'
             %div
-              #set-location-btn.text-center.form-control.text-muted{data: { bs_dismiss: 'modal', bs_target: '#mapModal', bs_toggle: 'modal' }}
+              #set-location-btn.text-center.form-control.text-muted{ data: { bs_dismiss: 'modal', bs_target: '#mapModal', bs_toggle: 'modal' }}
                 %i.fa-solid.fa-earth-europe
                 %span.location= t('views.post_modal.no_location_set')
             #adv-settings-accordion.accordion.mt-2

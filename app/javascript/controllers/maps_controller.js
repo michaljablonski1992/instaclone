@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = [ 'location' ]
+  static targets = [ 'location', 'modal' ]
 
   confirm_location(){
     if(window.location_geocoder._geocodeMarker !== undefined) {
@@ -36,4 +36,33 @@ export default class extends Controller {
       modal.show(el);
     }
   }
+
+  modalTargetConnected(el) {
+    el.addEventListener('show.bs.modal', function (event) {
+      if(!event.relatedTarget.classList.contains('location')) {
+        el.querySelector('.modal-footer').classList.remove('d-none');
+        el.querySelector('.btn-close').classList.add('d-none');
+      }
+    })
+    el.addEventListener('shown.bs.modal', function (event) {
+      // load map on modal shown - preload not needed
+      window.loadMap('map');
+
+      // if shown as 'Show location'
+      if(event.relatedTarget.classList.contains('location')) {
+        window.location_geocoder._container.classList.add('d-none');
+        let lat = event.relatedTarget.dataset.lat;
+        let lng = event.relatedTarget.dataset.lng;
+        window.map_markers.clearLayers();
+        let marker = L.marker([lat, lng])
+        marker.addTo(window.map_markers);
+        marker.bindPopup(event.relatedTarget.innerHTML, {closeButton: false, closeOnClick: false}).openPopup();
+        window.location_map.setView([lat, lng], 15);
+      } else { // else - shown as 'Set location' on post's creation
+        window.location_geocoder._container.classList.remove('d-none');
+      }
+    })
+  }
+
+
 }

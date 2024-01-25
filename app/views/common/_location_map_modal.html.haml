@@ -1,33 +1,4 @@
-:css
-  #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;};
-:javascript
-  document.addEventListener('turbo:load', function(){
-    let modal = document.getElementById('mapModal')
-    modal.addEventListener('show.bs.modal', function (event) {
-      if(!event.relatedTarget.classList.contains('location')) {
-        modal.querySelector('.modal-footer').classList.remove('d-none');
-        modal.querySelector('.btn-close').classList.add('d-none');
-      }
-    })
-    modal.addEventListener('shown.bs.modal', function (event) {
-      window.loadMap('map');
-      if(event.relatedTarget.classList.contains('location')) {
-        window.location_geocoder._container.classList.add('d-none');
-        let lat = event.relatedTarget.dataset.lat;
-        let lng = event.relatedTarget.dataset.lng;
-        window.map_markers.clearLayers();
-        let marker = L.marker([lat, lng])
-        marker.addTo(window.map_markers);
-        console.log(event.relatedTarget);
-        marker.bindPopup(event.relatedTarget.innerHTML, {closeButton: false, closeOnClick: false}).openPopup();
-        window.location_map.setView([lat, lng], 15);
-      } else {
-        window.location_geocoder._container.classList.remove('d-none');
-      }
-    })
-  });
-
-#mapModal.modal.fade.modal-xl{aria: { hidden: 'true', labelledby: 'mapModalLabel'}, tabindex: "-1", data: { bs_backdrop: 'static', bs_keyboard: 'false' } }
+#mapModal.modal.fade.modal-xl{aria: { hidden: 'true', labelledby: 'mapModalLabel'}, tabindex: "-1", data: { controller: 'maps', maps_target: 'modal', bs_backdrop: 'static', bs_keyboard: 'false' } }
   .modal-dialog.modal-dialog-centered
     .modal-content
       .modal-header
@@ -35,6 +6,8 @@
         %button.btn-close.d-none{ value: 'Close', type: :button, aria: { label: 'Close' }, data: { bs_dismiss: 'modal' }}
       .modal-body
         #map
-      .modal-footer
-        %button.btn.btn-primary#confirm-location{ data: { controller: 'maps', action: 'click->maps#confirm_location', bs_dismiss: 'modal', bs_target: '#postModal', bs_toggle: 'modal' }}
+      .modal-footer.justify-content-between
+        %button.btn.btn-primary.back-btn{ data: { bs_dismiss: 'modal', bs_target: '#postModal', bs_toggle: 'modal' }}
+          = t('back')
+        %button.btn.btn-success#confirm-location{ data: { controller: 'maps', action: 'click->maps#confirm_location', bs_dismiss: 'modal', bs_target: '#postModal', bs_toggle: 'modal' }}
           = t('views.post_modal.confirm_location')
