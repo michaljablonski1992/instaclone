@@ -321,6 +321,11 @@ GEM
       rspec-expectations (~> 3.12)
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
+    rspec-sidekiq (4.1.0)
+      rspec-core (~> 3.0)
+      rspec-expectations (~> 3.0)
+      rspec-mocks (~> 3.0)
+      sidekiq (>= 5, < 8)
     rspec-support (3.12.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -336,6 +341,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.2.1)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.19.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -409,8 +419,10 @@ DEPENDENCIES
   rails-i18n
   redis (>= 4.0.1)
   rspec-rails
+  rspec-sidekiq
   sassc-rails
   selenium-webdriver
+  sidekiq (~> 7.2.1)
   sprockets-rails
   stimulus-rails
   turbo-rails

@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'capybara/rails'
+require 'devise'
 
 RSpec.configure do |config|
   config.expect_with(:rspec) { |c| c.syntax = :expect }

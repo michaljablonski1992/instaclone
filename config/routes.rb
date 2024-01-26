@@ -1,4 +1,12 @@
+require 'sidekiq/web'
+Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+  ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(Rails.application.credentials.sidekiq[:username])) &
+    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(Rails.application.credentials.sidekiq[:password]))
+end 
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+
   root "home#index"
   get :discover, to: 'home#discover', as: :discover
   

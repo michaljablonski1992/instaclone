@@ -41,5 +41,8 @@
                     .form-check.form-switch
                       = form.check_box :show_likes_count, class: 'form-check-input', role: 'switch', checked: true
                       = form.label :show_likes_count, class: 'form-check-label d-block'
+                    .form-check.form-switch
+                      = form.check_box :is_story, class: 'form-check-input', role: 'switch', checked: false
+                      = form.label :is_story, t('views.post_modal.is_story'), class: 'form-check-label d-block'
         .modal-footer
           = form.submit t('views.post_modal.post'), class: 'btn btn-primary'
