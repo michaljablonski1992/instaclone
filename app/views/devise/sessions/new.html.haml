@@ -17,9 +17,7 @@
             .line
             %h2.line-text= t('or').upcase
             .line
-          %a.d-block.mt-4.text-decoration-none.fw-bold{ href: '#' }
-            = image_tag 'facebook.png', class: 'facebook'
-            = t('views.devise.login_w_fb')
+          = render 'common/login_facebook'
           .mt-3
             = render 'layouts/flash'
           %a.fs-6.d-block.my-4.text-decoration-none{ href: '#' }= t('views.devise.forgot_password')

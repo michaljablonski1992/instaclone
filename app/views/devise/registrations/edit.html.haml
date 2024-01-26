@@ -35,19 +35,20 @@
         = f.label :phone_number, class: 'col-sm-4 col-form-label fw-bold'
         .col-sm-8
           = f.text_field :phone_number, placeholder: t('views.devise.phone_number_placeholder'), autofocus: true, class: 'form-control'
-      .row.mb-3
-        = f.label :new_password, class: 'col-sm-4 col-form-label fw-bold'
-        .col-sm-8
-          = f.password_field :password, placeholder: t('views.devise.new_password_placeholder'), autofocus: true, class: 'form-control'
-          %small.text-muted= t('views.devise.new_password_info')
-      .row.mb-3
-        = f.label :new_password_confirmation, class: 'col-sm-4 col-form-label fw-bold'
-        .col-sm-8
-          = f.password_field :password_confirmation, placeholder: t('views.devise.new_password_confirmation_placeholder'), autofocus: true, class: 'form-control'
-      .row.mb-3
-        = f.label :current_password, class: 'col-sm-4 col-form-label fw-bold'
-        .col-sm-8
-          = f.password_field :current_password, placeholder: t('views.devise.current_password_placeholder'), autofocus: true, class: 'form-control'
-          %small.text-muted= t('views.devise.current_password_req_info')
+      - unless resource.from_omniauth?
+        .row.mb-3
+          = f.label :new_password, class: 'col-sm-4 col-form-label fw-bold'
+          .col-sm-8
+            = f.password_field :password, placeholder: t('views.devise.new_password_placeholder'), autofocus: true, class: 'form-control'
+            %small.text-muted= t('views.devise.new_password_info')
+        .row.mb-3
+          = f.label :new_password_confirmation, class: 'col-sm-4 col-form-label fw-bold'
+          .col-sm-8
+            = f.password_field :password_confirmation, placeholder: t('views.devise.new_password_confirmation_placeholder'), autofocus: true, class: 'form-control'
+        .row.mb-3
+          = f.label :current_password, class: 'col-sm-4 col-form-label fw-bold'
+          .col-sm-8
+            = f.password_field :current_password, placeholder: t('views.devise.current_password_placeholder'), autofocus: true, class: 'form-control'
+            %small.text-muted= t('views.devise.current_password_req_info')
       .d-flex.mb-2.justify-content-center
         = f.submit t('submit'), class: 'btn btn-primary'
