@@ -1,0 +1,12 @@
+.container.home-sections.d-flex.flex-row.justify-content-center.align-items-center
+  .login-section.pt-3
+    .card.text-center.pt-3.mx-auto.login-cnt
+      = image_tag 'logo.png', class: 'card-img-top'
+      .card-body
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          .mb-3
+            = f.text_field :email, class: 'form-control', placeholder: t('views.devise.email_placeholder'), value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+          = f.submit t('views.devise.send_reset_pass'), class:  'btn btn-primary w-100'
+        .mt-3
+          = render 'devise/shared/error_messages_inner', resource: resource
+    = render 'devise/shared/links'

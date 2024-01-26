@@ -26,4 +26,7 @@ en:
       settings: Settings
       edit_profile: Edit profile
       discover_acc_info: "Help people discover your account by using the name you're known by: either your full name or business name."
+      resend_conf: Resend confirmation instructions
+      send_reset_pass: Send me reset password instructions
+      change_my_pass: Change my password
       

@@ -1,0 +1,7 @@
+.card.text-center.py-2.mt-3.mx-auto.login-cnt
+  .card-text
+    = t('views.devise.h_acc')
+    = link_to t('views.devise.log_in'), new_session_path(resource_name), class: 'fs-6 my-4 text-decoration-none text-info'
+  .card-text
+    = t('views.devise.dont_h_acc')
+    = link_to t('views.devise.sign_up'), new_registration_path(resource_name), class: 'fs-6 my-4 text-decoration-none'

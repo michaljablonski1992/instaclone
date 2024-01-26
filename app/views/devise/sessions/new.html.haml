@@ -20,7 +20,7 @@
           = render 'common/login_facebook'
           .mt-3
             = render 'layouts/flash'
-          %a.fs-6.d-block.my-4.text-decoration-none{ href: '#' }= t('views.devise.forgot_password')
+          = link_to t('views.devise.forgot_password'), new_password_path(resource_name), class: ' fs-6 d-block my-4 text-decoration-none'
       .card.text-center.py-2.mt-3.login-cnt
         .card-text
           = t('views.devise.dont_h_acc')
