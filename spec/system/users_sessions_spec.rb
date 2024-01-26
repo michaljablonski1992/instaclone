@@ -46,8 +46,7 @@ RSpec.describe 'Users sessions', type: :system do
 
     context 'tries to logout' do
       it 'uses logout button' do
-        login_as(@user)
-        visit root_path
+        login_and_visit_root(@user)
 
         sign_out
         within('.flash') { assert_content I18n.t('devise.sessions.signed_out') }

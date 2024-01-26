@@ -8,8 +8,7 @@ RSpec.describe 'Follows feature', type: :system do
   describe 'user' do
     it 'follows another user' do
       # login user and visit another's user profile page
-      login_as @user2
-      visit user_path(@user)
+      login_and_redirect(@user2, user_path(@user))
 
       test_follow
     end
@@ -19,16 +18,14 @@ RSpec.describe 'Follows feature', type: :system do
       @user2.follow!(@user)
 
       # login user and visit another's user profile page
-      login_as @user2
-      visit user_path(@user)
+      login_and_redirect(@user2, user_path(@user))
 
       test_unfollow
     end
 
     it 'send follow request to private user' do
       # login user and visit another's user profile page
-      login_as @user
-      visit user_path(@user2)
+      login_and_redirect(@user, user_path(@user2))
 
       # assert no unfollow btn visible, do follow, btn follow changed to unfollow
       test_follow_private
@@ -38,8 +35,7 @@ RSpec.describe 'Follows feature', type: :system do
       @user.follow!(@user2)
 
       # login user and visit another's user profile page
-      login_as @user
-      visit user_path(@user2)
+      login_and_redirect(@user, user_path(@user2))
 
       test_cancel_follow_request
     end
@@ -52,8 +48,7 @@ RSpec.describe 'Follows feature', type: :system do
       user4.follow!(@user2)
 
       # login user
-      login_as @user2
-      visit root_path
+      login_and_visit_root(@user2)
 
       # open dropdown and assert followers that requested
       find('#user-navbar .follows-dropdown').click
@@ -65,8 +60,7 @@ RSpec.describe 'Follows feature', type: :system do
       @user.follow!(@user2)
 
       # login user and visit another's user profile page
-      login_as @user2
-      visit root_path
+      login_and_visit_root(@user2)
 
       # open dropdown and accept request
       expect(find('#follows-count').text).to eq '1'
@@ -84,8 +78,7 @@ RSpec.describe 'Follows feature', type: :system do
       @user.follow!(@user2)
 
       # login user and visit another's user profile page
-      login_as @user2
-      visit root_path
+      login_and_visit_root(@user2)
 
       # open dropdown and accept request
       expect(find('#follows-count').text).to eq '1'

@@ -18,8 +18,7 @@ RSpec.describe 'Users profile page', type: :system do
       it 'can see someones profile page' do
         @user2.update(private: false)
         4.times { create(:post, user: @user2) }
-        login_as @user
-        visit user_path(@user2)
+        login_and_redirect(@user, user_path(@user2))
 
         # can see profile info
         assert_profile_info_visible(@user2)
@@ -30,8 +29,7 @@ RSpec.describe 'Users profile page', type: :system do
 
       it 'cannot see someones posts on private user if not followed' do
         4.times { create(:post, user: @user2) }
-        login_as @user
-        visit user_path(@user2)
+        login_and_redirect(@user, user_path(@user2))
 
         # can see profile info
         assert_profile_info_visible(@user2)
@@ -46,8 +44,7 @@ RSpec.describe 'Users profile page', type: :system do
 
       it 'cannot see someones post on private user if not followed when entered manually' do
         post = create(:post, user: @user2)
-        login_as @user
-        visit post_path(post)
+        login_and_redirect(@user, post_path(post))
         assert_current_path root_path
       end
 
@@ -57,8 +54,7 @@ RSpec.describe 'Users profile page', type: :system do
         @user2.follow_requests.each(&:accept!)
 
         4.times { create(:post, user: @user2) }
-        login_as @user
-        visit user_path(@user2)
+        login_and_redirect(@user, user_path(@user2))
 
         # can see posts
         expect(all('.profile-posts-cnt .profile-post').count).to eq @user2.posts.count
@@ -73,14 +69,12 @@ RSpec.describe 'Users profile page', type: :system do
         post = create(:post, user: @user2)
 
         # login and see
-        login_as @user
-        visit post_path(post)
+        login_and_redirect(@user, post_path(post))
         assert_current_path post_path(post)
       end
 
       it 'sees info when no posts' do
-        login_as @user
-        visit user_path(@user)
+        login_and_redirect(@user, user_path(@user))
 
         # can't see posts - no posts yet
         assert_css '.no-posts-info'
@@ -90,8 +84,7 @@ RSpec.describe 'Users profile page', type: :system do
       end
 
       it 'sees his posts count' do
-        login_as @user
-        visit user_path(@user)
+        login_and_redirect(@user, user_path(@user))
 
         # assert no posts yet
         expect(find('.posts-count').text).to eq I18n.t('views.users.posts_x', count: 0)
@@ -104,8 +97,7 @@ RSpec.describe 'Users profile page', type: :system do
 
       it "sees post's comments count if post allows commenting" do
         create(:post, user: @user, allow_comments: true)
-        login_as @user
-        visit user_path(@user)
+        login_and_redirect(@user, user_path(@user))
 
         first('.profile-post').hover
         within first('.profile-post') { assert_css('.profile-post-comments') }
@@ -113,8 +105,7 @@ RSpec.describe 'Users profile page', type: :system do
 
       it "cannot see post's comments count if post doesn't allow commenting" do
         create(:post, user: @user, allow_comments: false)
-        login_as @user
-        visit user_path(@user)
+        login_and_redirect(@user, user_path(@user))
 
         first('.profile-post').hover
         within first('.profile-post') { assert_no_css('.profile-post-comments') }
@@ -123,8 +114,7 @@ RSpec.describe 'Users profile page', type: :system do
       it "sees post's likes count if post allows it" do
         user = create(:user, private: false)
         create(:post, user: user, show_likes_count: true)
-        login_as @user
-        visit user_path(user)
+        login_and_redirect(@user, user_path(user))
 
         first('.profile-post').hover
         within first('.profile-post') { assert_css('.profile-post-likes') }
@@ -133,8 +123,7 @@ RSpec.describe 'Users profile page', type: :system do
       it "cannot see post's likes count if post doesn't allow it" do
         user = create(:user, private: false)
         create(:post, user: user, show_likes_count: false)
-        login_as @user
-        visit user_path(user)
+        login_and_redirect(@user, user_path(user))
 
         first('.profile-post').hover
         within first('.profile-post') { assert_no_css('.profile-post-likes') }

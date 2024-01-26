@@ -230,4 +230,19 @@ RSpec.describe 'Users registrations', type: :system do
     end
   end
 
+  describe 'user' do
+    context 'tries to edit registrations data' do
+      it 'submits data change without current password' do
+        user = create(:omni_user)
+        login_and_redirect(user, edit_user_registration_path)
+        find("#user_bio").set 'New bio'
+        click_button 'Submit'
+        within('#flash_message') { assert_content I18n.t('devise.registrations.updated') }
+        assert_current_path root_path
+
+        expect(user.reload.bio).to eq 'New bio'
+      end
+    end
+  end
+
 end

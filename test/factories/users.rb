@@ -10,4 +10,9 @@ FactoryBot.define do
     confirmed_at { 10.minutes.ago }
     private { true }
   end
+
+  factory :omni_user, parent: :user do
+    provider { 'facebook' }
+    uid { '1234567889' }
+  end
 end

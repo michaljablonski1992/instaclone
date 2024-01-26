@@ -21,8 +21,7 @@ RSpec.describe 'Suggestions feature', type: :system do
   def prepare_suggestions_page(count, _private: false, homepage: false)
     create_suggestions_mesh(count, _private: _private)
     # login user and visit another's user profile page
-    login_as @user2
-    visit root_path
+    login_and_visit_root(@user2)
     unless homepage
       find('#see-more-suggestions').click
       wait_for_turbo
