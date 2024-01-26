@@ -95,8 +95,8 @@ class User < ApplicationRecord
   end
 
   ## feeds
-  def feeds
-    Post.where(user: [self, self.followings].flatten).order(created_at: :desc)
+  def feeds(stories: false)
+    Post.where(user: [self, self.followings].flatten, is_story: stories).order(created_at: :desc)
   end
 
   ## discovers

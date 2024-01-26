@@ -1,3 +1,5 @@
+- user = story.user
 .d-flex.flex-column.justify-content-center.align-items-center.story
-  = image_tag 'user-pp.png', class: 'story-img img-thumbnail pp-img rounded-circle border border-2 border-primary'
-  %small.username.small Username is xyz
+  = link_to post_path(story), class: 'no-decor' do
+    %div= image_tag user.profile_picture, class: 'story-img img-thumbnail pp-img rounded-circle border border-2 border-primary'
+    %div.username.small= user.username
