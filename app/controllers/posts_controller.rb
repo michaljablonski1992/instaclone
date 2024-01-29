@@ -8,18 +8,13 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @show = true
-    redirect_to root_path and return  unless current_user.can_see_posts?(@post.user)
-  end
+    @show_modal = true
 
-  # GET /posts/new
-  def new
-    @post = Post.new
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to root_path }
+    end
   end
-
-  # GET /posts/1/edit
-  # def edit
-  # end
 
   # POST /posts or /posts.json
   def create
@@ -37,27 +32,12 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @post.update(post_params)
-  #       format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
-  #       format.json { render :show, status: :ok, location: @post }
-  #     else
-  #       format.html { render :edit, status: :unprocessable_entity }
-  #       format.json { render json: @post.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    from_show = (params[:from_show] == 'true')
     respond_to do |format|
       if @post.user == current_user
         @post.destroy!
-        red_path = from_show ? user_path(current_user) : root_path
-        format.html { redirect_to red_path, notice: I18n.t('views.posts.post_destroyed') }
+        format.html { redirect_to root_path, notice: I18n.t('views.posts.post_destroyed') }
         format.json { head :no_content }
       else
         format.html { head :unprocessable_entity }

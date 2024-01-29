@@ -232,6 +232,18 @@ RSpec.describe 'Posts', type: :system do
       test_follow("##{liker_id(user3)}")
     end
 
+    it "adds invalid comment" do
+      post = create(:post)
+      # sign in, visit root
+      login_and_visit_root(post.user)
+
+      within_first_post do
+        find('.comment-input').set ''
+        find('.post-btn').click
+      end
+      assert_flash "Comment can't be blank"
+    end
+
     it 'adds comment' do
       comment_body = 'Example comment test'
       post = create(:post)

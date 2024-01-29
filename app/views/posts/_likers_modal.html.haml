@@ -1,8 +1,8 @@
-.modal.fade.likers-modal{ id: "#{post_id(post)}_likesModal", aria: { hidden: 'true', labelledby: "#{post_id(post)}_likesModalLabel"} }
+.modal.fade.likers-modal{ id: post_likes_modal_id(post), aria: { hidden: 'true', labelledby: "##{post_likes_modal_label_id(post)}" } }
   .modal-dialog
     .modal-content
       .modal-header
-        %h5.modal-title{ id: "#{post_id(post)}_likesModalLabel" }= t('views.post_card.post_likers')
+        %h5.modal-title{ id: post_likes_modal_label_id(post) }= t('views.post_card.post_likers')
         %button.btn-close{ type: :button, aria: { label: 'Close' }, data: { bs_dismiss: 'modal' } }
       .modal-body
         .d-flex.flex-column.gap-3

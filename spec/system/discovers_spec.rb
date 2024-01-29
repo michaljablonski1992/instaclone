@@ -3,7 +3,7 @@ require 'system_helper'
 RSpec.describe 'Suggestions feature', type: :system do
   before(:each) { @user = create(:user, private: false); @user2 = create(:user) }
 
-  it 'can discovery new users by posts' do
+  it 'can discover new users by posts' do
     priv_users = []
     5.times { u = create(:user); create(:post, user: u); priv_users << u }
     users = []
@@ -18,5 +18,12 @@ RSpec.describe 'Suggestions feature', type: :system do
     @user.follow!(users.last)
     visit current_path
     expect(all('.profile-post').count).to eq 2
+  end
+
+  it 'sees info when nothing to discover' do
+    login_and_visit_root(@user)
+    find('#discover-link').click
+
+    assert_content I18n.t('views.discover.no_discover')
   end
 end

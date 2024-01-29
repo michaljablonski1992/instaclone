@@ -1,0 +1,5 @@
+- if current_user.can_see_posts?(@post.user)
+  = turbo_stream.update 'showPostModalBody', partial: 'posts/show'
+- else
+  - flash.now[:alert] = t('no_access')
+  = turbo_stream.prepend 'flash_message', partial: 'layouts/flash'

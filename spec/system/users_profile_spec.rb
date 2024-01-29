@@ -42,10 +42,13 @@ RSpec.describe 'Users profile page', type: :system do
         end
       end
 
-      it 'cannot see someones post on private user if not followed when entered manually' do
-        post = create(:post, user: @user2)
-        login_and_redirect(@user, post_path(post))
-        assert_current_path root_path
+      it 'cannot see someones post on private user if not followed when href entered manually' do
+        post1 = create(:post, user: @user)
+        post2 = create(:post, user: @user2)
+        login_and_visit_root(@user)
+        page.execute_script("document.getElementsByClassName('show-post-modal')[0].href = '#{post_path(post2)}'")
+        within_first_post { first('.show-post-modal .post-image').click }
+        assert_flash I18n.t('no_access')
       end
 
       it "can see private user's post when followed" do
@@ -58,19 +61,6 @@ RSpec.describe 'Users profile page', type: :system do
 
         # can see posts
         expect(all('.profile-posts-cnt .profile-post').count).to eq @user2.posts.count
-      end
-
-      it 'can see someones post on private user if followed when entered manually' do
-        # follow user
-        @user.follow!(@user2)
-        @user2.follow_requests.each(&:accept!)
-
-        # create post
-        post = create(:post, user: @user2)
-
-        # login and see
-        login_and_redirect(@user, post_path(post))
-        assert_current_path post_path(post)
       end
 
       it 'sees info when no posts' do
@@ -208,6 +198,16 @@ RSpec.describe 'Users profile page', type: :system do
         do_search(@user.username)
         first('#search_results .pp-img').click
 
+        assert_current_path user_path(@user)
+      end
+
+      it 'tries by story username' do
+        user = create(:user)
+        create(:story, user: @user)
+        user.follow!(@user)
+        login_and_visit_root(@user)
+
+        first('.stories-card .username').click
         assert_current_path user_path(@user)
       end
     end

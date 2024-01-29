@@ -3,6 +3,7 @@ module DomIdsHelper
 
 	### POSTS
   def post_id(post, prfx = nil)
+		prfx = "#{prfx}_show" if @show_modal
 		dom_id(post, prfx)
   end
   def post_imgs_id(post)
@@ -16,6 +17,18 @@ module DomIdsHelper
 	end
 	def post_comments_modal_content_id(post)
 		post_id(post, 'comments_modal_content')
+	end
+	def post_comments_modal_label_id(post)
+		post_id(post, 'post_comments_modal_label')
+	end
+	def post_comments_modal_id(post)
+		post_id(post, 'post_comments_modal')
+	end
+	def post_likes_modal_id(post)
+		post_id(post, 'post_likes_modal')
+	end
+	def post_likes_modal_label_id(post)
+		post_id(post, 'post_likes_modal_label')
 	end
 
 	### USERS

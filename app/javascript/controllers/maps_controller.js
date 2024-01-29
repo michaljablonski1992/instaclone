@@ -30,7 +30,7 @@ export default class extends Controller {
     let el = e.currentTarget;
     if(el.classList.contains('location-loaded')) {
       let modal_cnt = document.getElementById('mapModal');
-      let modal = new bootstrap.Modal(document.getElementById('mapModal'), {});
+      let modal = new bootstrap.Modal(modal_cnt, {});
       modal_cnt.querySelector('.modal-footer').classList.add('d-none');
       modal_cnt.querySelector('.btn-close').classList.remove('d-none');
       modal.show(el);

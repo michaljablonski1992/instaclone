@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   
-  resources :posts
+  resources :posts, only: [:index, :create, :destroy, :show]
   post 'toggle_like', to:  'likes#toggle_like', as: :toggle_like
   resources :comments, only: [:create, :destroy]
   resources :users, only: [:show, :index]

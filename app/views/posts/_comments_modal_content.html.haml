@@ -1,6 +1,6 @@
 = turbo_frame_tag post_comments_modal_content_id(post), class: 'modal-content' do
   .modal-header
-    %h5.modal-title{ id: "post#{post.id}_commentsModalLabel" }= t('views.post_card.post_comments')
+    %h5.modal-title{ id: post_comments_modal_label_id(post) }= t('views.post_card.post_comments')
     %button.btn-close{ value: 'Close', type: :button, aria: { label: 'Close' }, data: { bs_dismiss: 'modal' }}
   .modal-body
     .d-flex.flex-column.gap-3

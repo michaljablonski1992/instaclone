@@ -1,0 +1,4 @@
+- klass = local_assigns[:klass] || ''
+- klass += ' show-post-modal'
+= link_to href, class: klass, data: { turbo_stream: true, controller: 'modals', action: 'click->modals#show_post_modal' } do
+  = yield

@@ -12,6 +12,17 @@
 .profile-post {
   height: 20rem;
   position: relative;
+  overflow: hidden;
+  .inner-profile-post-cnt {
+    background: var(--input-background-color);
+    height: 100%;
+    position: relative;
+    .img-thumbnail {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
   .multiple-images {
     position: absolute;
     top: 15%;

@@ -1,0 +1,27 @@
+#showPostModal {
+  z-index: calc(var(--bs-modal-zindex) - 1);
+  .show-post-modal-spinner{
+    font-size: 5rem;
+    padding: 3rem;
+  }
+
+  #showPostModalBody {
+    .outer-post-cnt {
+      width: 100%;
+      .post-cnt {
+        width: 100%;
+        margin: 0 !important;
+        .post-card {
+          border: none;
+          width: auto;
+          .carousel-control-prev, .carousel-control-next {
+            width: auto;
+          }
+          .card-header, .card-body {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

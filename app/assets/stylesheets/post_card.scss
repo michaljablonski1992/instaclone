@@ -8,12 +8,18 @@
   }
 
   .carousel {
+    .carousel-inner {
+      background: var(--input-background-color);
+    }
     .carousel-item {
       height: 25rem;
-      
+      position: relative;
       .post-image {
         max-height: 100%; 
         object-fit: cover;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
     .carousel-indicators {
@@ -47,5 +53,8 @@
     &.location-provided {
       cursor: pointer;
     }
+  }
+  .post-likes {
+    cursor: pointer;
   }
 }

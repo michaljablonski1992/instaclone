@@ -1,26 +1,32 @@
 .post-cnt.my-3{ id: post_id(post) }
   .card.post-card
-    .card-header.bg-white
+    .card-header.bg-white{class: ('border-0' if @show_modal)}
       .d-flex.justify-content-between
         %div
           = link_to post.user, class: 'no-decor' do
             = image_tag post.user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
           .fw-bold.mx-2.d-inline-block.post-username-link= link_to post.user.username, post.user, class: 'no-decor'
-        - if post.user == current_user
+        - if post.user == current_user && !@show_modal
           %div
             .dropdown
               %a.btn.text-dark.fs-4.post-more.no-decor{ href: '#', role: 'button', data: { bs_toggle: 'dropdown'}, aria_expanded: 'false' }
                 = '...'
               %ul.dropdown-menu
                 %li
-                  = button_to t('views.post_card.delete_post'), post_path(post, from_show: !!@show), method: :delete, class: 'dropdown-item'
+                  = button_to t('views.post_card.delete_post'), post_path(post), method: :delete, class: 'dropdown-item'
 
     .card-body
-      .carousel.slide{ id: post_imgs_id(post), data: { bs_ride: 'true' } }
+      .carousel.slide{ id: post_imgs_id(post), data: { bs_ride: 'false' } }
         .carousel-inner
           - post.images.each_with_index do |img, i|
-            .carousel-item{ class: ('active' if i == 0) }
-              = image_tag img, class: 'd-block w-100 post-image'
+            - img_el = image_tag img, class: 'd-block w-100 post-image'
+            - if @show_modal
+              .carousel-item{ class: ('active' if i == 0) }
+                = img_el
+            - else
+              = render 'common/show_post_link', href: post_path(post) do
+                .carousel-item{ class: ('active' if i == 0) }
+                  = img_el
           - if post.images.count >= 2
             %button.carousel-control-prev{ type: :button, data: { bs_target: "##{post_imgs_id(post)}", bs_slide: 'prev' } }
               %span.carousel-control-prev-icon.bg-dark.rounded-circle{ aria_hidden: 'true' }
@@ -31,7 +37,7 @@
         .carousel-indicators
           - post.images.each_with_index do |img, i|
             %button.bg-dark{                                             |
-              class: ('active' if i == 0), type: :button,               |
+              class: ('active' if i == 0), type: :button,                |
               data: { bs_target: "##{post_imgs_id(post)}",               |
               bs_slide_to: i.to_s }, aria_current: ('true' if i == 0),   |
               aria_label: "Slide #{i+1}" }

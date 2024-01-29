@@ -1,5 +1,5 @@
 - user = story.user
 .d-flex.flex-column.justify-content-center.align-items-center.story
-  = link_to post_path(story), class: 'no-decor story-link' do
+  = render 'common/show_post_link', klass: 'no-decor story-link', href: post_path(story) do
     = image_tag user.profile_picture, class: 'story-img img-thumbnail pp-img pp-img-3 rounded-circle border border-2 border-primary'
-    %div.username.small= user.username
+  %div.username.small= link_to user.username, user, class: 'no-decor', target: '_top'

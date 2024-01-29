@@ -19,9 +19,9 @@ body {
 }
 
 #flash_message {
-  position: absolute;
-  width: 100%;
+  position: fixed;
   top: 0;
+  width: 100%;
   z-index: 9999;
   .flash {
     cursor: pointer;

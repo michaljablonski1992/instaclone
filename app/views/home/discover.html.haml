@@ -1,4 +1,7 @@
 .container.d-flex.flex-column.discovers-cnt.mt-4
   .row
-    - current_user.discovers.each do |post|
-      = render 'common/profile_post', post: post
+    - if current_user.discovers.any?
+      - current_user.discovers.each do |post|
+        = render 'common/profile_post', post: post
+    - else
+      .text-center.fs-4.mt-2= t('views.discover.no_discover')

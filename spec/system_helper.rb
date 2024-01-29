@@ -51,7 +51,7 @@ def assert_current_path(path)
 end
 
 def assert_flash(msg)
-  all('#flash_message .flash').any? {|el| el.text == msg  }
+  expect(all('#flash_message .flash').any? {|el| el.text == msg  }).to be true
 end
 
 def wait_for_turbo(timeout = nil)
