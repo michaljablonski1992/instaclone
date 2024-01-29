@@ -4,6 +4,8 @@ class User < ApplicationRecord
   DEF_PP = 'user-pp.png'
   DISCOVERS_COUNT = 32
 
+  scope :active, -> { where.not(confirmed_at: nil) }
+
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -57,7 +59,7 @@ class User < ApplicationRecord
 
   def self.search(q)
     _q = "%#{q.downcase}%"
-    User.where("lower(username) LIKE ? or lower(full_name) LIKE ?", _q, _q)
+    User.active.where("lower(username) LIKE ? or lower(full_name) LIKE ?", _q, _q)
   end
 
   def profile_picture
@@ -89,7 +91,7 @@ class User < ApplicationRecord
     suggestions = (suggestions - [followings, self].flatten)
     suggestions = suggestions.sample(count)
     if suggestions.blank?
-      suggestions = User.where.not(id: [followings, self].flatten).sample(count)
+      suggestions = User.active.where.not(id: [followings, self].flatten).sample(count)
     end
     suggestions
   end

@@ -32,7 +32,9 @@ class FollowsController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = User.active.find(params[:user_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path
   end
 
   def set_follow_req
