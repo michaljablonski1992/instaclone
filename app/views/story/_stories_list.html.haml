@@ -1,4 +1,8 @@
+- stories = current_user.feeds(stories: true)
 .d-flex.flex-column.gap-3
   .card.d-flex.flex-row.align-items-center.gap-3.px-3.stories-card
-    - current_user.feeds(stories: true).each do |story|
-      = render 'story/story', story: story
+    - if stories.any?
+      - stories.each do |story|
+        = render 'story/story', story: story
+    - else
+      .text-center.w-100.fs-5= t('views.posts.no_stories')

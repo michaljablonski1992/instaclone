@@ -15,7 +15,11 @@ RSpec.describe 'Suggestions feature', type: :system do
   end
 
   def assert_suggestions_count(count)
-    expect(all('.suggestions-list .suggestion').count).to eq count
+    if count > 0
+      expect(all('.suggestions-list .suggestion').count).to eq count
+    else
+      expect(page).to have_selector '.no-suggestions-info'
+    end
   end
 
   def prepare_suggestions_page(count, _private: false, homepage: false)
@@ -68,7 +72,29 @@ RSpec.describe 'Suggestions feature', type: :system do
 
       test_follow("##{first('.suggestions-list .suggestion')['id']}")
     end
+
+    it 'sees no suggestions info' do
+      User.destroy_all
+      user = create(:user)
+
+      # homepage
+      login_and_visit_root(user)
+      assert_suggestions_count(0)
+
+      # see more
+      visit suggestions_path
+      assert_suggestions_count(0)
+    end
     
+    it "sees no 'see more' link when there is nothing more to show" do
+      prepare_suggestions_page(User::HOME_PAGE_SUGGESTIONS_COUNT, homepage: true)
+      expect(page).to_not have_selector '#see-more-suggestions'
+    end
+
+    it "sees 'see more' link when there is more to show" do
+      prepare_suggestions_page(User::HOME_PAGE_SUGGESTIONS_COUNT + 1, homepage: true)
+      expect(page).to have_selector '#see-more-suggestions'
+    end
   end
 
   

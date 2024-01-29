@@ -1,2 +1,6 @@
+- suggestions = current_user.suggestions(User::SUGGESTIONS_COUNT)
 .container.w-50.p-5
-  = render 'suggestions/suggestions', count: User::SUGGESTIONS_COUNT
+  - if suggestions.any?
+    = render 'suggestions/suggestions', suggestions: suggestions
+  - else
+    .text-center.w-100.fs-4.no-suggestions-info= t('views.suggestions.no_suggestions')

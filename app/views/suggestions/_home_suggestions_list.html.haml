@@ -1,6 +1,11 @@
+- suggestions = current_user.suggestions(User::HOME_PAGE_SUGGESTIONS_COUNT + 1)
 .suggestions-list-cnt
   .d-flex.flex-row.justify-content-between
     %p.text-muted.fw-bold= t('views.suggestions.suggestions_for_you')
-    = link_to suggestions_path, class: 'no-decor', id: 'see-more-suggestions' do
-      %small.fw-bold.text-dark= t('views.suggestions.see_more')
-  = render 'suggestions/suggestions', count: User::HOME_PAGE_SUGGESTIONS_COUNT
+    - if suggestions.count > User::HOME_PAGE_SUGGESTIONS_COUNT
+      = link_to suggestions_path, class: 'no-decor', id: 'see-more-suggestions' do
+        %small.fw-bold.text-dark= t('views.suggestions.see_more')
+  - if suggestions.any?
+    = render 'suggestions/suggestions', suggestions: suggestions.take(User::HOME_PAGE_SUGGESTIONS_COUNT)
+  - else
+    .ps-2.w-100.fs-6.no-suggestions-info= t('views.suggestions.no_suggestions')

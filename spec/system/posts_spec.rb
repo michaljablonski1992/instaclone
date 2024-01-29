@@ -438,5 +438,40 @@ RSpec.describe 'Posts', type: :system do
         end
       end
     end
+
+    context 'stories' do
+      it 'sees info about no stories' do
+        user = create(:user, private: false)
+        post = create(:post, user: user)
+        @user.follow!(user)
+        login_and_visit_root(@user)
+        # no stories added, just post
+        within('.stories-card') { assert_content I18n.t('views.posts.no_stories') }
+        create(:story, user: user)
+        visit current_path
+        # story added, no info
+        within('.stories-card') { assert_no_content I18n.t('views.posts.no_stories') }
+      end
+
+      it 'sees stories' do
+        # create user and post - no stories to be seen
+        user = create(:user, private: false)
+        create(:post, user: user)
+        # create user(not followed) and story - no stories to be seen
+        user2 = create(:user, private: false)
+        create(:story, user: user2)
+        # create user(followed) and 2 stories - 2 stories to be seen
+        user3 = create(:user, private: false)
+        2.times { create(:story, user: user3) }
+        @user.follow!(user3)
+
+        # see page and assert 2 stories visible
+        login_and_visit_root(@user)
+        within '.stories-card' do
+          expect(all('.story').count).to eq 2
+          expect(all('.story .username').map(&:text).uniq).to eq [user3.username]
+        end
+      end
+    end
   end
 end
