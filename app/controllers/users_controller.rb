@@ -13,10 +13,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-
-  end
-
   private
   def set_user
     @user = User.active.find(params[:id])

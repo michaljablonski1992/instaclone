@@ -7,6 +7,8 @@ end
 Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
+  get :privacy_policy, to: 'home#privacy_policy', as: :privacy_policy
+
   root "home#index"
   get :discover, to: 'home#discover', as: :discover
   

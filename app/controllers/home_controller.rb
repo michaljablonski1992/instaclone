@@ -1,9 +1,3 @@
 class HomeController < ApplicationController
-  def index
-    
-  end
-
-  def discover
-    
-  end
+  skip_before_action :authenticate_user!, only: [:privacy_policy]
 end
