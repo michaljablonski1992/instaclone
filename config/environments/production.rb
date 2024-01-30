@@ -38,7 +38,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :railway
+  config.active_storage.service = :amazon
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -106,8 +106,8 @@ Rails.application.configure do
     address:         'smtp.gmail.com',
     port:            587,
     domain:          'instaclone.com',
-    user_name:       Rails.application.credentials.smtp[:username],
-    password:        Rails.application.credentials.smtp[:password],
+    user_name:       Rails.application.credentials.dig(:smtp, :username),
+    password:        Rails.application.credentials.dig(:smtp, :password),
     authentication:  'plain',
     enable_starttls: true,
     open_timeout:    5,
