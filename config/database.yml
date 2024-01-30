@@ -79,6 +79,9 @@ test:
 #
 production:
   <<: *default
-  database: instaclone_production
-  username: instaclone
-  password: <%= ENV["INSTACLONE_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  host: <%= ENV["PGHOST"] %>
+  database: <%= ENV["PGDATABASE"] %>
+  username: <%= ENV["PGUSER"] %>
+  password: <%= ENV["PGPASSWORD"] %>
+  port: <%= ENV["PGPORT"] %>
