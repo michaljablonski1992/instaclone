@@ -100,3 +100,8 @@ group :test do
   gem 'database_cleaner'
   gem 'rspec-sidekiq'
 end
+
+group :production do
+  gem 'therubyracer'
+  gem 'terser'
+end
