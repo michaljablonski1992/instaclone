@@ -1,0 +1,6 @@
+en:
+  views:
+    confirmation_modals:
+      no_reverse: "You won't be able to revert this!"
+      yes_delete: Yes, delete it!
+      final_confirm_info: This is final confirmation!

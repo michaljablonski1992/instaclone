@@ -228,6 +228,50 @@ RSpec.describe 'Users profile page', type: :system do
         end
       end
     end
+
+    context 'danger zone' do
+      it 'can delete his account after double confrimation' do
+        user_id = @user.id
+        # create references
+        user1 = create(:user)
+        @user.follow!(user1)
+        user2 = create(:user, private: false)
+        @user.follow!(user2)
+        user3 = create(:user)
+        user3.follow!(@user)
+        post = create(:post, user: @user)
+        comment = create(:comment, user: @user)
+        like = create(:like, user: @user, post: post)
+
+        login_and_redirect(@user, users_danger_zone_path)
+
+        ## assert all info visible
+        assert_content I18n.t('views.devise.delete_account_info')
+        assert_content I18n.t('views.devise.delete_account_info2')
+        assert_content I18n.t('views.devise.delete_account_dbl_conf_info')
+
+        ## assert double confirmation needed
+        assert_no_css '.swal2-shown'
+        find('.delete-account-btn').click
+        assert_css '.swal2-shown'
+        assert_content I18n.t('views.confirmation_modals.no_reverse')
+        find('.swal2-confirm').click
+        assert_content I18n.t('views.confirmation_modals.final_confirm_info')
+        find('.swal2-confirm').click
+
+        ## assert redirected, flash shown
+        assert_content I18n.t('views.devise.delete_account_success')
+        assert_current_path new_user_session_path
+
+        ## assert db
+        expect(User.exists?(user_id)).to be false
+        expect(Post.where(user_id: user_id).count).to eq 0
+        expect(Comment.where(user_id: user_id).count).to eq 0
+        expect(Like.where(user_id: user_id).count).to eq 0
+        expect(Follow.where(follower_id: user_id).count).to eq 0
+        expect(Follow.where(followed_id: user_id).count).to eq 0
+      end
+    end
   end
 
   

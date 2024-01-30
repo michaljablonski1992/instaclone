@@ -6,4 +6,8 @@ const application = Application.start()
 application.debug = false
 window.Stimulus   = application
 
+// configure swal
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+
 export { application }

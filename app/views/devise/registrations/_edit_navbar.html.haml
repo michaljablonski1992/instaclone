@@ -1,0 +1,6 @@
+%nav.nav.flex-column.nav-pills.edit-profile-navbar.mt-3
+  - @navbar_elements.each do |path, data|
+    - klass = data[:klass] || []
+    - klass << ['no-decor', 'flex-sm-fill', 'text-sm-center', 'nav-link']
+    - klass << 'active' if !!data[:active]
+    = link_to data[:text], path, class: klass.flatten

@@ -1,0 +1,6 @@
+= render 'edit_profile_cnt' do
+  %h5= t('views.devise.delete_account')
+  %div= t('views.devise.delete_account_info')
+  %div= t('views.devise.delete_account_info2')
+  .mt-4= t('views.devise.delete_account_dbl_conf_info')
+  = button_to t('views.devise.delete_my_account'), users_delete_account_path, method: :delete, class: 'btn btn-danger delete-account-btn', form_class: 'dbl-delete-alertbox'

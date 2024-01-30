@@ -1,54 +1,51 @@
-= custom_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  .container.w-75.card.d-flex.flex-row.my-3.ps-0.edit-profile-cnt
-    .w-25.d-flex.flex-column.border-end
-      %a.active.p-3.profile-edit-btn{ href: '#' }= t('views.devise.edit_profile')
-    .w-75.ms-5.d-flex.flex-column.p-4
-      = render 'devise/shared/error_messages_inner', resource: resource
-      .d-flex.align-items-center
-        - pp = resource.profile_picture
-        - pp = @old_picture  if @old_picture.present? && @old_picture != resource.profile_picture
-        = image_tag pp, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
-        .d-flex.flex-column.mx-3.justify-content-center
-          %small.fw-bold.username.big= resource.username
-          = f.file_field :profile_pic, class: 'form-control form-control-sm'
-        .form-check
-          = f.check_box :private, class: 'form-check-input'
-          = f.label :private_account, class: 'form-check-label fw-bold'
-      .row.my-3
-        = f.label :full_name, class: 'col-sm-4 col-form-label fw-bold'
-        .col-sm-8
-          = f.text_field :full_name, placeholder: t('views.devise.full_name_placeholder'), autofocus: true, class: 'form-control'
-          %small.text-muted= t('views.devise.discover_acc_info')
-      .row.my-3
-        = f.label :username, class: 'col-sm-4 col-form-label fw-bold'
-        .col-sm-8
-          = f.text_field :username, placeholder: t('views.devise.username_placeholder'), autofocus: true, class: 'form-control'
-      .row.my-3
-        = f.label :bio, class: 'col-sm-4 col-form-label fw-bold'
-        .col-sm-8
-          = f.text_area :bio, autofocus: true, class: 'form-control', rows: 5
+= render 'edit_profile_cnt' do
+  = custom_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = render 'devise/shared/error_messages_inner', resource: resource
+    .d-flex.align-items-center
+      - pp = resource.profile_picture
+      - pp = @old_picture  if @old_picture.present? && @old_picture != resource.profile_picture
+      = image_tag pp, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
+      .d-flex.flex-column.mx-3.justify-content-center
+        %small.fw-bold.username.big= resource.username
+        = f.file_field :profile_pic, class: 'form-control form-control-sm'
+      .form-check
+        = f.check_box :private, class: 'form-check-input'
+        = f.label :private_account, class: 'form-check-label fw-bold'
+    .row.my-3
+      = f.label :full_name, class: 'col-sm-4 col-form-label fw-bold'
+      .col-sm-8
+        = f.text_field :full_name, placeholder: t('views.devise.full_name_placeholder'), autofocus: true, class: 'form-control'
+        %small.text-muted= t('views.devise.discover_acc_info')
+    .row.my-3
+      = f.label :username, class: 'col-sm-4 col-form-label fw-bold'
+      .col-sm-8
+        = f.text_field :username, placeholder: t('views.devise.username_placeholder'), autofocus: true, class: 'form-control'
+    .row.my-3
+      = f.label :bio, class: 'col-sm-4 col-form-label fw-bold'
+      .col-sm-8
+        = f.text_area :bio, autofocus: true, class: 'form-control', rows: 5
+    .row.mb-3
+      = f.label :email, class: 'col-sm-4 col-form-label fw-bold'
+      .col-sm-8
+        = f.text_field :email, placeholder: t('views.devise.email_placeholder'), autofocus: true, class: 'form-control'
+    .row.mb-3
+      = f.label :phone_number, class: 'col-sm-4 col-form-label fw-bold'
+      .col-sm-8
+        = f.text_field :phone_number, placeholder: t('views.devise.phone_number_placeholder'), autofocus: true, class: 'form-control'
+    - unless resource.from_omniauth?
       .row.mb-3
-        = f.label :email, class: 'col-sm-4 col-form-label fw-bold'
+        = f.label :new_password, class: 'col-sm-4 col-form-label fw-bold'
         .col-sm-8
-          = f.text_field :email, placeholder: t('views.devise.email_placeholder'), autofocus: true, class: 'form-control'
+          = f.password_field :password, placeholder: t('views.devise.new_password_placeholder'), autofocus: true, class: 'form-control'
+          %small.text-muted= t('views.devise.new_password_info')
       .row.mb-3
-        = f.label :phone_number, class: 'col-sm-4 col-form-label fw-bold'
+        = f.label :new_password_confirmation, class: 'col-sm-4 col-form-label fw-bold'
         .col-sm-8
-          = f.text_field :phone_number, placeholder: t('views.devise.phone_number_placeholder'), autofocus: true, class: 'form-control'
-      - unless resource.from_omniauth?
-        .row.mb-3
-          = f.label :new_password, class: 'col-sm-4 col-form-label fw-bold'
-          .col-sm-8
-            = f.password_field :password, placeholder: t('views.devise.new_password_placeholder'), autofocus: true, class: 'form-control'
-            %small.text-muted= t('views.devise.new_password_info')
-        .row.mb-3
-          = f.label :new_password_confirmation, class: 'col-sm-4 col-form-label fw-bold'
-          .col-sm-8
-            = f.password_field :password_confirmation, placeholder: t('views.devise.new_password_confirmation_placeholder'), autofocus: true, class: 'form-control'
-        .row.mb-3
-          = f.label :current_password, class: 'col-sm-4 col-form-label fw-bold'
-          .col-sm-8
-            = f.password_field :current_password, placeholder: t('views.devise.current_password_placeholder'), autofocus: true, class: 'form-control'
-            %small.text-muted= t('views.devise.current_password_req_info')
-      .d-flex.mb-2.justify-content-center
-        = f.submit t('submit'), class: 'btn btn-primary'
+          = f.password_field :password_confirmation, placeholder: t('views.devise.new_password_confirmation_placeholder'), autofocus: true, class: 'form-control'
+      .row.mb-3
+        = f.label :current_password, class: 'col-sm-4 col-form-label fw-bold'
+        .col-sm-8
+          = f.password_field :current_password, placeholder: t('views.devise.current_password_placeholder'), autofocus: true, class: 'form-control'
+          %small.text-muted= t('views.devise.current_password_req_info')
+    .d-flex.mb-2.justify-content-center
+      = f.submit t('submit'), class: 'btn btn-primary'

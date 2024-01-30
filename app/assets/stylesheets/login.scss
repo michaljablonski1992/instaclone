@@ -45,3 +45,22 @@
 .login-cnt {
   width: 23rem;
 }
+
+.edit-profile-cnt {
+  min-height: 15rem;
+}
+
+.edit-profile-navbar {
+  .nav-link {
+    // background-color: yellow;
+    width: 75%;
+    // height: 2rem;
+    margin: 0.4rem auto;
+    padding: 1.2rem 0.5rem;
+    border-radius: 1rem;
+    &.active, &:hover {
+      color: inherit;
+      background-color: var(--input-background-color);
+    }
+  }
+}

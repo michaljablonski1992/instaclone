@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   get :privacy_policy, to: 'home#privacy_policy', as: :privacy_policy
+  get :data_deletion_info, to: 'home#data_deletion_info', as: :data_deletion_info
 
   root "home#index"
   get :discover, to: 'home#discover', as: :discover
@@ -17,6 +18,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+  devise_scope :user do
+    get 'users/danger_zone', :to => 'users/registrations#danger_zone'
+    delete 'users/delete_account', :to => 'users/registrations#delete_account'
+  end
+
   
   resources :posts, only: [:index, :create, :destroy, :show]
   post 'toggle_like', to:  'likes#toggle_like', as: :toggle_like

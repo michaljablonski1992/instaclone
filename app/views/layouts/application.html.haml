@@ -11,6 +11,8 @@
     = favicon_link_tag asset_path('favicon.png')
     - if current_user
       = render 'layouts/leaflet'
+      = render 'layouts/js_i18n'
+        
 
   %body
     - if current_user

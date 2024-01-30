@@ -25,8 +25,15 @@ en:
       profile: My profile
       settings: Settings
       edit_profile: Edit profile
+      danger_zone: Danger zone
       discover_acc_info: "Help people discover your account by using the name you're known by: either your full name or business name."
       resend_conf: Resend confirmation instructions
       send_reset_pass: Send me reset password instructions
       change_my_pass: Change my password
+      delete_account: Delete account
+      delete_my_account: Delete my account
+      delete_account_info: "Remember: This action is permament, your account will not be able to be restored,"
+      delete_account_info2: "your profile, posts, stories, likes, comments and other resources connected to your account will be permanently deleted."
+      delete_account_dbl_conf_info: "This action requires double confirmation"
+      delete_account_success: Your account has been deleted successfully
       
