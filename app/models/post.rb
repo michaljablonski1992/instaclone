@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   STORY_TIME = 24.hours
 
+  scope :stories, -> { where(is_story: true) }
+
   belongs_to :user
 
   has_many_attached :images, dependent: :destroy
