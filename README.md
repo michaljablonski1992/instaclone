@@ -25,4 +25,4 @@ Have fun :)
 - messages feature
 - better images resizing
 - better posts visual aspects
-- bookmarks
+- bookmarks feature
