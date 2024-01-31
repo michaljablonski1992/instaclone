@@ -4,13 +4,18 @@ export default class extends Controller {
   static targets = [ 'location', 'modal' ]
 
   confirm_location(){
-    if(window.location_geocoder._geocodeMarker !== undefined) {
-      let latlng = window.location_geocoder._geocodeMarker._latlng;
-      let post_modal = document.getElementById('postModal');
-      let location_human = location_geocoder._geocodeMarker._popup._content;
-      post_modal.querySelector('.location').innerHTML = location_human;
-      post_modal.querySelector('#post_latitude').value = latlng.lat;
-      post_modal.querySelector('#post_longitude').value = latlng.lng;
+    const geocodeMarker = window.location_geocoder?._geocodeMarker;
+  
+    if (geocodeMarker) {
+      const { lat, lng } = geocodeMarker._latlng;
+      const locationHuman = geocodeMarker._popup?._content;
+      const postModal = document.getElementById('postModal');
+  
+      if (postModal) {
+        postModal.querySelector('.location').innerHTML = locationHuman || '';
+        postModal.querySelector('#post_latitude').value = lat || '';
+        postModal.querySelector('#post_longitude').value = lng || '';
+      }
     }
   }
 
