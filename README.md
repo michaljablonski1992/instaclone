@@ -16,12 +16,13 @@ The “InstaClone” application was created as a side-project, for fun and skil
 
 ## Demo
 Demo available **here**: https://instaclone-production-c947.up.railway.app.
-Privacy policy: https://instaclone-production-c947.up.railway.app/privacy_policy.
-Data deletion instructions: https://instaclone-production-c947.up.railway.app/data_deletion_info.
+
+Privacy policy: https://instaclone-production-c947.up.railway.app/privacy_policy *and* data deletion instructions: https://instaclone-production-c947.up.railway.app/data_deletion_info.
+
 Have fun :)
 
 ## TODOs
 - messages feature
 - better images resizing
 - better posts visual aspects
-- bookmarks
+- bookmarks feature
