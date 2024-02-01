@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   belongs_to :user
 
   has_many_attached :images, dependent: :destroy
-  validates :images, presence: true, blob: { content_type: :image } 
+  validates :images, presence: true, blob: { content_type: :image, size_range: 1..(10.megabytes) }
 
   validates :caption, presence: true
 

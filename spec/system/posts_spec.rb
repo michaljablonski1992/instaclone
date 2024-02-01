@@ -102,6 +102,25 @@ RSpec.describe 'Posts', type: :system do
       assert_flash "Images can't be blank"
     end
 
+    it "submits invalid file size for post's image" do
+      # sign in, visit root
+      login_and_visit_root(@user)
+      # click create post -> modal
+      find('#create-post').click
+      expect(page).to have_selector '#postModal.show'
+
+      # click post, assert errors
+      within('#postModal') do 
+        page.attach_file(Rails.root.join('spec/fixtures/too-large-image.jpg')) do
+          find('.filepond--drop-label').click
+        end
+        expect(first('.filepond--file')).to have_content('File is too large')
+
+        click_on 'Post'
+      end
+      assert_flash "Images can't be blank"
+    end
+
     it 'creates post' do
       # no posts yet
       Post.destroy_all

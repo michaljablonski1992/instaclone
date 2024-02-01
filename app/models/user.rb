@@ -52,7 +52,8 @@ class User < ApplicationRecord
   has_many :followings, through: :accepted_sent_requests, source: :followed, dependent: :destroy
   has_many :waiting_followings, through: :waiting_sent_requests, source: :followed, dependent: :destroy
 
-  validates :profile_pic, blob: { content_type: :image } 
+  validates :profile_pic, blob: { content_type: :image, size_range: 1..(5.megabytes) }
+
   validates :full_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }

@@ -144,10 +144,14 @@ RSpec.describe 'Users registrations', type: :system do
         find('#user_current_password').set user.password
 
         # submit and assert errors
+        page.attach_file(Rails.root.join('spec/fixtures/too-large-image.jpg')) do
+          find('#user_profile_pic').click
+        end
         click_button 'Submit'
         within('.inner-flash') do 
           assert_content 'Email is invalid'
           assert_content 'Username is invalid'
+          assert_content 'Profile picture File size should be less than 5 MB'
         end
       end
 
@@ -167,6 +171,9 @@ RSpec.describe 'Users registrations', type: :system do
         # fill form with changes, provide current password
         data_changes.each { |attr, val| find("#user_#{attr}").set val }
         find('#user_current_password').set user.password
+        page.attach_file(Rails.root.join('spec/fixtures/image.png')) do
+          find('#user_profile_pic').click
+        end
 
         # submit and assert update made, redirected to root path
         click_button 'Submit'
