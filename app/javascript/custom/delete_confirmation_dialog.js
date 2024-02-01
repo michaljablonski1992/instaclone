@@ -1,3 +1,7 @@
+window.addEventListener(('turbo:render'), (e) => {
+  console.log(e);
+})
+
 window.addEventListener(('turbo:load'), () => {
   document.addEventListener('submit', (event) => {
     if (event.target && event.target.className === 'dbl-delete-alertbox') {

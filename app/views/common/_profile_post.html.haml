@@ -1,7 +1,7 @@
 .col-lg-4.col-md-6.col-sm-8.p-3.mb-4.profile-post
   = render 'common/show_post_link', href: post_path(post) do
     .inner-profile-post-cnt
-      = image_tag post.images.first, class: 'img-thumbnail'
+      = render 'common/lazy_img', img: post.images.first, class: 'img-thumbnail'
       .d-flex.align-items-center.justify-content-center.gap-1.w-100.profile-post-info 
         - if current_user == post.user || post.show_likes_count?
           %span.profile-post-likes

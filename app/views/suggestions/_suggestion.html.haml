@@ -1,7 +1,7 @@
 .d-flex.justify-content-between.suggestion{ id: suggestion_id(suggestion) }
   .d-flex
     = link_to suggestion, class: 'no-decor' do
-      = image_tag suggestion.profile_picture, class: 'pp-img pp-img-1 suggestion-img img-thumbnail rounded-circle'
+      = render 'common/lazy_img', img: suggestion.profile_picture, class: 'pp-img pp-img-1 suggestion-img img-thumbnail rounded-circle'
     .d-flex.flex-column.mx-3
       %small.fw-bold.suggestion-username.username.big
         = link_to suggestion, class: 'no-decor' do

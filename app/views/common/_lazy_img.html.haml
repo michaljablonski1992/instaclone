@@ -1,0 +1,7 @@
+- klass = local_assigns[:class] || ''
+- klass += ' lazy-image'
+- if img.is_a? String
+  = image_tag img, class: klass
+- else
+  = turbo_frame_tag "attachment-#{img.id}", src: url_for(img), loading: :lazy, data: { controller: 'images', action: 'turbo:before-fetch-response->images#showImg' } do
+    = image_tag '', class: klass

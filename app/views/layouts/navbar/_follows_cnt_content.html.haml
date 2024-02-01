@@ -4,7 +4,7 @@
     %li.follow-cnt
       .d-flex.justify-content-between.follow-cnt-inner.py-2{ class: ('border-top' unless first) }
         .d-flex
-          = image_tag fr.follower.profile_picture, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
+          = render 'common/lazy_img', img: fr.follower.profile_picture, class: 'pp-img pp-img-2 img-thumbnail rounded-circle'
           .d-flex.flex-column.mx-3.justify-content-center
             %small.fw-bold.follower-username.username.big
               = link_to fr.follower, class: 'no-decor' do

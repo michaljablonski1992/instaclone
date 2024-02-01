@@ -4,7 +4,7 @@
       .d-flex.justify-content-between
         %div
           = link_to post.user, class: 'no-decor' do
-            = image_tag post.user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
+            = render 'common/lazy_img', img: post.user.profile_picture, class: 'pp-img pp-img-1 img-thumbnail rounded-circle'
           .fw-bold.mx-2.d-inline-block.post-username-link= link_to post.user.username, post.user, class: 'no-decor'
         - if post.user == current_user && !@show_modal
           %div
@@ -19,7 +19,7 @@
       .carousel.slide{ id: post_imgs_id(post), data: { bs_ride: 'false' } }
         .carousel-inner
           - post.images.each_with_index do |img, i|
-            - img_el = image_tag img, class: 'd-block w-100 post-image'
+            - img_el = render 'common/lazy_img', img: img, class: 'd-block w-100 post-image'
             - if @show_modal
               .carousel-item{ class: ('active' if i == 0) }
                 = img_el
