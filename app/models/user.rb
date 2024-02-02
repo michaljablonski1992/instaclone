@@ -3,6 +3,7 @@ class User < ApplicationRecord
   SUGGESTIONS_COUNT = 20
   DEF_PP = 'user-pp.png'
   DISCOVERS_COUNT = 32
+  MAX_BIO_LENGTH = 5_000
 
   scope :active, -> { where.not(confirmed_at: nil) }
 
@@ -57,6 +58,7 @@ class User < ApplicationRecord
   validates :full_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
+  validates :bio, length: { maximum: MAX_BIO_LENGTH }
 
   def self.search(q)
     _q = "%#{q.downcase}%"

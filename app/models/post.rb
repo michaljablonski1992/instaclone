@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
   STORY_TIME = 24.hours
+  MAX_CAPTION_LENGTH = 3_000
+
 
   scope :stories, -> { where(is_story: true) }
 
@@ -8,7 +10,7 @@ class Post < ApplicationRecord
   has_many_attached :images, dependent: :destroy
   validates :images, presence: true, blob: { content_type: :image, size_range: 1..(10.megabytes) }
 
-  validates :caption, presence: true
+  validates :caption, presence: true, length: { maximum: MAX_CAPTION_LENGTH }
 
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user

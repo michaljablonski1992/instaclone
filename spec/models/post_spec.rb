@@ -22,6 +22,11 @@ RSpec.describe Post, :type => :model do
       subject.caption = nil
       expect(subject).to_not be_valid
     end
+
+    it 'is not valid when caption is too long' do
+      subject.caption = 'x' * (Post::MAX_CAPTION_LENGTH + 1)
+      expect(subject).to_not be_valid
+    end
   end
 
   context 'liked_by_user?' do

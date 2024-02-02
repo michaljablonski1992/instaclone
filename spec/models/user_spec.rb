@@ -53,6 +53,11 @@ RSpec.describe User, :type => :model do
       subject.username = 'abc DEW 123'
       expect(subject).to_not be_valid
     end
+
+    it 'is not valid when bio is too long' do
+      subject.bio = 'x' * (User::MAX_BIO_LENGTH + 1)
+      expect(subject).to_not be_valid
+    end
   end
 
   context 'follows private user' do
