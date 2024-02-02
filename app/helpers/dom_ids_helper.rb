@@ -35,17 +35,19 @@ module DomIdsHelper
 	def user_id(user, prfx = nil)
 		dom_id(user, prfx)
 	end
-
 	def liker_id(user)
 		user_id(user, 'liker')
 	end
-
 	def suggestion_id(user)
 		user_id(user, 'suggestion')
 	end
-
 	def profile_header_id(user)
 		user_id(user, 'profile_header')
+	end
+
+	### IMAGES
+	def image_id(id)
+		"image-#{id}"
 	end
 
 

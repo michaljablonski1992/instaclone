@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     delete 'users/delete_account', :to => 'users/registrations#delete_account'
   end
 
+  get 'image', :to => 'images#image'
+
   
   resources :posts, only: [:index, :create, :destroy, :show]
   post 'toggle_like', to:  'likes#toggle_like', as: :toggle_like
