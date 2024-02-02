@@ -25,8 +25,12 @@ export default class extends Controller {
       let lat = el.dataset.lat;
       let lng = el.dataset.lng;
       window.photon_geocoder.reverse({ lat: lat, lng: lng }, 0, function(results) {
-        el.innerHTML = results[0]['name']
-        el.classList.add('location-loaded');
+        if(results.length == 0) {
+          el.innerHTML = no_location_set;
+        } else {
+          el.innerHTML = results[0]['name'];
+          el.classList.add('location-loaded');
+        }
       });
     }
   }
